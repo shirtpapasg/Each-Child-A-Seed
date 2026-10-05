@@ -1,0 +1,91 @@
+/* ============================================================
+   SCIENCE CLAW — COLOR TOKENS
+   Dark arcade palette: near-black navy backdrop + neon accents.
+   Each HUD stat owns a hue (credits=green, prizes=purple, etc).
+   ============================================================ */
+
+:root {
+  /* --- Base surfaces (the dark cabinet world) --- */
+  --sc-black:        #04070c;   /* deepest backdrop */
+  --sc-bg:           #070d15;   /* app background */
+  --sc-scene:        #08131f;   /* 3D scene / canvas backdrop */
+  --sc-ink-900:      #0a1320;   /* solid panel fill (opaque) */
+  --sc-ink-800:      #111c2b;
+  --sc-ink-700:      #1b283a;
+
+  /* --- Neon accents (one hue per concept) --- */
+  --sc-yellow:       #ffb627;   /* section headers, player name, gold */
+  --sc-yellow-soft:  #ffd06b;
+  --sc-green:        #3fc35f;   /* credits, collection, success */
+  --sc-green-bright: #5ee07a;
+  --sc-green-btn:    #34b14d;   /* primary action button fill */
+  --sc-green-btn-hi: #43c95f;
+  --sc-blue:         #4a90e2;   /* accuracy, active/selected state */
+  --sc-blue-bright:  #6aa9f0;
+  --sc-blue-deep:    #2f6fd6;
+  --sc-purple:       #b557e6;   /* prizes, crystals */
+  --sc-purple-bright:#cd7bf5;
+  --sc-red:          #e8493f;   /* danger, miss, magnet, joystick */
+  --sc-red-bright:   #ff6a5e;
+  --sc-cyan:         #66ccff;   /* atom, info highlight */
+
+  /* --- Science item identity colors (prizes) --- */
+  --sc-item-battery: #ffd400;
+  --sc-item-atom:    #66ccff;
+  --sc-item-plant:   #58e066;
+  --sc-item-magnet:  #ff5a5a;
+  --sc-item-crystal: #f06fff;
+
+  /* --- Text --- */
+  --sc-text:         #ffffff;
+  --sc-text-soft:    #d6dee6;
+  --sc-text-muted:   #8a98a6;
+  --sc-text-faint:   #5a6775;
+  --sc-text-on-accent: #08131f; /* dark text on bright fills */
+
+  /* --- Lines & dividers --- */
+  --sc-line:         rgba(255,255,255,0.14);
+  --sc-line-strong:  rgba(255,255,255,0.28);
+  --sc-line-cabinet: #7a1f1f;    /* red trim on the cabinet bezel */
+
+  /* --- Glass panel fills (translucent, used with blur) --- */
+  --sc-glass:        rgba(7, 13, 21, 0.82);
+  --sc-glass-soft:   rgba(7, 13, 21, 0.66);
+  --sc-glass-strong: rgba(4, 7, 12, 0.92);
+  --sc-glass-line:   rgba(255,255,255,0.10);
+
+  /* --- Control surfaces --- */
+  --sc-btn-neutral:    #2b3340;   /* gray secondary button */
+  --sc-btn-neutral-hi: #3a4452;
+  --sc-input-bg:       #0e1925;
+  --sc-input-line:     rgba(255,255,255,0.16);
+
+  /* ============================================================
+     SEMANTIC ALIASES
+     ============================================================ */
+  --bg-app:          var(--sc-bg);
+  --bg-scene:        var(--sc-scene);
+  --surface-panel:   var(--sc-glass);
+  --surface-panel-solid: var(--sc-ink-900);
+  --surface-modal:   var(--sc-glass-strong);
+  --surface-input:   var(--sc-input-bg);
+
+  --text-body:       var(--sc-text);
+  --text-secondary:  var(--sc-text-soft);
+  --text-muted:      var(--sc-text-muted);
+  --text-heading:    var(--sc-yellow);
+
+  --border-panel:    var(--sc-glass-line);
+  --border-divider:  var(--sc-line);
+
+  --accent-primary:  var(--sc-green);
+  --accent-active:   var(--sc-blue);
+  --accent-danger:   var(--sc-red);
+
+  /* stat hues */
+  --stat-player:     var(--sc-yellow);
+  --stat-credits:    var(--sc-green-bright);
+  --stat-streak:     var(--sc-yellow-soft);
+  --stat-prizes:     var(--sc-purple-bright);
+  --stat-accuracy:   var(--sc-blue-bright);
+}

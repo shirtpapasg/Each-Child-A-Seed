@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/science-claw-design-system-0049d466-e787-4a70-b5c8-0dc67671c4bb/tokens/colors.css">
+<link rel="stylesheet" href="_ds/science-claw-design-system-0049d466-e787-4a70-b5c8-0dc67671c4bb/tokens/effects.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+html,body{margin:0;padding:0;background:#070d15}
+a{color:#66ccff}a:hover{color:#4a90e2}
+@keyframes scRainbow{from{background-position:0% 50%}to{background-position:300% 50%}}
+@keyframes scOrbit{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes scPop{0%{transform:translate(-50%,-50%) scale(.4);opacity:0}60%{transform:translate(-50%,-50%) scale(1.08);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+@keyframes scRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes scHop{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-10px) rotate(6deg)}}
+@keyframes scPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,182,39,0)}50%{box-shadow:0 0 0 4px rgba(255,182,39,.85),0 0 22px rgba(255,182,39,.55)}}
+@keyframes scJump{0%{transform:none}35%{transform:translateY(-18px) scale(1.07) rotate(-1.2deg)}60%{transform:translateY(-6px) scale(1.03) rotate(.8deg)}80%{transform:translateY(-11px) scale(1.05) rotate(-.4deg)}100%{transform:translateY(-9px) scale(1.045)}}
+@keyframes scBob{0%,100%{transform:translateY(-9px) scale(1.045) rotate(-.5deg)}50%{transform:translateY(-14px) scale(1.055) rotate(.5deg)}}
+@keyframes scBoop{0%{transform:scale(.88)}45%{transform:scale(1.1)}70%{transform:scale(.97)}100%{transform:scale(1)}}
+@keyframes scHintIn{0%{transform:translateX(-10px) scale(.96);opacity:.4}60%{transform:translateX(4px) scale(1.02);opacity:1}100%{transform:none}}
+@keyframes scFinger{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-6px) rotate(6deg)}}
+@keyframes scFloatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes scPopIn{0%{transform:scale(0) rotate(-30deg);opacity:0}60%{transform:scale(1.2) rotate(8deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes scBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.06)}}
+@keyframes scSeedWiggle{0%{transform:rotate(0) scale(1)}20%{transform:rotate(-10deg) scale(1.12)}45%{transform:rotate(8deg) scale(1.06)}70%{transform:rotate(-4deg) scale(1.03)}100%{transform:rotate(0) scale(1)}}
+@keyframes scSeedBreath{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes scDrift{0%{transform:translateY(-10%) rotate(0);opacity:0}10%{opacity:.7}90%{opacity:.5}100%{transform:translateY(560px) rotate(240deg);opacity:0}}
+@keyframes scDraw{to{stroke-dashoffset:0}}
+@keyframes scFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scDot{0%{opacity:0;transform:scale(0)}70%{opacity:1;transform:scale(1.5)}100%{opacity:1;transform:scale(1)}}
+@keyframes scSpin{to{transform:rotate(360deg)}}
+@keyframes scGlow{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+@keyframes scDrip{0%{top:-8%;opacity:0}10%{opacity:1}78%{opacity:1}100%{top:62%;opacity:0}}
+[data-theme="light"]{background:#eef3f8 !important;color:#10161f !important}
+[data-theme="light"] [style*="background: rgb(7, 13, 21)"]{background-color:#eef3f8 !important}
+[data-theme="light"] [style*="background: rgb(4, 7, 12)"]{background-color:#ffffff !important}
+[data-theme="light"] [style*="background: rgb(8, 19, 31)"]{background-color:#f4f7fb !important}
+[data-theme="light"] [style*="background: rgb(14, 25, 37)"]{background-color:#e6edf4 !important}
+[data-theme="light"] [style*="background: rgb(43, 51, 64)"]{background-color:#dfe6ee !important}
+[data-theme="light"] [style*="background: rgba(7, 13, 21"]{background-color:rgba(255,255,255,.94) !important}
+[data-theme="light"] [style*="background: rgba(4, 7, 12"]{background-color:rgba(255,255,255,.95) !important}
+[data-theme="light"] [style*="solid rgba(255, 255, 255"]{border-color:rgba(16,22,31,.16) !important}
+[data-theme="light"] [style*="dashed rgba(255, 255, 255"]{border-color:rgba(16,22,31,.3) !important}
+[data-theme="light"] [style^="color: rgb(255, 255, 255)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(255, 255, 255)"]:not([style*="background: rgb(52, 177, 77)"]){color:#10161f !important}
+[data-theme="light"] [style^="color: rgb(214, 222, 230)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(214, 222, 230)"]:not([style*="background: rgb(52, 177, 77)"]){color:#2b3747 !important}
+[data-theme="light"] [style^="color: rgb(138, 152, 166)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(138, 152, 166)"]:not([style*="background: rgb(52, 177, 77)"]){color:#4a5866 !important}
+[data-theme="light"] [style^="color: rgb(90, 103, 117)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(90, 103, 117)"]:not([style*="background: rgb(52, 177, 77)"]){color:#6b7886 !important}
+[data-theme="light"] [style^="color: rgb(255, 182, 39)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(255, 182, 39)"]:not([style*="background: rgb(52, 177, 77)"]){color:#a35f00 !important}
+[data-theme="light"] [style^="color: rgb(255, 208, 107)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(255, 208, 107)"]:not([style*="background: rgb(52, 177, 77)"]){color:#7a4800 !important}
+[data-theme="light"] [style^="color: rgb(94, 224, 122)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(94, 224, 122)"]:not([style*="background: rgb(52, 177, 77)"]){color:#1f7a3a !important}
+[data-theme="light"] [style^="color: rgb(205, 123, 245)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(205, 123, 245)"]:not([style*="background: rgb(52, 177, 77)"]){color:#7a2fae !important}
+[data-theme="light"] [style^="color: rgb(102, 204, 255)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(102, 204, 255)"]:not([style*="background: rgb(52, 177, 77)"]){color:#1a6fb0 !important}
+[data-theme="light"] [style^="color: rgb(255, 106, 94)"]:not([style*="background: rgb(52, 177, 77)"]),[data-theme="light"] [style*="; color: rgb(255, 106, 94)"]:not([style*="background: rgb(52, 177, 77)"]){color:#c0392b !important}
+[data-theme="light"] [style*="text-shadow"]{text-shadow:none !important}
+[data-theme="light"] textarea::placeholder{color:#8a98a6}
+[data-theme="light"] [data-stage]{background:radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #dcefff 55%, #bfe0f7 100%) !important}
+[data-theme="light"] [data-bubble]{background:#fff !important;color:#10161f !important}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div data-theme="{{ themeAttr }}" style="min-height: 100vh; display: flex; flex-direction: column; background: #070d15; color: #fff; font-family: Nunito, system-ui, sans-serif;">
+
+<header style="display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,.14); background: #04070c;">
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<div onClick="{{ titleTap }}" style="font-size: 21px; font-weight: 900; letter-spacing: .04em; color: #ffb627; text-shadow: 0 0 14px rgba(255,182,39,.35); user-select: none;">🌱 GROW A SEED</div>
+<div style="font-size: 13px; font-weight: 700; color: #8a98a6;">Each Child a Seed · Sim 1 · P3 Life cycles</div>
+</div>
+<nav style="display: flex; gap: 8px; flex: 1 1 420px; flex-wrap: wrap;">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="{{ t.style }}" style-hover="filter: brightness(1.15)" style-focus="outline: 2px solid #66ccff; outline-offset: 2px">{{ t.label }}</button></sc-for>
+</nav>
+<div style="display: flex; align-items: center; gap: 10px;">
+<div style="padding: 8px 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.12); font-size: 18px; letter-spacing: 2px;">{{ starText }}</div>
+<sc-if value="{{ who }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px 6px 12px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.12); white-space: nowrap;"><span style="font-size: 14px; font-weight: 900; color: #fff;">{{ who }}</span><span style="{{ syncStyle }}">{{ syncText }}</span><button onClick="{{ signOut }}" title="Sign out" style="height: 30px; padding: 0 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #d6dee6; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer;">Sign out</button></div></sc-if>
+<button onClick="{{ toggleTheme }}" title="Light or dark" style="width: 48px; height: 48px; border-radius: 14px; background: #2b3340; border: 1px solid rgba(255,255,255,.14); font-size: 20px; cursor: pointer;" style-hover="filter: brightness(1.15)">{{ themeGlyph }}</button>
+<button onClick="{{ replayTour }}" title="Show me round" style="width: 48px; height: 48px; border-radius: 14px; background: #2b3340; border: 1px solid rgba(255,255,255,.14); font-size: 20px; cursor: pointer;" style-hover="filter: brightness(1.15)">🎬</button>
+</div>
+</header>
+
+<sc-if value="{{ needSignIn }}" hint-placeholder-val="{{ false }}">
+<main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 28px 20px;">
+<div style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 16px; padding: 28px; border-radius: 22px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); animation: scRise 420ms ease-out both;">
+<div style="font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #ffb627;">Sign in</div>
+<div style="font-size: 28px; font-weight: 900; line-height: 1.2;">Welcome, scientist! 🌱</div>
+<div style="font-size: 16px; color: #d6dee6;">Your work saves to your teacher’s folder, so you can carry on at home. First time? Make up a 4-digit PIN and remember it.</div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 900; color: #d6dee6;"><span>Name(s) <span style="font-weight: 700; color: #8a98a6;">· sharing a device? Type both names</span></span><input value="{{ signin.name }}" onChange="{{ onName }}" placeholder="e.g. Aisyah, Wei Jie" autocomplete="off" maxlength="60" style="min-height: 54px; padding: 0 16px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 20px; font-weight: 800;" style-focus="outline: 2px solid #66ccff"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 900; color: #d6dee6;">Class<select value="{{ signin.cls }}" onChange="{{ onCls }}" style="min-height: 54px; padding: 0 16px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 20px; font-weight: 800; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, #8a98a6 50%), linear-gradient(135deg, #8a98a6 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%; background-size: 6px 6px; background-repeat: no-repeat;" style-focus="outline: 2px solid #66ccff"><option value="">Choose your class</option><option value="3A">3A</option><option value="3B">3B</option><option value="3C">3C</option><option value="3D">3D</option><option value="3E">3E</option><option value="3F">3F</option><option value="3G">3G</option><option value="3H">3H</option></select></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 900; color: #d6dee6;">Register number<input value="{{ signin.reg }}" onChange="{{ onReg }}" placeholder="14" inputmode="numeric" autocomplete="off" style="min-height: 54px; padding: 0 16px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 20px; font-weight: 800;" style-focus="outline: 2px solid #66ccff"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 900; color: #d6dee6;">4-digit PIN<input type="password" value="{{ signin.pin }}" onChange="{{ onPin }}" placeholder="••••" inputmode="numeric" maxlength="4" autocomplete="off" style="min-height: 54px; padding: 0 16px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 20px; font-weight: 800; letter-spacing: 8px;" style-focus="outline: 2px solid #66ccff"></label>
+<sc-if value="{{ signErr }}" hint-placeholder-val="{{ false }}"><div style="padding: 10px 14px; border-radius: 12px; background: rgba(232,73,63,.14); border: 1px solid rgba(255,106,94,.6); color: #ff6a5e; font-size: 16px; font-weight: 800;">{{ signErr }}</div></sc-if>
+<button onClick="{{ signIn }}" style="min-height: 58px; border-radius: 16px; border: none; background: #34b14d; color: #fff; font: inherit; font-size: 20px; font-weight: 900; cursor: pointer; box-shadow: 0 0 16px rgba(63,195,95,.45);" style-hover="background: #43c95f">{{ signLabel }}</button>
+<button onClick="{{ goOffline }}" style="min-height: 44px; border-radius: 12px; border: 1px dashed rgba(255,255,255,.3); background: transparent; color: #8a98a6; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer;">Try it without saving (practice mode)</button>
+</div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isPredict }}" hint-placeholder-val="{{ false }}">
+<main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
+<div style="width: 100%; max-width: 1120px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 20px; align-items: stretch; animation: scRise 420ms ease-out both;">
+
+<section data-stage="seed" style="position: relative; overflow: hidden; min-height: 520px; display: flex; flex-direction: column; gap: 10px; padding: 26px; border-radius: 26px; background: radial-gradient(120% 80% at 50% 0%, #15304a 0%, #08131f 60%, #04070c 100%); border: 1px solid rgba(255,255,255,.1);">
+<sc-for list="{{ drift }}" as="d"><span style="{{ d.style }}">{{ d.glyph }}</span></sc-for>
+<div style="position: relative; font-size: 14px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #ffb627;">Step 1 · Predict first</div>
+<div style="position: relative; font-size: 34px; font-weight: 900; line-height: 1.15; color: #fff;">What does a seed need to <span style="background: linear-gradient(90deg, #5ee07a, #66ccff, #ffb627, #5ee07a); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: scRainbow 4s linear infinite;">start growing</span>?</div>
+<div style="position: relative; font-size: 17px; color: #d6dee6;">Feed the seed! Tap what you think it needs. There’s no wrong answer yet.</div>
+<div style="position: relative; flex: 1; min-height: 320px;">
+<sc-for list="{{ orbit }}" as="o"><div style="{{ o.style }}"><span style="font-size: 30px; line-height: 1;">{{ o.glyph }}</span></div></sc-for>
+<div style="position: absolute; left: -8%; right: -8%; bottom: -10px; height: 34%; border-radius: 50% 50% 0 0 / 70% 70% 0 0; background: radial-gradient(120% 140% at 50% 0%, #7a5230 0%, #4a3220 45%, #2b1c10 100%); box-shadow: inset 0 10px 24px rgba(0,0,0,.35);"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8%; display: flex; justify-content: center; gap: 30px; opacity: .55; pointer-events: none;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #f2efe6;"></span><span style="width: 6px; height: 6px; border-radius: 50%; background: #f2efe6;"></span><span style="width: 9px; height: 9px; border-radius: 50%; background: #f2efe6;"></span><span style="width: 5px; height: 5px; border-radius: 50%; background: #f2efe6;"></span><span style="width: 7px; height: 7px; border-radius: 50%; background: #f2efe6;"></span></div>
+<div key="{{ seedKey }}" style="{{ seedStyle }}"><div style="position: absolute; left: 22%; top: 18%; width: 30%; height: 22%; border-radius: 50%; background: rgba(255,255,255,.35);"></div><div style="position: absolute; left: 30%; top: 46%; width: 9px; height: 9px; border-radius: 50%; background: #1b1208;"></div><div style="position: absolute; right: 30%; top: 46%; width: 9px; height: 9px; border-radius: 50%; background: #1b1208;"></div><div style="{{ mouthStyle }}"></div></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 5%; display: flex; justify-content: center; pointer-events: none;"><div key="{{ seedKey }}" data-bubble="1" style="padding: 10px 18px; border-radius: 18px; background: #fff; color: #10161f; font-size: 17px; font-weight: 900; text-align: center; box-shadow: 0 10px 24px rgba(0,0,0,.35); animation: scHintIn 520ms cubic-bezier(.2,1.4,.4,1) both; white-space: nowrap;">{{ seedSays }}</div></div>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 26px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1);">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;"><div style="font-size: 20px; font-weight: 900; color: #fff;">Pick what the seed needs</div><div style="font-size: 16px; font-weight: 900; color: #5ee07a; white-space: nowrap;">{{ predCount }}</div></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px;">
+<sc-for list="{{ needs }}" as="n" hint-placeholder-count="7"><button onClick="{{ n.toggle }}" style="{{ n.style }}" style-hover="transform: translateY(-4px) scale(1.03); filter: brightness(1.1)" style-active="transform: scale(.96)">
+<span style="{{ n.glyphStyle }}">{{ n.glyph }}</span>
+<span style="font-size: 18px; font-weight: 900;">{{ n.label }}</span>
+<sc-if value="{{ n.on }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #34b14d; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; box-shadow: 0 0 12px rgba(63,195,95,.6); animation: scBoop 460ms cubic-bezier(.2,1.8,.4,1) both;">✓</span></sc-if>
+</button></sc-for>
+</div>
+<div style="flex: 1;"></div>
+<button onClick="{{ savePrediction }}" style="{{ saveStyle }}" style-hover="filter: brightness(1.1)">Save my prediction → Test it 🧪</button>
+</section>
+
+</div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isExperiment }}" hint-placeholder-val="{{ true }}">
+<main style="flex: 1; display: flex; flex-wrap: wrap; gap: 16px; padding: 16px; align-items: flex-start;">
+
+<section style="flex: 2 1 560px; min-width: 0; position: sticky; top: 16px; display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 22px; background: #08131f; border: 1px solid rgba(255,255,255,.1);">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+<div style="{{ scene.pillStyle }}">{{ scene.stageLabel }}</div>
+<div style="font-size: 20px; font-weight: 900; color: #ffb627;">Day {{ day }} <span style="color: #5a6775;">/ 21</span></div>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+<sc-for list="{{ views }}" as="v" hint-placeholder-count="2"><button onClick="{{ v.go }}" style="{{ v.style }}" style-hover="filter: brightness(1.15)">{{ v.label }}</button></sc-for>
+<div style="margin-left: auto; padding: 6px 12px; border-radius: 999px; background: #0e1925; border: 1px solid rgba(94,224,122,.4); font-size: 16px; font-weight: 900; color: #5ee07a; white-space: nowrap;">📏 {{ scene.heightText }} cm</div>
+</div>
+<div style="position: relative; aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; background: #08131f; border: 1px solid rgba(255,255,255,.12);">
+<sc-if value="{{ show3d }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="growseed-scene" from="./growseed-scene.js" plant="{{ sc.plant }}" water="{{ sc.water }}" light="{{ sc.light }}" depth="{{ sc.depth }}" net="{{ sc.net }}" pot="{{ sc.pot }}" day="{{ sc.day }}" height="{{ sc.height }}" stage="{{ sc.stage }}" outcome="{{ sc.outcome }}" sprout="{{ sc.sprout }}" running="{{ sc.running }}" theme="{{ themeAttr }}" style="position: absolute; inset: 0;" hint-size="100%,100%"></x-import>
+<div style="position: absolute; left: 10px; bottom: 10px; padding: 4px 10px; border-radius: 999px; background: rgba(4,7,12,.7); font-size: 12px; font-weight: 800; color: #8a98a6; pointer-events: none;">Drag to turn · scroll to zoom</div>
+</sc-if>
+<sc-if value="{{ showReal }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ real.alt }}" style="{{ real.bgStyle }}"></div>
+<div style="position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 12px 16px; border-radius: 14px; background: rgba(4,7,12,.88); border: 1px solid rgba(255,182,39,.5); font-size: 16px; font-weight: 800; line-height: 1.4; color: #fff;"><span style="color: #ffb627;">📷 Our real {{ real.name }}</span> · {{ real.caption }}</div>
+</sc-if>
+<sc-if value="{{ toast }}"><div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 16px 26px; border-radius: 18px; background: rgba(4,7,12,.92); border: 2px solid #5ee07a; box-shadow: 0 0 30px rgba(94,224,122,.55); text-align: center; animation: scPop 520ms cubic-bezier(.2,.9,.3,1) both; min-width: 240px; pointer-events: none;"><div style="font-size: 30px; font-weight: 900; color: #5ee07a; text-shadow: 0 0 12px rgba(94,224,122,.5);">{{ toastWord }}</div><div style="font-size: 16px; color: #d6dee6; margin-top: 4px;">{{ toastText }}</div></div></sc-if>
+</div>
+<div style="height: 10px; border-radius: 999px; background: #0e1925; overflow: hidden;"><div style="{{ dayBar }}"></div></div>
+<div style="{{ scene.noteStyle }}">{{ scene.note }}</div>
+<div style="display: flex; gap: 10px;">
+<div style="position: relative; flex: 1; display: flex; border-radius: 16px;">
+<button onClick="{{ grow }}" style="flex: 1; min-height: 58px; border-radius: 16px; border: none; background: #34b14d; color: #fff; font: inherit; font-size: 21px; font-weight: 900; cursor: pointer; box-shadow: 0 0 16px rgba(63,195,95,.45);" style-hover="background: #43c95f" style-active="transform: scale(.98)">{{ growLabel }}</button>
+<sc-if value="{{ ringGrow }}"><div style="position: absolute; inset: -5px; border-radius: 20px; padding: 3px; background: linear-gradient(90deg,#e8493f,#ffb627,#3fc35f,#66ccff,#b557e6,#e8493f); background-size: 300% 100%; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: scRainbow 2.4s linear infinite; pointer-events: none;"></div><div style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px 3px rgba(255,255,255,.85); offset-path: inset(-4px round 20px); animation: scOrbit 1.6s linear infinite; pointer-events: none;"></div></sc-if>
+</div>
+<button onClick="{{ reset }}" style="min-height: 58px; padding: 0 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 18px; font-weight: 800; cursor: pointer;" style-hover="background: #3a4452">↺ Reset</button>
+</div>
+</section>
+
+<section style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+<div key="{{ hint }}" style="display: flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 16px; background: rgba(255,182,39,.12); border: 1px solid rgba(255,182,39,.45); font-size: 17px; font-weight: 800; color: #ffd06b; animation: scHintIn 520ms cubic-bezier(.2,1.4,.4,1) both;"><span style="font-size: 22px; display: inline-block; animation: scFinger 1.1s ease-in-out infinite;">👆</span><span>{{ hint }}</span></div>
+
+<div style="{{ plantCardStyle }}">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #8a98a6; margin-bottom: 8px;">🌿 My plant</div>
+<div style="display: flex; gap: 8px;"><sc-for list="{{ plants }}" as="p" hint-placeholder-count="3"><button onClick="{{ p.pick }}" style="{{ p.style }}" style-hover="filter: brightness(1.15)">{{ p.label }}</button></sc-for></div>
+<sc-if value="{{ ringPlant }}"><div style="position: absolute; inset: -4px; border-radius: 22px; padding: 3px; background: linear-gradient(90deg,#e8493f,#ffb627,#3fc35f,#66ccff,#b557e6,#e8493f); background-size: 300% 100%; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: scRainbow 2.4s linear infinite; pointer-events: none;"></div><div style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px 3px rgba(255,255,255,.85); offset-path: inset(-3px round 22px); animation: scOrbit 1.6s linear infinite; pointer-events: none;"></div></sc-if>
+</div>
+
+<sc-for list="{{ controls }}" as="c" hint-placeholder-count="4">
+<div style="{{ c.cardStyle }}">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #8a98a6; margin-bottom: 8px;">{{ c.title }}</div>
+<div style="display: flex; gap: 8px;"><sc-for list="{{ c.opts }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="{{ o.style }}" style-hover="filter: brightness(1.15)">{{ o.label }}</button></sc-for></div>
+<sc-if value="{{ c.ring }}"><div style="position: absolute; inset: -4px; border-radius: 22px; padding: 3px; background: linear-gradient(90deg,#e8493f,#ffb627,#3fc35f,#66ccff,#b557e6,#e8493f); background-size: 300% 100%; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: scRainbow 2.4s linear infinite; pointer-events: none;"></div><div style="position: absolute; top: 0; left: 0; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 10px 3px rgba(255,255,255,.85); offset-path: inset(-3px round 22px); animation: scOrbit 1.6s linear infinite; pointer-events: none;"></div></sc-if>
+</div>
+</sc-for>
+
+<div style="padding: 14px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 10px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #cd7bf5;">🔍 Discoveries</div><div style="font-size: 15px; font-weight: 800; color: #d6dee6;">{{ foundCount }} / 8 found</div></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px;">
+<sc-for list="{{ discoveries }}" as="d" hint-placeholder-count="8"><div style="{{ d.style }}"><span style="font-size: 20px;">{{ d.glyph }}</span><span>{{ d.label }}</span></div></sc-for>
+</div>
+<sc-if value="{{ hasRuns }}">
+<div style="display: flex; flex-direction: column; gap: 6px; margin-top: 4px;">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #8a98a6;">My tests</div>
+<sc-for list="{{ runs }}" as="r"><div style="display: flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 12px; background: #0e1925; font-size: 15px;"><span style="font-size: 20px;">{{ r.glyph }}</span><span style="flex: 1; color: #d6dee6;">{{ r.summary }}</span><strong style="color: #fff;">{{ r.label }}</strong></div></sc-for>
+</div>
+</sc-if>
+</div>
+</section>
+</main>
+</sc-if>
+
+<sc-if value="{{ isJournal }}" hint-placeholder-val="{{ false }}">
+<main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
+<div style="width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 16px; animation: scRise 420ms ease-out both;">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+<div><div style="font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #ffb627;">📓 E-journal · my plant’s record</div><div style="font-size: 30px; font-weight: 900; line-height: 1.15;">My {{ jPlant }} E-journal</div></div>
+<div style="display: flex; gap: 10px; align-items: center;"><span style="white-space: nowrap; font-size: 14px; font-weight: 800; color: #5ee07a;">✓ Saved on this device</span><button onClick="{{ printJournal }}" style="white-space: nowrap; min-height: 44px; padding: 0 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer;" style-hover="background: #3a4452">🖨️ Print</button></div>
+</div>
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">My prediction</div><div style="font-size: 13px; font-weight: 800; color: #5a6775;">Page 3</div></div>
+<div style="font-size: 16px; color: #d6dee6;">I said a seed needs:</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ jNeeds }}" as="n" hint-placeholder-count="3"><span style="white-space: nowrap; padding: 6px 14px; border-radius: 999px; background: rgba(94,224,122,.14); border: 1px solid #5ee07a; font-size: 16px; font-weight: 800;">{{ n }}</span></sc-for><sc-if value="{{ jNoPred }}"><button onClick="{{ goPredict }}" style="padding: 6px 14px; border-radius: 999px; background: #0e1925; border: 1px dashed rgba(255,255,255,.3); color: #8a98a6; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer;">+ Make a prediction</button></sc-if></div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 800; color: #d6dee6;">I think my seed will…
+<textarea value="{{ jn.think }}" onChange="{{ onThink }}" rows="2" placeholder="grow roots first, then…" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #66ccff; outline-offset: 1px"></textarea></label>
+</div>
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">What I found out</div><div style="font-size: 13px; font-weight: 800; color: #5a6775;">Page 4</div></div>
+<div style="font-size: 16px; color: #d6dee6;">Change <strong style="color: #fff;">one thing</strong> at a time. Write what happened to the plant. Your discoveries appear here as you find them.</div>
+<sc-for list="{{ jRows }}" as="r" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr); gap: 12px; align-items: stretch;">
+<div style="padding: 12px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 6px;"><div style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 700; color: #8a98a6;">{{ r.tries }}</div><div style="display: flex; flex-wrap: wrap; gap: 4px;"><sc-for list="{{ r.chips }}" as="c"><span style="{{ c.style }}">{{ c.label }}</span></sc-for></div></div>
+<textarea value="{{ r.value }}" onChange="{{ r.onChange }}" rows="3" placeholder="{{ r.placeholder }}" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #66ccff; outline-offset: 1px"></textarea>
+</div>
+</sc-for>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 4px;"><span style="font-size: 17px; font-weight: 900;">Was my prediction right?</span><sc-for list="{{ jRight }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="{{ o.style }}" style-hover="filter: brightness(1.15)">{{ o.label }}</button></sc-for></div>
+</div>
+
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">My plant’s progress</div><div style="font-size: 13px; font-weight: 800; color: #5a6775; white-space: nowrap;">Pages 5, 8, 9, 11</div></div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: end;">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 800; color: #d6dee6; white-space: nowrap;">📅 Date I planted my seed<input type="date" value="{{ jn.planted }}" onChange="{{ onPlanted }}" style="padding: 10px 12px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 700;" style-focus="outline: 2px solid #66ccff"></label>
+<div style="padding: 10px 16px; border-radius: 12px; background: rgba(255,182,39,.12); border: 1px solid rgba(255,182,39,.45); font-size: 17px; font-weight: 900; color: #ffb627; white-space: nowrap;">{{ dayCount }}</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px;">
+<sc-for list="{{ milestones }}" as="m" hint-placeholder-count="4">
+<div style="{{ m.style }}">
+<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 26px;">{{ m.glyph }}</span><div><div style="font-size: 16px; font-weight: 900;">{{ m.title }}</div><div style="font-size: 12px; font-weight: 800; color: #8a98a6;">{{ m.stage }}</div></div></div>
+<sc-if value="{{ m.done }}" hint-placeholder-val="{{ false }}"><label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; color: #5ee07a;">✓ Date · tap to change<input type="date" value="{{ m.iso }}" min="{{ m.min }}" max="{{ m.max }}" onChange="{{ m.onDate }}" style="min-height: 42px; padding: 0 10px; border-radius: 10px; background: #08131f; border: 1px solid rgba(94,224,122,.6); color: #fff; font: inherit; font-size: 16px; font-weight: 800; text-transform: none; letter-spacing: 0; cursor: pointer;" style-focus="outline: 2px solid #5ee07a"></label></sc-if>
+<sc-if value="{{ m.extra }}" hint-placeholder-val="{{ false }}"><div style="font-size: 14px; font-weight: 800; color: #d6dee6;">{{ m.extra }}</div></sc-if>
+<button onClick="{{ m.toggle }}" style="{{ m.btn }}" style-hover="filter: brightness(1.15)">{{ m.btnLabel }}</button>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">How tall is it?</div><div style="font-size: 13px; font-weight: 800; color: #5a6775; white-space: nowrap;">Page 10</div></div>
+<div style="font-size: 16px; color: #d6dee6;">Put the ruler’s <strong style="color: #fff;">0 at the soil</strong>. Measure the <strong style="color: #5ee07a;">tallest</strong> and the <strong style="color: #66ccff;">shortest</strong> young plant in your pot. The app works out the difference and the average for you.</div>
+<div style="display: grid; gap: 8px;">
+<div style="display: grid; grid-template-columns: 74px minmax(0,1fr) minmax(0,1fr) 92px 92px 40px; gap: 8px; font-size: 13px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; color: #8a98a6; padding: 0 4px;"><span>Week</span><span>Tallest (cm)</span><span>Shortest (cm)</span><span>Difference</span><span>Average</span><span></span></div>
+<sc-for list="{{ meas }}" as="m" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 74px minmax(0,1fr) minmax(0,1fr) 92px 92px 40px; gap: 8px; align-items: center; padding: 8px; border-radius: 14px; background: #0e1925;">
+<span style="font-size: 16px; font-weight: 900; color: #ffb627;">{{ m.label }}</span>
+<input type="number" inputmode="decimal" min="0" step="0.1" value="{{ m.tall }}" onChange="{{ m.onTall }}" placeholder="0.0" style="padding: 10px 12px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 700; min-width: 0; border-color: rgba(94,224,122,.5);" style-focus="outline: 2px solid #5ee07a">
+<input type="number" inputmode="decimal" min="0" step="0.1" value="{{ m.short }}" onChange="{{ m.onShort }}" placeholder="0.0" style="padding: 10px 12px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 700; min-width: 0; border-color: rgba(102,204,255,.5);" style-focus="outline: 2px solid #66ccff">
+<span style="font-size: 17px; font-weight: 900; color: #fff;">{{ m.diff }}</span>
+<span style="font-size: 17px; font-weight: 900; color: #cd7bf5;">{{ m.avg }}</span>
+<button onClick="{{ m.remove }}" title="Remove this week" style="width: 36px; height: 36px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font-size: 15px; cursor: pointer;">✕</button>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;"><button onClick="{{ addWeek }}" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: 1px dashed rgba(255,255,255,.3); background: #0e1925; color: #d6dee6; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;" style-hover="filter: brightness(1.15)">+ Add a week</button></div>
+<sc-if value="{{ hasChart }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; background: #08131f; border: 1px solid rgba(255,255,255,.08);">
+<div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; font-weight: 900; color: #d6dee6;"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #5ee07a;"></span>Tallest</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #66ccff;"></span>Shortest</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 14px; height: 4px; border-radius: 2px; background: #cd7bf5;"></span>Average</span></div>
+<div style="display: flex; align-items: flex-end; gap: 18px; height: 170px; padding: 0 6px; border-bottom: 2px solid rgba(255,255,255,.16);">
+<sc-for list="{{ chart }}" as="c"><div style="flex: 1; max-width: 120px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px;"><div style="position: relative; width: 100%; height: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 6px;"><div style="{{ c.tallStyle }}"></div><div style="{{ c.shortStyle }}"></div><div style="{{ c.avgStyle }}"></div></div></div></sc-for>
+</div>
+<div style="display: flex; gap: 18px; padding: 0 6px;"><sc-for list="{{ chart }}" as="c"><div style="flex: 1; max-width: 120px; text-align: center; font-size: 13px; font-weight: 900; color: #8a98a6;">{{ c.label }}</div></sc-for></div>
+</div>
+</sc-if>
+</div>
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627; white-space: nowrap;">📈 My growth graph</div><div style="font-size: 13px; font-weight: 800; color: #5a6775; white-space: nowrap;">Page 10</div></div>
+<div style="font-size: 16px; color: #d6dee6;">Turn your measurements into a line graph. You need at least <strong style="color: #fff;">2 weeks</strong> filled in above.</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;"><button onClick="{{ plotGraph }}" style="{{ plotBtnStyle }}" style-hover="filter: brightness(1.12)" style-active="transform: scale(.98)">{{ plotLabel }}</button><button onClick="{{ trySample }}" style="{{ sampleBtnStyle }}" style-hover="filter: brightness(1.12)">🧪 Try sample data</button></div>
+<sc-if value="{{ plotMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size: 15px; font-weight: 800; color: #ffb627;">{{ plotMsg }}</div></sc-if>
+<sc-if value="{{ g.show }}" hint-placeholder-val="{{ false }}">
+<div key="{{ g.key }}" style="position: relative; padding: 14px; border-radius: 18px; background: #08131f; border: 1px solid rgba(255,255,255,.08); animation: scRise 420ms ease-out both;">
+<sc-if value="{{ sampleOn }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 12px; margin-bottom: 10px; border-radius: 12px; background: rgba(255,182,39,.12); border: 1px dashed rgba(255,182,39,.6);"><span style="font-size: 15px; font-weight: 900; color: #ffb627; flex: 1; min-width: 200px;">🧪 Sample data: a practice plant, not yours. Learn where to look, then try your own.</span><button onClick="{{ useMine }}" style="white-space: nowrap; min-height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 13px; font-weight: 900; cursor: pointer;">Use my data</button></div></sc-if>
+<div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; font-weight: 900; color: #d6dee6; margin-bottom: 6px;"><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 22px; height: 4px; border-radius: 2px; background: #5ee07a;"></span>Tallest</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 22px; height: 4px; border-radius: 2px; background: #66ccff;"></span>Shortest</span><span style="display: flex; align-items: center; gap: 6px;"><span style="width: 22px; height: 0; border-top: 4px dashed #cd7bf5;"></span>Average</span></div>
+<div style="position: relative;">
+<svg viewBox="0 0 640 320" style="width: 100%; height: auto; display: block; overflow: visible;">
+<sc-for list="{{ g.grid }}" as="l"><line x1="56" x2="620" y1="{{ l.y }}" y2="{{ l.y }}" stroke="rgba(138,152,166,.22)" stroke-width="1"></line></sc-for>
+<text x="14" y="160" transform="rotate(-90 14 160)" text-anchor="middle" font-size="13" font-weight="900" fill="#8a98a6">Height (cm)</text>
+<path d="{{ g.areaD }}" fill="rgba(94,224,122,.10)" style="animation: scFadeIn 900ms ease 1.4s both;"></path>
+<path d="{{ g.tallD }}" fill="none" stroke="#5ee07a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1000" style="stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: scDraw 1.4s cubic-bezier(.4,0,.2,1) .1s forwards; filter: drop-shadow(0 0 6px rgba(94,224,122,.6));"></path>
+<path d="{{ g.shortD }}" fill="none" stroke="#66ccff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pathLength="1000" style="stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: scDraw 1.4s cubic-bezier(.4,0,.2,1) .35s forwards; filter: drop-shadow(0 0 6px rgba(102,204,255,.6));"></path>
+<path d="{{ g.avgD }}" fill="none" stroke="#cd7bf5" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round" style="animation: scFadeIn 700ms ease 1.6s both;"></path>
+<sc-if value="{{ gapLine.show }}" hint-placeholder-val="{{ false }}"><line x1="{{ gapLine.x }}" x2="{{ gapLine.x }}" y1="{{ gapLine.y1 }}" y2="{{ gapLine.y2 }}" stroke="#ffb627" stroke-width="3" stroke-dasharray="4 4" style="animation: scFadeIn 500ms ease 2.4s both;"></line></sc-if>
+<sc-for list="{{ g.pts }}" as="p"><circle cx="{{ p.x }}" cy="{{ p.y }}" r="7" fill="{{ p.fill }}" stroke="#04070c" stroke-width="2.5" style="{{ p.style }}"></circle></sc-for>
+</svg>
+<sc-for list="{{ g.grid }}" as="l"><div style="{{ l.lab }}">{{ l.label }}</div></sc-for>
+<sc-for list="{{ g.xs }}" as="x"><div style="{{ x.lab }}">{{ x.label }}</div></sc-for>
+<sc-for list="{{ g.pts }}" as="p"><div style="{{ p.lab }}">{{ p.v }}</div></sc-for>
+<sc-for list="{{ look }}" as="m"><div style="{{ m.lab }}">{{ m.num }}</div></sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+<div style="font-size: 16px; font-weight: 900; color: #ffb627;">👀 What to look for</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px;">
+<sc-for list="{{ lookTips }}" as="t"><div style="{{ t.style }}"><span style="width: 30px; height: 30px; border-radius: 50%; background: #ffb627; color: #04070c; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 900;">{{ t.num }}</span><div><div style="font-size: 15px; font-weight: 900; color: #fff;">{{ t.title }}</div><div style="font-size: 14px; color: #d6dee6; line-height: 1.4;">{{ t.text }}</div></div></div></sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 10px;">
+<sc-for list="{{ g.facts }}" as="f"><div style="{{ f.style }}"><div style="font-size: 12px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: #8a98a6;">{{ f.label }}</div><div style="font-size: 20px; font-weight: 900; color: {{ f.color }};">{{ f.value }}</div></div></sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 18px; background: rgba(102,204,255,.06); border: 1px solid rgba(102,204,255,.3);">
+<div style="font-size: 19px; font-weight: 900; color: #66ccff;">🔎 Read your graph</div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><div style="font-size: 16px; font-weight: 900;">1. Look at the green line. Is it going up, staying flat or going down?</div><div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{ trendBtns }}" as="b"><button onClick="{{ b.pick }}" style="{{ b.style }}">{{ b.label }}</button></sc-for></div><sc-if value="{{ trendFb }}" hint-placeholder-val="{{ false }}"><div style="{{ trendFbStyle }}">{{ trendFb }}</div></sc-if></div>
+<div style="display: flex; flex-direction: column; gap: 8px;"><div style="font-size: 16px; font-weight: 900;">2. In which week did your plant grow the most?</div><div style="display: flex; gap: 8px; flex-wrap: wrap;"><sc-for list="{{ weekBtns }}" as="b"><button onClick="{{ b.pick }}" style="{{ b.style }}">{{ b.label }}</button></sc-for></div><sc-if value="{{ weekFb }}" hint-placeholder-val="{{ false }}"><div style="{{ weekFbStyle }}">{{ weekFb }}</div></sc-if></div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 900;">3. Why might the tallest and shortest plants in your pot be different heights?<textarea value="{{ jn.gq3 }}" onChange="{{ onGq3 }}" rows="2" placeholder="Maybe one got more light, or sprouted earlier…" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #66ccff"></textarea></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 900;">4. Compare with a plant buddy. Whose plant grew faster? What was different?<textarea value="{{ jn.gq4 }}" onChange="{{ onGq4 }}" rows="2" placeholder="My buddy’s Bayam grew faster because…" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #66ccff"></textarea></label>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; border-radius: 18px; background: rgba(94,224,122,.07); border: 1px solid rgba(94,224,122,.4);">
+<div style="font-size: 19px; font-weight: 900; color: #5ee07a;">✅ My conclusion</div>
+<div style="font-size: 17px; line-height: 1.6; color: #fff;">My <strong style="color: #5ee07a;">{{ jPlant }}</strong> grew from <strong style="color: #5ee07a;">{{ g.first }}</strong> to <strong style="color: #5ee07a;">{{ g.last }}</strong> in <strong style="color: #5ee07a;">{{ g.weeks }}</strong>. It grew the most in <strong style="color: #5ee07a;">{{ g.bestWeek }}</strong>.</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; font-weight: 900; color: #d6dee6;">This shows that a young plant…<textarea value="{{ jn.concl }}" onChange="{{ onConcl }}" rows="2" placeholder="grows taller over time when it gets water, air, light and…" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #5ee07a"></textarea></label>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;"><span style="font-size: 14px; font-weight: 900; color: #8a98a6;">Word bank:</span><sc-for list="{{ wordBank }}" as="w"><button onClick="{{ w.add }}" style="white-space: nowrap; padding: 5px 12px; border-radius: 999px; border: 1px solid rgba(94,224,122,.5); background: rgba(94,224,122,.1); color: #5ee07a; font: inherit; font-size: 14px; font-weight: 900; cursor: pointer;">+ {{ w.label }}</button></sc-for></div>
+</div>
+</sc-if>
+</div>
+
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627; white-space: nowrap;">📷 My plant photos</div><div style="font-size: 13px; font-weight: 800; color: #5a6775; white-space: nowrap;">Upload</div></div>
+<div style="font-size: 16px; color: #d6dee6;">Take a photo at each milestone. <strong style="color: #ff6a5e;">Plants only, no faces.</strong> Your teacher checks each photo before it goes on the class wall.</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+<span style="font-size: 15px; font-weight: 900; color: #8a98a6;">This photo is for:</span>
+<sc-for list="{{ photoTags }}" as="t" hint-placeholder-count="5"><button onClick="{{ t.pick }}" style="{{ t.style }}" style-hover="filter: brightness(1.15)">{{ t.label }}</button></sc-for>
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+<label style="white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 22px; border-radius: 14px; background: #34b14d; color: #fff; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: 0 0 16px rgba(63,195,95,.45);">📷 Take or choose a photo<input type="file" accept="image/*" capture="environment" onChange="{{ onPhoto }}" style="display: none;"></label>
+<span style="font-size: 14px; font-weight: 800; color: #8a98a6;">{{ photoCount }}</span>
+</div>
+<sc-if value="{{ photoMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size: 15px; font-weight: 800; color: #ffb627;">{{ photoMsg }}</div></sc-if>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px;">
+<sc-for list="{{ photos }}" as="p">
+<div style="display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: #0e1925; border: 1px solid rgba(255,255,255,.1);">
+<div role="img" aria-label="{{ p.tag }}" style="{{ p.bg }}"></div>
+<div style="padding: 10px; display: flex; flex-direction: column; gap: 6px;">
+<div style="display: flex; justify-content: space-between; gap: 6px; align-items: center;"><span style="font-size: 14px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ p.tag }}</span><button onClick="{{ p.remove }}" title="Delete" style="width: 30px; height: 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font-size: 13px; cursor: pointer;">✕</button></div>
+<div style="font-size: 12px; font-weight: 800; color: #8a98a6;">{{ p.date }}</div>
+<input value="{{ p.caption }}" onChange="{{ p.onCaption }}" placeholder="Write one line…" style="padding: 7px 9px; border-radius: 9px; background: #08131f; border: 1px solid rgba(255,255,255,.14); color: #fff; font: inherit; font-size: 14px; font-weight: 600;">
+<span style="{{ p.statusStyle }}">{{ p.status }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(205,123,245,.35); display: flex; flex-direction: column; gap: 10px;">
+<div style="font-size: 22px; font-weight: 900; color: #cd7bf5;">I wonder…</div>
+<textarea value="{{ jn.wonder }}" onChange="{{ onWonder }}" rows="2" placeholder="why the plant in the dark grew so tall and thin…" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #cd7bf5; outline-offset: 1px"></textarea>
+<div style="font-size: 14px; color: #8a98a6;">Copy it onto a card for the canteen “I wonder…” board.</div>
+</div>
+</div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isResources }}" hint-placeholder-val="{{ false }}">
+<main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
+<div style="width: 100%; max-width: 980px; display: flex; flex-direction: column; gap: 16px; animation: scRise 420ms ease-out both;">
+<div><div style="font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #ffb627;">📁 Resources</div><div style="font-size: 30px; font-weight: 900; line-height: 1.15;">Print or download again</div><div style="font-size: 16px; color: #d6dee6; margin-top: 6px;">Each file opens print-ready. Tap <strong style="color: #fff;">Save as PDF</strong>, then pick “Save as PDF” as the printer. The layout stays exactly the same.</div></div>
+<sc-for list="{{ resGroups }}" as="g" hint-placeholder-count="2">
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 20px; font-weight: 900; color: #ffb627;">{{ g.title }}</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;">
+<sc-for list="{{ g.items }}" as="r">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: #0e1925; border: 1px solid rgba(255,255,255,.08);">
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-size: 30px;">{{ r.glyph }}</span><div><div style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 800; color: #8a98a6;">{{ r.meta }}</div></div></div>
+<div style="font-size: 14px; color: #d6dee6; line-height: 1.4;">{{ r.note }}</div>
+<div style="display: flex; gap: 8px; margin-top: auto;">
+<button onClick="{{ r.view }}" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; white-space: nowrap; cursor: pointer;" style-hover="background: #3a4452">👀 Open</button>
+<button onClick="{{ r.save }}" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: none; background: #34b14d; color: #fff; font: inherit; font-size: 15px; font-weight: 900; white-space: nowrap; cursor: pointer;" style-hover="background: #43c95f">⬇️ Save as PDF</button>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 20px; font-weight: 900; color: #ffb627;">🖨️ Printing tips</div>
+<div style="display: grid; gap: 8px; font-size: 15px; color: #d6dee6; line-height: 1.45;">
+<div><strong style="color: #fff;">Plant Journal (A5):</strong> to make a folded booklet, print on A4 with <em>Booklet</em> or <em>2 pages per sheet, double-sided, flip on short edge</em>. 20 pages = 5 sheets.</div>
+<div><strong style="color: #fff;">Lesson plan (A4):</strong> print single-sided, portrait.</div>
+<div><strong style="color: #fff;">Margins:</strong> keep them at <em>Default</em> or <em>None</em>, and turn off “Headers and footers”.</div>
+</div>
+</div>
+</div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isChallenge }}" hint-placeholder-val="{{ false }}">
+<main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
+<div style="width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 16px; animation: scRise 420ms ease-out both;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+<sc-for list="{{ stars }}" as="s" hint-placeholder-count="3"><div style="{{ s.style }}"><div style="font-size: 30px;">{{ s.glyph }}</div><div style="font-size: 17px; font-weight: 900;">{{ s.title }}</div><div style="font-size: 14px; color: #d6dee6;">{{ s.text }}</div></div></sc-for>
+</div>
+<div style="padding: 16px 18px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: grid; gap: 6px;">
+<div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #ffb627;">Was my prediction right?</div>
+<div style="font-size: 17px; color: #d6dee6;">I said a seed needs: <strong style="color: #fff;">{{ predText }}</strong></div>
+<div style="font-size: 17px; color: #d6dee6;">The tests show: a seed starts growing with <strong style="color: #5ee07a;">water, air and warmth</strong>, using food stored inside it. <strong style="color: #5ee07a;">Light</strong> matters once the young plant appears.</div>
+</div>
+<sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
+<div style="padding: 16px 18px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 10px;">
+<div style="font-size: 19px; font-weight: 900;">{{ q.n }}. {{ q.text }}</div>
+<div style="display: grid; gap: 8px;"><sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="{{ o.style }}" style-hover="filter: brightness(1.15)">{{ o.label }}</button></sc-for></div>
+<sc-if value="{{ q.answered }}"><div style="{{ q.fbStyle }}">{{ q.fb }}</div></sc-if>
+</div>
+</sc-for>
+<sc-if value="{{ allStars }}"><div style="padding: 20px; border-radius: 20px; text-align: center; background: rgba(94,224,122,.12); border: 2px solid #5ee07a; box-shadow: 0 0 26px rgba(94,224,122,.4);"><div style="font-size: 28px; font-weight: 900; color: #5ee07a;">⭐⭐⭐ Well done, scientist!</div><div style="font-size: 17px; color: #d6dee6; margin-top: 6px;">Open 📓 E-journal and write what you found. Then add an “I wonder…” card to the board.</div></div></sc-if>
+</div>
+</main>
+</sc-if>
+<sc-if value="{{ tOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 50; background: rgba(2,5,10,.82); backdrop-filter: blur(4px); display: flex; justify-content: center; overflow: auto; padding: 24px 16px;">
+<div style="width: 100%; max-width: 1080px; display: flex; flex-direction: column; gap: 14px;">
+<div style="display: flex; align-items: center; gap: 12px;"><div style="font-size: 26px; font-weight: 900; color: #ffb627; flex: 1;">👩‍🏫 Teacher page</div><button onClick="{{ tClose }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">✕ Close</button></div>
+<sc-if value="{{ tLocked }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px; max-width: 460px;">
+<div style="font-size: 18px; font-weight: 900;">🔒 Teacher password</div>
+<input type="password" value="{{ tPwd }}" onChange="{{ onTPwd }}" onKeyDown="{{ tPwdKey }}" placeholder="Password" autocomplete="off" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800;" style-focus="outline: 2px solid #ffb627">
+<sc-if value="{{ tErr }}" hint-placeholder-val="{{ false }}"><div style="color: #ff6a5e; font-size: 15px; font-weight: 800;">{{ tErr }}</div></sc-if>
+<button onClick="{{ tUnlock }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer; background: #34b14d; border: none;">{{ tUnlockLabel }}</button>
+</div>
+</sc-if>
+<sc-if value="{{ tUnlocked }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+<sc-for list="{{ tTabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="{{ t.style }}">{{ t.label }}</button></sc-for>
+<input value="{{ tCls }}" onChange="{{ onTCls }}" placeholder="All classes (or 3A)" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800; min-height: 44px; font-size: 15px; width: 200px; text-transform: uppercase;">
+<button onClick="{{ tRefresh }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">🔄 Refresh</button>
+<span style="font-size: 14px; font-weight: 800; color: #8a98a6;">{{ tStatus }}</span>
+</div>
+
+<sc-if value="{{ tIsStudents }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px; overflow-x: auto;">
+<div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 15px; font-weight: 900;"><span style="color: #5ee07a;">🟢 {{ tCount.green }} growing well</span><span style="color: #ffb627;">🟡 {{ tCount.amber }} need a look</span><span style="color: #ff6a5e;">🔴 {{ tCount.red }} not sprouted</span><span style="color: #8a98a6;">{{ tCount.total }} students</span></div>
+<div style="min-width: 1000px; display: grid; gap: 6px;">
+<div style="display: grid; grid-template-columns: 56px 44px 150px 100px 64px 76px 76px 76px 76px 60px 60px 1fr; gap: 6px; font-size: 12px; font-weight: 900; text-transform: uppercase; color: #8a98a6; padding: 0 8px;"><span>Class</span><span>Reg</span><span>Name(s)</span><span>Plant</span><span>Stars</span><span>Planted</span><span>Sprouted</span><span>4+ leaves</span><span>Grown</span><span>Pre</span><span>Post</span><span>Last seen</span></div>
+<sc-for list="{{ tStudents }}" as="k"><div style="display: grid; grid-template-columns: 56px 44px 150px 100px 64px 76px 76px 76px 76px 60px 60px 1fr; gap: 6px; align-items: center; padding: 8px; border-radius: 10px; background: #0e1925; font-size: 14px; font-weight: 800;"><span>{{ k.cls }}</span><span>{{ k.reg }}</span><span>{{ k.name }}</span><span>{{ k.plant }}</span><span>{{ k.stars }}</span><span>{{ k.planted }}</span><span>{{ k.sprouted }}</span><span>{{ k.leaves4 }}</span><span>{{ k.grown }}</span><span>{{ k.pre }}</span><span>{{ k.post }}</span><span style="color: #8a98a6;">{{ k.lastSeen }}</span></div></sc-for>
+</div>
+<sc-if value="{{ tNoStudents }}" hint-placeholder-val="{{ false }}"><div style="color: #8a98a6; font-size: 15px;">No students yet.</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ tIsPhotos }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 16px; color: #d6dee6;">Approve photos to show them in the student’s album and on the canteen wall. Hidden photos stay in their Drive folder.</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px;">
+<sc-for list="{{ tPhotos }}" as="p"><div style="display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; background: #0e1925; border: 1px solid rgba(255,255,255,.1);"><div role="img" aria-label="{{ p.tag }}" style="{{ p.bg }}"></div><div style="padding: 10px; display: flex; flex-direction: column; gap: 6px;"><div style="font-size: 15px; font-weight: 900;">{{ p.who }}</div><div style="font-size: 13px; color: #8a98a6;">{{ p.meta }}</div><div style="font-size: 14px; color: #d6dee6;">{{ p.caption }}</div><div style="display: flex; gap: 6px;"><button onClick="{{ p.approve }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer; flex: 1; background: #34b14d; border: none;">✅ Approve</button><button onClick="{{ p.hide }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer; flex: 1;">🚫 Hide</button></div></div></div></sc-for>
+</div>
+<sc-if value="{{ tNoPhotos }}" hint-placeholder-val="{{ false }}"><div style="color: #8a98a6; font-size: 15px;">No photos waiting. 🎉</div></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ tIsTools }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px; max-width: 620px;">
+<div style="font-size: 18px; font-weight: 900;">Change a student</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+<input value="{{ tTool.cls }}" onChange="{{ onToolCls }}" placeholder="Class, e.g. 3A" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800; text-transform: uppercase;">
+<input value="{{ tTool.reg }}" onChange="{{ onToolReg }}" placeholder="Register no." inputmode="numeric" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800;">
+</div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;"><input value="{{ tTool.pin }}" onChange="{{ onToolPin }}" placeholder="New 4-digit PIN" inputmode="numeric" maxlength="4" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800; width: 190px;"><button onClick="{{ tResetPin }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">🔑 Reset PIN</button></div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;"><span style="font-size: 15px; font-weight: 900; color: #8a98a6;">Change plant:</span><sc-for list="{{ tPlantBtns }}" as="b"><button onClick="{{ b.go }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">{{ b.label }}</button></sc-for></div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;"><input value="{{ tTool.buddy }}" onChange="{{ onToolBuddy }}" placeholder="Buddy group, e.g. G3" style="min-height: 48px; padding: 0 14px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 17px; font-weight: 800; width: 190px; text-transform: uppercase;"><button onClick="{{ tSetBuddy }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">👥 Set group</button></div>
+<sc-if value="{{ tToolMsg }}" hint-placeholder-val="{{ false }}"><div style="font-size: 15px; font-weight: 800; color: #5ee07a;">{{ tToolMsg }}</div></sc-if>
+</div>
+</sc-if>
+<div style="font-size: 13px; color: #5a6775;">Data lives in your Google Drive: ECAS From Seed to Plate → ECAS Data sheet and Students folders.</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ resOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: fixed; inset: 0; z-index: 60; display: flex; flex-direction: column; background: rgba(2,5,10,.88);">
+<div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 16px; background: #04070c; border-bottom: 1px solid rgba(255,255,255,.14);">
+<div style="flex: 1; min-width: 200px; font-size: 18px; font-weight: 900; color: #ffb627;">{{ resTitle }}</div>
+<span style="font-size: 13px; font-weight: 800; color: #8a98a6;">{{ resHint }}</span>
+<button onClick="{{ resPrint }}" style="white-space: nowrap; min-height: 44px; padding: 0 18px; border-radius: 12px; border: none; background: #34b14d; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;" style-hover="background: #43c95f">⬇️ Save as PDF / 🖨️ Print</button>
+<button onClick="{{ resClose }}" style="white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;">✕ Close</button>
+</div>
+<iframe ref="{{ resFrameRef }}" src="{{ resSrc }}" onLoad="{{ resLoaded }}" title="{{ resTitle }}" style="flex: 1; width: 100%; border: none; background: #e9e4da;"></iframe>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const PLANTS = {
+  basil: { name: 'Thai Basil', glyph: '🌿', sprout: 6, seed: 'web/timeline-1-sown.jpg', young: 'web/basil-sprout.jpg', adult: 'web/basil-now.jpg' },
+  kangkong: { name: 'Kang Kong', glyph: '🥬', sprout: 4, seed: 'web/seed-kangkong.png', young: 'web/kangkong-sprout.jpg', adult: 'web/kangkong-now.jpg' },
+  bayam: { name: 'Bayam', glyph: '🍃', sprout: 5, seed: 'web/seed-bayam.png', young: 'web/bayam-sprout.jpg', adult: 'web/bayam-now.jpg' }
+};
+const SEED_IMG = 'web/timeline-1-sown.jpg';
+const CONTROLS = [
+  { id: 'water', title: '💧 Water', color: '#66ccff', opts: [['none', 'None'], ['day', 'Once a day'], ['hour', 'Every hour']] },
+  { id: 'light', title: '☀️ Light', color: '#ffb627', opts: [['dark', 'Dark'], ['shade', 'Shade'], ['sun', 'Sun']] },
+  { id: 'depth', title: '🕳️ How deep is the seed?', color: '#cd7bf5', opts: [['shallow', 'Shallow'], ['deep', 'Very deep']] },
+  { id: 'net', title: '🕸️ Net over the pot', color: '#5ee07a', opts: [['on', 'On'], ['off', 'Off']] },
+  { id: 'pot', title: '🪣 Holes in the pot', color: '#ff9f5a', opts: [['open', 'With holes'], ['closed', 'No holes']] }
+];
+const DISC = [
+  { key: 'healthy', glyph: '🪴', label: 'Healthy adult', fail: false },
+  { key: 'dry', glyph: '🏜️', label: 'No water', fail: true },
+  { key: 'deep', glyph: '🕳️', label: 'Too deep', fail: true },
+  { key: 'drowned', glyph: '🌊', label: 'Too much water', fail: true },
+  { key: 'pale', glyph: '🌑', label: 'No light', fail: true },
+  { key: 'slow', glyph: '⛅', label: 'Slow in shade', fail: true },
+  { key: 'eaten', glyph: '🦗', label: 'Leaves eaten', fail: true },
+  { key: 'nohole', glyph: '🪣', label: 'No drainage holes', fail: true }
+];
+const NEEDS = [['water', '💧 Water'], ['air', '💨 Air'], ['warmth', '🌡️ Warmth'], ['light', '☀️ Light'], ['soil', '🟫 Soil'], ['fertiliser', '🧪 Fertiliser'], ['darkness', '🌑 Darkness']];
+const QUIZ = [
+  { text: 'A seed was buried very deep and never came up. Why?', opts: ['It used up its stored food before it reached the light', 'It got too much sun', 'Seeds do not like soil'], answer: 0,
+    why: 'A seed has a little food stored inside. If it is too deep, the food runs out before the shoot reaches the light.' },
+  { text: 'A young plant kept in the dark grew thin and pale. What does it need?', opts: ['More water', 'Light', 'A net'], answer: 1,
+    why: 'A young plant needs light to make its food. Without light it turns pale and weak.' },
+  { text: 'How often should you water your seeds?', opts: ['Every hour', 'Never', 'Once a day, so the soil stays moist'], answer: 2,
+    why: 'Roots need air as well as water. Too much water drowns them.' }
+];
+const TOUR = ['plant', 'water', 'light', 'depth', 'net', 'pot', 'grow'];
+const HINTS = { plant: 'Pick the plant you are growing.', water: 'Choose how much water to give.', light: 'Choose where the pot sits: dark, shade or sun.', depth: 'Choose how deep the seed is planted.', net: 'Put a net over the pot, or leave it off.', pot: 'Does the pot have holes at the bottom?', grow: 'Tap ▶ Grow and watch 21 days go by.', more: 'Change ONE thing, then grow again. Can you find all 8?', done: 'You found them all! Open ③ Challenge for your stars.' };
+const KEY = 'ecas-sim1-v1';
+const API = 'https://script.google.com/macros/s/AKfycbwzNNlT2rPF-rm5mrD_PMoHacxfR2kPtYGt88eHv5L1qX8q19MRFDfv3BMc7AwTpGNWFw/exec';
+const AKEY = 'ecas-auth';
+const api = (body) => fetch(API, { method: 'POST', body: JSON.stringify(body) }).then(r => r.json());
+const SYNC_FIELDS = ['step', 'plant', 'water', 'light', 'depth', 'net', 'pot', 'pred', 'runs', 'found', 'answers', 'touched', 'jn', 'theme'];
+const PKEY = 'ecas-sim1-photos';
+const MS = [
+  { id: 'planted', glyph: '🌰', title: 'I planted my seed', stage: 'Seed stage' },
+  { id: 'sprout', glyph: '🌱', title: 'I sprouted!', stage: 'Young plant · germination' },
+  { id: 'leaves', glyph: '🌿', title: '4 or more leaves!', stage: 'Young plant' },
+  { id: 'grown', glyph: '🪴', title: 'I’m grown!', stage: 'Adult plant · maturation' }
+];
+const TAGS = [['planted', '🌰 Planted'], ['sprout', '🌱 Sprouted'], ['leaves', '🌿 4+ leaves'], ['grown', '🪴 Grown'], ['other', '📷 Other']];
+const fmtD = (iso) => { if (!iso) return ''; const d = new Date(iso + (iso.length === 10 ? 'T00:00' : '')); return d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short' }); };
+const todayISO = () => { const d = new Date(); return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); };
+const daysBetween = (a, b) => Math.round((new Date(b + 'T00:00') - new Date(a + 'T00:00')) / 86400000);
+
+function sim(s, d) {
+  const P = PLANTS[s.plant];
+  const r = { stage: 'seed', h: 0, filter: '', key: 'healthy', note: '', bug: false, dim: 0, scale: 1 };
+  if (s.water === 'none') { r.key = 'dry'; r.note = d < P.sprout ? 'Waiting… the soil is dry.' : 'No water, so the seed could not start growing.'; return r; }
+  if (s.depth === 'deep') { r.key = 'deep'; r.note = d < P.sprout + 2 ? 'Waiting… the seed is very deep.' : 'Too deep! The seed used up its stored food before it reached the light.'; return r; }
+  if (s.light === 'dark') r.dim = .55; else if (s.light === 'shade') r.dim = .25;
+  if (d < P.sprout) { r.note = 'The seed is taking in water. Something is happening inside…'; return r; }
+  const t = d - P.sprout;
+  r.stage = 'young';
+  if (s.water === 'hour') {
+    const lim = s.pot === 'closed' ? 2 : 3;
+    r.key = 'drowned'; r.h = Math.min(t, lim) * 0.8;
+    if (t >= lim) { r.filter = 'sepia(.85) hue-rotate(-12deg) saturate(1.5) brightness(.9)'; r.scale = .9; r.note = 'Too much water! The roots could not get air. The leaves turned yellow.'; }
+    else r.note = 'It sprouted. The soil is very soggy…';
+    return r;
+  }
+  if (s.light === 'dark') {
+    r.key = 'pale'; r.h = Math.min(t * 1.4, 9);
+    r.filter = 'saturate(.12) brightness(1.4) contrast(.8)'; r.scale = 1.05;
+    r.note = t > 5 ? 'No light. The young plant grew thin and pale, then stopped.' : 'It sprouted in the dark. It looks pale…';
+    return r;
+  }
+  if (s.pot === 'closed') {
+    r.key = 'nohole'; r.h = Math.min(t, 6) * 1.1;
+    if (t >= 6) { r.filter = 'sepia(.7) saturate(1.3) brightness(.92)'; r.note = 'No holes! The water could not drain out. The soil got soggy and the roots could not get air.'; }
+    else r.note = 'A young plant! The water is collecting at the bottom of the pot…';
+    return r;
+  }
+  const rate = s.light === 'shade' ? 0.55 : 1.25;
+  r.h = t * rate;
+  if (s.light === 'shade') { r.key = 'slow'; r.note = t > 6 ? 'In the shade it grew slowly. Move it to the sun once it sprouts.' : 'A young plant! It is growing slowly…'; }
+  else { r.note = 'A young plant! It is growing taller each day.'; }
+  if (r.h >= 12 && s.light === 'sun') { r.stage = 'adult'; r.note = 'An adult plant! Seed → young plant → adult plant.'; }
+  if (s.net === 'off' && d >= 12) { r.key = 'eaten'; r.bug = true; r.h *= .7; r.filter = 'brightness(.88) saturate(.8)'; r.note = 'A grasshopper ate the leaves! A net protects young plants.'; }
+  return r;
+}
+
+class Component extends DCLogic {
+  state = { step: 'predict', plant: 'kangkong', water: 'day', light: 'sun', depth: 'shallow', net: 'on', pot: 'open', day: 0, running: false, pred: [], runs: [], found: {}, answers: {}, touched: {}, jn: {}, theme: 'dark', toast: null };
+  componentDidMount() {
+    try { const a = JSON.parse(localStorage.getItem(AKEY) || 'null'); if (a) { this.setState({ auth: a }); setTimeout(() => this.pull(a), 0); } } catch (e) {}
+    try { const ph = JSON.parse(localStorage.getItem(PKEY) || '[]'); this.setState({ photos: ph }); } catch (e) {}
+    try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) this.setState({ ...s, pred: (s.pred || []).filter(p => NEEDS.some(n => n[0] === p)), running: false, day: 0, toast: null }); } catch (e) {}
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.toastT); clearTimeout(this.pushT); }
+  pull(a) {
+    this.setState({ sync: 'saving' });
+    api({ action: 'load', ...a }).then(res => {
+      if (!res.ok) { if (/sign in/i.test(res.error || '')) this.signOut(); this.setState({ sync: 'offline' }); return; }
+      if (res.state) this.applyRemote(res.state);
+      this.setState({ sync: 'saved' }); this.refreshPhotos();
+    }).catch(() => this.setState({ sync: 'offline' }));
+  }
+  applyRemote(st) {
+    const patch = {}; SYNC_FIELDS.forEach(k => { if (st[k] !== undefined) patch[k] = st[k]; });
+    if (patch.pred) patch.pred = patch.pred.filter(p => NEEDS.some(n => n[0] === p));
+    this.save(patch, true);
+  }
+  push() {
+    const a = this.state.auth; if (!a) return;
+    clearTimeout(this.pushT);
+    this.setState({ sync: 'saving' });
+    this.pushT = setTimeout(() => {
+      const st = {}; SYNC_FIELDS.forEach(k => st[k] = this.state[k]);
+      st.quizOk = QUIZ.every((q, i) => (this.state.answers || {})[i] === q.answer);
+      api({ action: 'save', ...a, state: st }).then(res => this.setState({ sync: res.ok ? 'saved' : 'offline' })).catch(() => this.setState({ sync: 'offline' }));
+    }, 2500);
+  }
+  signIn() {
+    const f = this.state.signin || {}, name = String(f.name || '').trim().replace(/\s+/g, ' ').slice(0, 60), cls = String(f.cls || '').trim().toUpperCase(), reg = String(f.reg || '').trim(), pin = String(f.pin || '').trim();
+    if (!name) return this.setState({ signErr: 'Type your name.' });
+    if (!cls || !reg) return this.setState({ signErr: 'Choose your class and type your register number.' });
+    if (!/^\d{4}$/.test(pin)) return this.setState({ signErr: 'Your PIN must be 4 numbers.' });
+    this.setState({ signing: true, signErr: '' });
+    api({ action: 'login', cls, reg, pin, name }).then(res => {
+      if (!res.ok) return this.setState({ signing: false, signErr: res.error || 'Could not sign in.' });
+      const auth = { cls, reg, pin, name };
+      try { localStorage.setItem(AKEY, JSON.stringify(auth)); } catch (e) {}
+      this.setState({ auth, signing: false, offline: false, signin: {}, sync: 'saved' });
+      if (res.state) this.applyRemote(res.state);
+      else { if (res.plant && PLANTS[res.plant]) this.save({ plant: res.plant }); else this.push(); }
+      this.refreshPhotos();
+    }).catch(() => this.setState({ signing: false, signErr: 'No internet connection. Try again, or use practice mode.' }));
+  }
+  openRes(r, print) {
+    this.resFrame = this.resFrame || React.createRef();
+    this.wantPrint = !!print;
+    this.setState({ res: { src: r.open, title: r.title } });
+  }
+  printRes() {
+    const f = this.resFrame && this.resFrame.current;
+    try { f.contentWindow.focus(); f.contentWindow.print(); } catch (e) { window.open(this.state.res.src, '_blank'); }
+  }
+  tCall(body) {
+    return api({ action: 'teacher', teacherPin: this.tPass || '', cls: (this.state.tCls || '').trim().toUpperCase(), ...body });
+  }
+  tUnlock() {
+    this.tPass = this.state.tPwd || '';
+    this.setState({ tBusy: true, tErr: '' });
+    this.tCall({ task: 'dashboard' }).then(res => {
+      if (!res.ok) { this.tPass = ''; return this.setState({ tBusy: false, tErr: res.error === 'Wrong teacher PIN.' ? 'Wrong password.' : (res.error || 'Could not connect.') }); }
+      this.setState({ tBusy: false, tOk: true, tPwd: '', tStudents: res.students || [], tStatus: 'Updated ' + new Date().toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' }) });
+    }).catch(() => this.setState({ tBusy: false, tErr: 'No internet connection.' }));
+  }
+  tLoad(tab) {
+    const t = tab || this.state.tTab || 'students';
+    this.setState({ tStatus: 'Loading…' });
+    const task = t === 'photos' ? 'pending' : 'dashboard';
+    this.tCall({ task }).then(res => {
+      if (!res.ok) return this.setState({ tStatus: res.error || 'Error' });
+      const at = 'Updated ' + new Date().toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' });
+      if (task === 'pending') this.setState({ tPhotos: res.photos || [], tStatus: at }); else this.setState({ tStudents: res.students || [], tStatus: at });
+    }).catch(() => this.setState({ tStatus: 'No internet connection.' }));
+  }
+  tTool(task, extra, okMsg) {
+    const f = this.state.tToolF || {}, cls = String(f.cls || '').trim().toUpperCase(), reg = String(f.reg || '').trim();
+    if (!cls || !reg) return this.setState({ tToolMsg: 'Type the class and register number first.' });
+    api({ action: 'teacher', teacherPin: this.tPass || '', task, cls, reg, ...extra }).then(res => this.setState({ tToolMsg: res.ok ? okMsg : (res.error || 'Error') })).catch(() => this.setState({ tToolMsg: 'No internet connection.' }));
+  }
+  signOut() { try { localStorage.removeItem(AKEY); } catch (e) {} this.setState({ auth: null, offline: false, sync: '' }); }
+  refreshPhotos() {
+    const a = this.state.auth; if (!a) return;
+    api({ action: 'myPhotos', ...a }).then(res => {
+      if (!res.ok) return;
+      const byId = {}; (res.photos || []).forEach(p => byId[p.id] = p.status);
+      const ph = (this.state.photos || []).map(p => p.serverId && byId[p.serverId] ? { ...p, status: byId[p.serverId] } : p);
+      this.savePhotos(ph);
+    }).catch(() => {});
+  }
+  save(patch, fromRemote) {
+    this.setState(patch, () => {
+      if (!fromRemote && this.state.auth) this.push();
+      const { step, plant, water, light, depth, net, pot, pred, runs, found, answers, touched, jn, theme } = this.state;
+      try { localStorage.setItem(KEY, JSON.stringify({ step, plant, water, light, depth, net, pot, pred, runs, found, answers, touched, jn, theme })); } catch (e) {}
+    });
+  }
+  setJ(patch) { this.save({ jn: { ...(this.state.jn || {}), ...patch } }); }
+  savePhotos(photos) {
+    try { localStorage.setItem(PKEY, JSON.stringify(photos)); this.setState({ photos, photoMsg: '' }); }
+    catch (e) { this.setState({ photoMsg: 'This device is full. Delete an old photo first.' }); }
+  }
+  addPhoto(file) {
+    if (!file) return;
+    if ((this.state.photos || []).length >= 12) { this.setState({ photoMsg: 'You can keep 12 photos here. Delete one to add another.' }); return; }
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const k = Math.min(1, 900 / Math.max(img.width, img.height)), c = document.createElement('canvas');
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+      const a = this.state.auth;
+      const p = { id: Date.now(), src: c.toDataURL('image/jpeg', 0.72), tag: this.state.photoTag || 'other', caption: '', date: todayISO(), status: a ? 'sending' : 'local' };
+      this.savePhotos([p, ...(this.state.photos || [])]);
+      if (a) api({ action: 'upload', ...a, image: p.src, tag: p.tag, caption: '' }).then(res => {
+        const ph = (this.state.photos || []).map(x => x.id === p.id ? { ...x, serverId: res.ok ? res.id : undefined, status: res.ok ? 'pending' : 'local' } : x);
+        this.savePhotos(ph); if (!res.ok) this.setState({ photoMsg: res.error || 'Could not send the photo.' });
+      }).catch(() => { this.savePhotos((this.state.photos || []).map(x => x.id === p.id ? { ...x, status: 'local' } : x)); this.setState({ photoMsg: 'No internet. The photo is saved on this device only.' }); });
+    };
+    img.onerror = () => this.setState({ photoMsg: 'That file is not a photo. Try again.' });
+    img.src = url;
+  }
+  stop() { clearInterval(this.timer); this.timer = null; }
+  setCtl(id, v) { this.stop(); this.save({ [id]: v, day: 0, running: false, toast: null, view: 'bench', touched: { ...this.state.touched, [id]: true } }); }
+  grow() {
+    if (this.state.running) { this.stop(); this.setState({ running: false }); return; }
+    const start = this.state.day >= 21 ? 0 : this.state.day;
+    this.save({ day: start, running: true, toast: null, view: 'bench', touched: { ...this.state.touched, grow: true } });
+    this.timer = setInterval(() => {
+      const prev = sim(this.state, this.state.day).stage;
+      const d = this.state.day + 1;
+      const now = sim(this.state, d);
+      if (prev !== now.stage) this.showToast(now.stage);
+      if (d >= 21) { this.stop(); this.finish(now); this.setState({ day: 21, running: false }); }
+      else this.setState({ day: d });
+    }, 420);
+  }
+  showToast(stage) {
+    const t = stage === 'young' ? ['Germination!', 'The seed started to grow into a young plant.'] : ['Maturation!', 'The young plant grew into an adult plant.'];
+    clearTimeout(this.toastT);
+    this.setState({ toast: t });
+    this.toastT = setTimeout(() => this.setState({ toast: null }), 2000);
+  }
+  finish(r) {
+    const s = this.state, P = PLANTS[s.plant];
+    const d = DISC.find(x => x.key === r.key);
+    const lab = (id) => CONTROLS.find(c => c.id === id).opts.find(o => o[0] === s[id])[1];
+    const run = { glyph: d.glyph, label: d.label, summary: `${P.name} · water ${lab('water').toLowerCase()} · ${lab('light').toLowerCase()} · ${lab('depth').toLowerCase()} · net ${lab('net').toLowerCase()} · ${lab('pot').toLowerCase()}` };
+    this.save({ runs: [run, ...s.runs].slice(0, 6), found: { ...s.found, [r.key]: true } });
+  }
+  renderVals() {
+    const s0 = this.state, s = { ...s0, pred: (s0.pred || []).filter(p => NEEDS.some(n => n[0] === p)) }, P = PLANTS[s.plant] || PLANTS.kangkong;
+    const r = sim(s, s.day);
+    const foundCount = Object.keys(s.found).length;
+    const fails = DISC.filter(d => d.fail && s.found[d.key]).length;
+    const quizOk = QUIZ.every((q, i) => s.answers[i] === q.answer);
+    const starOn = [!!s.found.healthy, fails >= 2, quizOk];
+    const guide = TOUR.find(t => !s.touched[t]) || (foundCount >= 8 ? 'done' : 'more');
+    const seg = (on, color) => `${on ? 'animation: scBoop 460ms cubic-bezier(.2,1.8,.4,1); ' : ''}flex: 1; min-height: 50px; padding: 8px 10px; border-radius: 12px; border: 1px solid ${on ? color : 'rgba(255,255,255,.14)'}; background: ${on ? color + '2e' : '#0e1925'}; color: ${on ? '#fff' : '#d6dee6'}; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: ${on ? '0 0 14px ' + color + '55' : 'none'}; transition: all 120ms ease-out;`;
+    const cardStyle = (lift) => `position: relative; padding: 12px 14px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); transition: box-shadow 300ms ease;${lift ? ' z-index: 3; animation: scJump 620ms cubic-bezier(.2,1.5,.4,1) both, scBob 1.9s ease-in-out 620ms infinite; box-shadow: 0 22px 44px rgba(0,0,0,.45), 0 0 34px rgba(255,182,39,.32);' : ''}`;
+    const stageMeta = { seed: ['🌰 Seed', '#ffb627'], young: ['🌱 Young plant', '#5ee07a'], adult: ['🪴 Adult plant', '#cd7bf5'] }[r.stage];
+    const img = r.stage === 'seed' ? P.seed : r.stage === 'young' ? P.young : P.adult;
+    const heavy = s.water === 'hour';
+    const drops = (s.running && s.water !== 'none') ? (heavy ? [8, 18, 28, 38, 48, 58, 68, 78, 88, 23, 53, 73] : [30, 50, 70]).map((left, i) => ({
+      style: `position: absolute; left: ${left}%; top: -8%; width: ${heavy ? 2.2 : 3}cqw; height: ${heavy ? 3.2 : 4.4}cqw; border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; background: radial-gradient(circle at 35% 65%, #e6f7ff 0 12%, #66ccff 40%, #2f6fd6 100%); box-shadow: 0 0 .8cqw rgba(102,204,255,.7); clip-path: polygon(50% 0, 88% 52%, 100% 72%, 90% 92%, 50% 100%, 10% 92%, 0 72%, 12% 52%); animation: scDrip ${heavy ? 0.7 : 1.5}s ease-in ${(i * (heavy ? 0.13 : 0.5)).toFixed(2)}s infinite; pointer-events: none;`
+    })) : [];
+    const bad = r.key !== 'healthy' && (r.filter || r.stage === 'seed') && s.day >= P.sprout + 2;
+    const tabs = [['predict', '① Predict'], ['experiment', '② Experiment'], ['challenge', '③ Challenge'], ['journal', '📓 E-journal'], ['resources', '📁 Resources']].map(([id, label]) => ({
+      label, go: () => this.save({ step: id }),
+      style: `white-space: nowrap; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid ${s.step === id ? '#ffb627' : 'rgba(255,255,255,.14)'}; background: ${s.step === id ? 'rgba(255,182,39,.16)' : '#0e1925'}; color: ${s.step === id ? '#ffb627' : '#d6dee6'}; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;${id === 'challenge' && guide === 'done' && s.step !== 'challenge' ? ' animation: scPulse 1.6s ease-in-out infinite;' : ''}`
+    }));
+    return {
+      ...(() => {
+        const gate = !s.auth && !s.offline, f = s.signin || {}, setF = (k) => (e) => this.setState({ signin: { ...(this.state.signin || {}), [k]: e.target.value }, signErr: '' });
+        const SY = { saving: ['☁️ Saving…', '#ffb627'], saved: ['☁️ Saved', '#5ee07a'], offline: ['⚠️ Not saved', '#ff6a5e'] }[s.sync] || ['☁️', '#8a98a6'];
+        const fmt = (v) => { if (!v) return '—'; const d = new Date(v); return isNaN(d) ? String(v) : d.toLocaleDateString('en-SG', { day: 'numeric', month: 'short' }); };
+        const tTab = s.tTab || 'students', kids = s.tStudents || [];
+        const red = kids.filter(k => k.planted && !k.sprouted).length, amber = kids.filter(k => k.status && k.status !== 'healthy').length;
+        const tf = s.tToolF || {}, setTF = (k) => (e) => this.setState({ tToolF: { ...(this.state.tToolF || {}), [k]: e.target.value }, tToolMsg: '' });
+        const teacherVals = {
+          titleTap: () => { this.taps = (this.taps || 0) + 1; clearTimeout(this.tapT); this.tapT = setTimeout(() => this.taps = 0, 1500); if (this.taps >= 5) { this.taps = 0; this.setState({ tOpen: true }); } },
+          tOpen: !!s.tOpen, tClose: () => this.setState({ tOpen: false }),
+          tLocked: !s.tOk, tUnlocked: !!s.tOk, tPwd: s.tPwd || '', onTPwd: (e) => this.setState({ tPwd: e.target.value, tErr: '' }),
+          tPwdKey: (e) => { if (e.key === 'Enter') this.tUnlock(); }, tErr: s.tErr || '', tUnlock: () => this.tUnlock(), tUnlockLabel: s.tBusy ? 'Checking…' : 'Unlock',
+          tTabs: [['students', '📋 Students'], ['photos', '📷 Photos to check'], ['tools', '🔧 Tools']].map(([id, label]) => ({ label, go: () => { this.setState({ tTab: id }); if (id !== 'tools') this.tLoad(id); },
+            style: `white-space: nowrap; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid ${tTab === id ? '#ffb627' : 'rgba(255,255,255,.14)'}; background: ${tTab === id ? 'rgba(255,182,39,.16)' : '#0e1925'}; color: ${tTab === id ? '#ffb627' : '#d6dee6'}; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;` })),
+          tCls: s.tCls || '', onTCls: (e) => this.setState({ tCls: e.target.value }), tRefresh: () => this.tLoad(), tStatus: s.tStatus || '',
+          tIsStudents: tTab === 'students', tIsPhotos: tTab === 'photos', tIsTools: tTab === 'tools',
+          tCount: { green: kids.length - red - amber, amber, red, total: kids.length }, tNoStudents: !kids.length,
+          tStudents: kids.map(k => ({ cls: k.cls, reg: k.reg, name: k.name || '—', plant: (PLANTS[k.plant] || {}).name || k.plant || '—', stars: '⭐'.repeat(Number(k.stars) || 0) || '—', planted: fmt(k.planted), sprouted: fmt(k.sprouted), leaves4: fmt(k.leaves4), grown: fmt(k.grown), pre: k.pre || '—', post: k.post || '—', lastSeen: fmt(k.lastSeen) })),
+          tNoPhotos: !(s.tPhotos || []).length,
+          tPhotos: (s.tPhotos || []).map(p => ({ who: p.cls + ' #' + p.reg, meta: ((PLANTS[p.plant] || {}).name || p.plant) + ' · ' + ((TAGS.find(t => t[0] === p.tag) || TAGS[4])[1]) + ' · ' + fmt(p.date), caption: p.caption || '', tag: p.tag,
+            bg: `aspect-ratio: 4 / 3; background: #04070c url('${p.image}') center / cover no-repeat;`,
+            approve: () => this.tCall({ task: 'review', id: p.id, status: 'approved' }).then(() => this.setState({ tPhotos: (this.state.tPhotos || []).filter(x => x.id !== p.id) })),
+            hide: () => this.tCall({ task: 'review', id: p.id, status: 'hidden' }).then(() => this.setState({ tPhotos: (this.state.tPhotos || []).filter(x => x.id !== p.id) })) })),
+          tTool: { cls: tf.cls || '', reg: tf.reg || '', pin: tf.pin || '', buddy: tf.buddy || '' },
+          onToolCls: setTF('cls'), onToolReg: setTF('reg'), onToolPin: setTF('pin'), onToolBuddy: setTF('buddy'),
+          tResetPin: () => { if (!/^\d{4}$/.test(tf.pin || '')) return this.setState({ tToolMsg: 'The new PIN must be 4 numbers.' }); this.tTool('resetPin', { newPin: tf.pin }, 'PIN reset. Tell the student their new PIN.'); },
+          tPlantBtns: Object.keys(PLANTS).map(k => ({ label: PLANTS[k].glyph + ' ' + PLANTS[k].name, go: () => this.tTool('setPlant', { value: k }, 'Plant changed to ' + PLANTS[k].name + '.') })),
+          tSetBuddy: () => this.tTool('setBuddy', { value: tf.buddy || '' }, 'Buddy group saved.'),
+          tToolMsg: s.tToolMsg || ''
+        };
+        return { ...teacherVals, needSignIn: gate, signin: { name: f.name || '', cls: f.cls || '', reg: f.reg || '', pin: f.pin || '' }, onName: setF('name'), onCls: setF('cls'), onReg: setF('reg'), onPin: setF('pin'),
+          signErr: s.signErr || '', signLabel: s.signing ? 'Signing in…' : 'Sign in →', signIn: () => this.signIn(),
+          goOffline: () => this.setState({ offline: true }), signOut: () => this.signOut(),
+          who: s.auth ? (s.auth.name ? s.auth.name + ' · ' : '') + s.auth.cls + ' #' + s.auth.reg : (s.offline ? 'Practice mode' : ''),
+          syncText: s.auth ? SY[0] : 'not saved', syncStyle: `font-size: 12px; font-weight: 900; color: ${s.auth ? SY[1] : '#8a98a6'};` };
+      })(),
+      tabs: (s.auth || s.offline) ? tabs : [], isPredict: s.step === 'predict' && (s.auth || s.offline), isExperiment: s.step === 'experiment' && !!(s.auth || s.offline), isChallenge: s.step === 'challenge' && !!(s.auth || s.offline), isJournal: s.step === 'journal' && !!(s.auth || s.offline), isResources: s.step === 'resources' && !!(s.auth || s.offline),
+      resOpen: !!s.res, resTitle: s.res ? s.res.title : '', resSrc: s.res ? s.res.src : 'about:blank',
+      resHint: 'In the print window, choose “Save as PDF” as the printer.',
+      resFrameRef: this.resFrame || (this.resFrame = React.createRef()),
+      resLoaded: () => { if (this.wantPrint) { this.wantPrint = false; setTimeout(() => this.printRes(), 1400); } },
+      resPrint: () => this.printRes(), resClose: () => this.setState({ res: null }),
+      resGroupsRaw: null,
+      resGroups: ([
+        { title: '👩‍🏫 For teachers', items: [
+          { glyph: '📘', title: 'Teacher lesson plan', meta: 'A4 · portrait', note: 'All 4 periods, check-ins, answer key, reflection, misconceptions.', open: 'ECAS%20Lesson%20Plan.dc.html', pdf: 'ECAS%20Lesson%20Plan.dc.html?print=1' } ] },
+        { title: '🧒 For students · printed Plant Journal', items: [
+          { glyph: '🌿', title: 'Thai Basil Journal', meta: 'A5 · 20 pages', note: 'For students who drew Thai Basil seeds.', open: 'ECAS%20Plant%20Journal.dc.html?plant=basil', pdf: 'ECAS%20Plant%20Journal.dc.html?plant=basil&print=1' },
+          { glyph: '🥬', title: 'Kang Kong Journal', meta: 'A5 · 20 pages', note: 'For students who drew Kang Kong seeds.', open: 'ECAS%20Plant%20Journal.dc.html?plant=kangkong', pdf: 'ECAS%20Plant%20Journal.dc.html?plant=kangkong&print=1' },
+          { glyph: '🍃', title: 'Bayam Journal', meta: 'A5 · 20 pages', note: 'For students who drew Bayam seeds.', open: 'ECAS%20Plant%20Journal.dc.html?plant=bayam', pdf: 'ECAS%20Plant%20Journal.dc.html?plant=bayam&print=1' } ] }
+      ]).map(g => ({ ...g, items: g.items.map(r => ({ ...r, view: () => this.openRes(r, false), save: () => this.openRes(r, true) })) })),
+      ...(() => {
+        const jn = s.jn || {}, setJ = (k) => (e) => this.save({ jn: { ...(this.state.jn || {}), [k]: e.target.value } });
+        const REL = { water: ['dry', 'drowned', 'healthy'], light: ['pale', 'slow', 'healthy'], depth: ['deep', 'healthy'], net: ['eaten', 'healthy'], pot: ['nohole', 'healthy'] };
+        const PH = { water: 'With no water… With water every hour…', light: 'In the dark… In the shade…', depth: 'When the seed was very deep…', net: 'With no net…', pot: 'With no holes in the pot…' };
+        const chip = (d) => ({ label: d.glyph + ' ' + d.label, style: `white-space: nowrap; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 800; background: ${d.fail ? 'rgba(232,73,63,.14)' : 'rgba(94,224,122,.14)'}; color: ${d.fail ? '#ff6a5e' : '#5ee07a'};` });
+        const meas = (jn.meas && jn.meas.length ? jn.meas : [{}, {}, {}]);
+        const num = (v) => { const n = parseFloat(v); return isNaN(n) ? null : n; };
+        const setM = (i, k) => (e) => { const m = meas.map(x => ({ ...x })); m[i][k] = e.target.value; this.setJ({ meas: m }); };
+        const rows = meas.map((m, i) => { const t = num(m.tall), sh = num(m.short), ok = t !== null && sh !== null;
+          return { label: 'Week ' + (i + 1), tall: m.tall || '', short: m.short || '', onTall: setM(i, 'tall'), onShort: setM(i, 'short'),
+            diff: ok ? Math.abs(t - sh).toFixed(1) + ' cm' : '—', avg: ok ? ((t + sh) / 2).toFixed(1) + ' cm' : '—',
+            remove: () => this.setJ({ meas: meas.filter((_, j) => j !== i) }), t, sh, ok }; });
+        const maxH = Math.max(5, ...rows.filter(r => r.ok).map(r => Math.max(r.t, r.sh)));
+        const bar = (v, col) => `width: 28%; max-width: 30px; height: ${Math.max(2, v / maxH * 100)}%; border-radius: 8px 8px 3px 3px; background: ${col}; transition: height 300ms ease;`;
+        const ms = jn.ms || {}, planted = jn.planted || '';
+        const sproutDays = planted && ms.sprout ? daysBetween(planted, ms.sprout) : null;
+        const phs = this.state.photos || [];
+        return {
+          onPlanted: (e) => this.setJ({ planted: e.target.value, ms: { ...ms, planted: e.target.value || undefined } }),
+          dayCount: planted ? `Day ${Math.max(0, daysBetween(planted, todayISO()))} since planting` : 'Pick your planting date',
+          milestones: MS.map(m => { const done = !!(ms[m.id] || (m.id === 'planted' && planted));
+            const idx = MS.findIndex(x => x.id === m.id), prev = MS.slice(0, idx).map(x => ms[x.id]).filter(Boolean).pop() || '';
+            return { ...m, done, when: done ? fmtD(ms[m.id] || planted) : '', iso: ms[m.id] || (m.id === 'planted' ? planted : '') || '', min: m.id === 'planted' ? '' : prev, max: todayISO(),
+              onDate: (e) => { const v = e.target.value; if (!v) return; const n = { ...ms, [m.id]: v }; this.setJ({ ms: n, ...(m.id === 'planted' ? { planted: v } : {}) }); },
+              extra: m.id === 'sprout' && sproutDays !== null ? `Took ${sproutDays} days to sprout` : '',
+              btnLabel: done ? 'Undo' : m.id === 'planted' ? 'Planted today' : 'It happened today!',
+              toggle: () => { const n = { ...ms }; if (done) delete n[m.id]; else n[m.id] = todayISO(); this.setJ({ ms: n, ...(m.id === 'planted' ? { planted: done ? '' : n.planted } : {}) }); },
+              btn: `min-height: 40px; border-radius: 10px; border: 1px solid ${done ? 'rgba(255,255,255,.14)' : '#5ee07a'}; background: ${done ? '#2b3340' : 'rgba(94,224,122,.14)'}; color: ${done ? '#d6dee6' : '#5ee07a'}; font: inherit; font-size: 14px; font-weight: 900; cursor: pointer;`,
+              style: `display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 16px; background: ${done ? 'rgba(94,224,122,.1)' : '#0e1925'}; border: 1px solid ${done ? '#5ee07a' : 'rgba(255,255,255,.08)'};` }; }),
+          ...(() => {
+            const PX = (x) => (x / 640 * 100).toFixed(2) + '%', PY = (y) => (y / 320 * 100).toFixed(2) + '%';
+            const SAMPLE = [[2.0, 1.0], [5.5, 3.0], [11.0, 6.5], [12.5, 9.0]];
+            const sampleOn = !!this.state.sampleOn;
+            const okRows = sampleOn ? SAMPLE.map(([t, sh], i) => ({ label: 'Week ' + (i + 1), t, sh, ok: true })) : rows.filter(r => r.ok);
+            const plotted = sampleOn || (!!jn.plotted && okRows.length >= 2);
+            const X0 = 56, X1 = 620, Y0 = 280, Y1 = 24, n = okRows.length;
+            const top = Math.max(4, Math.ceil(Math.max(0, ...okRows.map(r => Math.max(r.t, r.sh))) / 4) * 4);
+            const xp = (i) => n <= 1 ? (X0 + X1) / 2 : X0 + 30 + (i / (n - 1)) * (X1 - X0 - 60), yp = (v) => Y0 - (v / top) * (Y0 - Y1);
+            const line = (k) => okRows.map((r, i) => (i ? 'L' : 'M') + xp(i).toFixed(1) + ' ' + yp(k(r)).toFixed(1)).join(' ');
+            const grows = okRows.map((r, i) => i ? r.t - okRows[i - 1].t : null);
+            let bi = -1; grows.forEach((gv, i) => { if (gv !== null && (bi < 0 || gv > grows[bi])) bi = i; });
+            const trend = n >= 2 ? (okRows[n - 1].t - okRows[0].t > 0.2 ? 'up' : okRows[n - 1].t - okRows[0].t < -0.2 ? 'down' : 'flat') : '';
+            const chip = (on, ok) => `white-space: nowrap; min-height: 42px; padding: 4px 16px; border-radius: 999px; border: 1px solid ${on ? (ok ? '#5ee07a' : '#e8493f') : 'rgba(255,255,255,.14)'}; background: ${on ? (ok ? 'rgba(94,224,122,.14)' : 'rgba(232,73,63,.12)') : '#0e1925'}; color: ${on ? (ok ? '#5ee07a' : '#ff6a5e') : '#d6dee6'}; font: inherit; font-size: 15px; font-weight: 900; cursor: pointer;`;
+            const fb = (ok) => `padding: 8px 12px; border-radius: 10px; font-size: 15px; font-weight: 800; background: ${ok ? 'rgba(94,224,122,.12)' : 'rgba(232,73,63,.12)'}; color: ${ok ? '#5ee07a' : '#ff6a5e'};`;
+            const bestLabel = bi > 0 ? okRows[bi].label : '—';
+            const total = n >= 2 ? (okRows[n - 1].t - okRows[0].t) : 0;
+            const fact = (label, value, color) => ({ label, value, color, style: 'padding: 10px 12px; border-radius: 12px; background: #0e1925; border: 1px solid rgba(255,255,255,.08); animation: scRise 500ms ease-out 1.8s both;' });
+            const addWord = (w) => this.setJ({ concl: ((this.state.jn || {}).concl || '').replace(/\s*$/, '') + ((this.state.jn || {}).concl ? ' ' : '') + w });
+            return {
+              meas: rows, addWeek: () => this.setJ({ meas: [...meas, {}] }),
+              plotGraph: () => { const own = rows.filter(r => r.ok); if (own.length < 2) return this.setState({ sampleOn: false, plotMsg: 'You need at least 2 weeks of your own measurements. Until then, tap 🧪 Try sample data.' }); this.setState({ sampleOn: false, plotMsg: '', plotKey: (this.state.plotKey || 0) + 1 }); this.setJ({ plotted: true }); },
+              trySample: () => this.setState({ sampleOn: true, plotMsg: '', plotKey: (this.state.plotKey || 0) + 1 }),
+              sampleOn, useMine: () => this.setState({ sampleOn: false, plotKey: (this.state.plotKey || 0) + 1 }),
+              sampleBtnStyle: `align-self: flex-start; min-height: 56px; padding: 0 22px; border-radius: 16px; border: 2px dashed ${sampleOn ? '#ffb627' : 'rgba(255,182,39,.6)'}; background: ${sampleOn ? 'rgba(255,182,39,.16)' : 'rgba(255,182,39,.06)'}; color: #ffb627; font: inherit; font-size: 18px; font-weight: 900; cursor: pointer;${!sampleOn && rows.filter(r => r.ok).length < 2 ? ' animation: scPulse 1.6s ease-in-out infinite;' : ''}`,
+              look: (() => {
+                if (n < 2) return [];
+                let fi = -1; grows.forEach((gv, i) => { if (gv !== null && (fi < 0 || gv < grows[fi])) fi = i; });
+                const L = okRows[n - 1], gapMid = yp((L.t + L.sh) / 2);
+                const mk = (num, x, y, color, delay) => ({ num, lab: `position: absolute; left: ${PX(x)}; top: ${PY(y)}; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; background: #ffb627; border: 3px solid #04070c; color: #04070c; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; box-shadow: 0 0 14px rgba(255,182,39,.7); pointer-events: none; opacity: 0; animation: scDot 480ms cubic-bezier(.2,1.6,.4,1) ${delay}s forwards;`, style: `transform-box: fill-box; transform-origin: center; opacity: 0; animation: scDot 480ms cubic-bezier(.2,1.6,.4,1) ${delay}s forwards;` });
+                const mid = (i, k) => [(xp(i - 1) + xp(i)) / 2, (yp(k(okRows[i - 1])) + yp(k(okRows[i]))) / 2];
+                const s1 = mid(bi, r => r.t), s4 = mid(fi, r => r.t);
+                const out = [mk(1, xp(0) + 26, yp(okRows[0].t) - 26, '#ffb627', 1.8), mk(2, s1[0] - 26, s1[1] - 10, '#ffb627', 2.1), mk(3, xp(n - 1) + 24, gapMid, '#ffb627', 2.4)];
+                if (fi !== bi && fi > 0) out.push(mk(4, s4[0] + 4, s4[1] - 26, '#ffb627', 2.7));
+                return out;
+              })(),
+              gapLine: (() => { if (n < 1) return { show: false }; const L = okRows[n - 1], x = xp(n - 1) + 12; return { show: n >= 2, x: x.toFixed(1), y1: yp(L.t).toFixed(1), y2: yp(L.sh).toFixed(1) }; })(),
+              lookTips: (() => {
+                const L = okRows[n - 1] || { t: 0, sh: 0 };
+                const tips = [
+                  ['1', 'Which way does the line go?', 'Follow the green line from left to right. Going up means the plant is getting taller.'],
+                  ['2', 'Find the steepest part', `The steepest part shows the week it grew the most. Here: ${bestLabel}.`],
+                  ['3', 'Look at the gap', `The space between green and blue is the difference between your tallest and shortest. In the last week: ${Math.abs(L.t - L.sh).toFixed(1)} cm.`]
+                ];
+                let fi = -1; grows.forEach((gv, i) => { if (gv !== null && (fi < 0 || gv < grows[fi])) fi = i; });
+                if (fi !== bi && fi > 0) tips.push(['4', 'Spot where it slows down', `A flatter part means it grew less that week (${okRows[fi].label}). What might it need?`]);
+                return tips.map(([num, title, text], i) => ({ num, title, text, style: `display: grid; grid-template-columns: 34px minmax(0,1fr); gap: 10px; align-items: start; padding: 10px 12px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,182,39,.3); opacity: 0; animation: scRise 480ms ease-out ${(1.9 + i * 0.3).toFixed(1)}s forwards;` }));
+              })(),
+              plotLabel: plotted ? '🔁 Plot it again' : '✨ Plot my graph', plotMsg: this.state.plotMsg || '',
+              plotBtnStyle: `align-self: flex-start; min-height: 56px; padding: 0 26px; border-radius: 16px; border: none; background: linear-gradient(90deg, #34b14d, #2f6fd6); color: #fff; font: inherit; font-size: 19px; font-weight: 900; cursor: pointer; box-shadow: 0 0 18px rgba(74,144,226,.45);${okRows.length >= 2 && !plotted ? ' animation: scPulse 1.6s ease-in-out infinite;' : ''}`,
+              g: { show: plotted, key: 'g' + (this.state.plotKey || 0),
+                grid: [0, .25, .5, .75, 1].map(f => ({ y: yp(top * f).toFixed(1), label: String(Math.round(top * f)), lab: `position: absolute; right: calc(100% - ${PX(48)}); top: ${PY(yp(top * f))}; transform: translateY(-50%); font-size: 13px; font-weight: 800; color: #8a98a6; pointer-events: none;` })),
+                xs: okRows.map((r, i) => ({ label: r.label.replace('Week ', 'Wk '), lab: `position: absolute; left: ${PX(xp(i))}; top: ${PY(298)}; transform: translate(-50%, -50%); font-size: 14px; font-weight: 900; color: #d6dee6; white-space: nowrap; pointer-events: none;` })),
+                tallD: line(r => r.t), shortD: line(r => r.sh), avgD: line(r => (r.t + r.sh) / 2),
+                areaD: n >= 2 ? line(r => r.t) + ` L${xp(n - 1).toFixed(1)} ${Y0} L${xp(0).toFixed(1)} ${Y0} Z` : '',
+                pts: okRows.flatMap((r, i) => [[r.t, '#5ee07a', -17], [r.sh, '#66ccff', 17]].map(([v, fill, dy], j) => ({ x: xp(i).toFixed(1), y: yp(v).toFixed(1), v: v.toFixed(1), fill,
+                  lab: `position: absolute; left: ${PX(xp(i))}; top: ${PY(yp(v) + dy)}; transform: translate(-50%, -50%); font-size: 13px; font-weight: 900; color: ${fill}; white-space: nowrap; pointer-events: none; opacity: 0; animation: scFadeIn 400ms ease ${(0.45 + i * (1.2 / Math.max(1, n - 1)) + j * 0.25).toFixed(2)}s forwards;`,
+                  style: `transform-box: fill-box; transform-origin: center; opacity: 0; animation: scDot 420ms cubic-bezier(.2,1.6,.4,1) ${(0.25 + i * (1.2 / Math.max(1, n - 1)) + j * 0.25).toFixed(2)}s forwards;` }))),
+                facts: n >= 2 ? [fact('Total growth', (total >= 0 ? '+' : '') + total.toFixed(1) + ' cm', '#5ee07a'), fact('Grew the most', bestLabel + (bi > 0 ? ' (+' + grows[bi].toFixed(1) + ' cm)' : ''), '#ffb627'), fact('Tallest so far', Math.max(...okRows.map(r => r.t)).toFixed(1) + ' cm', '#66ccff')] : [],
+                first: n ? okRows[0].t.toFixed(1) + ' cm' : '__ cm', last: n ? okRows[n - 1].t.toFixed(1) + ' cm' : '__ cm', weeks: n >= 2 ? (n - 1) + (n - 1 === 1 ? ' week' : ' weeks') : '__ weeks', bestWeek: bestLabel },
+              trendBtns: [['up', '📈 Going up'], ['flat', '➡️ Staying flat'], ['down', '📉 Going down']].map(([id, label]) => ({ label, pick: () => this.setJ({ gq1: id }), style: chip(jn.gq1 === id, id === trend) })),
+              trendFb: jn.gq1 ? (jn.gq1 === trend ? (trend === 'up' ? '✅ Yes! Going up means your plant is getting taller each week.' : trend === 'flat' ? '✅ Yes. A flat line means it stopped growing. What might it need?' : '✅ Yes. Going down can mean leaves were eaten or the plant drooped.') : '❌ Look again. Follow the green line from left to right.') : '',
+              trendFbStyle: fb(jn.gq1 === trend),
+              weekBtns: okRows.slice(1).map((r, i) => ({ label: r.label, pick: () => this.setJ({ gq2: r.label }), style: chip(jn.gq2 === r.label, r.label === bestLabel) })),
+              weekFb: jn.gq2 ? (jn.gq2 === bestLabel ? '✅ Yes! That is where the green line is steepest.' : '❌ Not quite. Look for the steepest part of the green line.') : '',
+              weekFbStyle: fb(jn.gq2 === bestLabel),
+              onGq3: (e) => this.setJ({ gq3: e.target.value }), onGq4: (e) => this.setJ({ gq4: e.target.value }), onConcl: (e) => this.setJ({ concl: e.target.value }),
+              wordBank: ['grows taller over time', 'needs light', 'needs water', 'grows faster some weeks', 'is a young plant', 'will become an adult plant'].map(w => ({ label: w, add: () => addWord(w) }))
+            };
+          })(),
+          hasChart: rows.some(r => r.ok),
+          chart: rows.map(r => ({ label: r.label, tallStyle: bar(r.ok ? r.t : 0, '#5ee07a'), shortStyle: bar(r.ok ? r.sh : 0, '#66ccff'),
+            avgStyle: r.ok ? `position: absolute; left: 6%; right: 6%; bottom: calc(${(r.t + r.sh) / 2 / maxH * 100}% - 2px); height: 4px; border-radius: 2px; background: #cd7bf5; box-shadow: 0 0 8px rgba(205,123,245,.7);` : 'display: none;' })),
+          photoTags: TAGS.map(([id, label]) => { const on = (this.state.photoTag || 'other') === id; return { label, pick: () => this.setState({ photoTag: id }),
+            style: `white-space: nowrap; min-height: 40px; padding: 4px 14px; border-radius: 999px; border: 1px solid ${on ? '#ffb627' : 'rgba(255,255,255,.14)'}; background: ${on ? 'rgba(255,182,39,.16)' : '#0e1925'}; color: ${on ? '#ffb627' : '#d6dee6'}; font: inherit; font-size: 14px; font-weight: 900; cursor: pointer;` }; }),
+          onPhoto: (e) => { this.addPhoto(e.target.files && e.target.files[0]); e.target.value = ''; },
+          photoCount: `${phs.length} / 12 photos`, photoMsg: this.state.photoMsg || '',
+          photos: phs.map(p => ({ tag: (TAGS.find(t => t[0] === p.tag) || TAGS[4])[1], date: fmtD(p.date), caption: p.caption,
+            bg: `aspect-ratio: 4 / 3; background: #04070c url('${p.src}') center / cover no-repeat;`,
+            onCaption: (e) => this.savePhotos(phs.map(x => x.id === p.id ? { ...x, caption: e.target.value } : x)),
+            remove: () => this.savePhotos(phs.filter(x => x.id !== p.id)),
+            status: { approved: '✅ Approved', hidden: '🚫 Not shown', sending: '⬆️ Sending…', local: '📱 On this device only' }[p.status] || '⏳ Waiting for teacher',
+            statusStyle: `align-self: flex-start; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 900; background: ${p.status === 'approved' ? 'rgba(94,224,122,.14)' : p.status === 'local' || p.status === 'hidden' ? 'rgba(138,152,166,.16)' : 'rgba(255,182,39,.14)'}; color: ${p.status === 'approved' ? '#5ee07a' : p.status === 'local' || p.status === 'hidden' ? '#8a98a6' : '#ffb627'};` })),
+          jn, jPlant: P.name,
+          jNeeds: s.pred.map(p => NEEDS.find(n => n[0] === p)[1]), jNoPred: !s.pred.length,
+          goPredict: () => this.save({ step: 'predict' }),
+          onThink: setJ('think'), onWonder: setJ('wonder'),
+          printJournal: () => window.print(),
+          jRows: CONTROLS.map(c => ({ title: c.title, tries: c.opts.map(o => o[1]).join(' · '), value: jn[c.id] || '', onChange: setJ(c.id), placeholder: PH[c.id],
+            chips: DISC.filter(d => REL[c.id].includes(d.key) && s.found[d.key] && (d.fail || c.id === 'water')).map(chip) })),
+          jRight: ['Yes', 'Partly', 'No'].map(v => ({ label: v, pick: () => this.save({ jn: { ...(this.state.jn || {}), right: v } }),
+            style: `min-height: 44px; padding: 6px 18px; border-radius: 999px; border: 1px solid ${jn.right === v ? '#ffb627' : 'rgba(255,255,255,.14)'}; background: ${jn.right === v ? 'rgba(255,182,39,.16)' : '#0e1925'}; color: ${jn.right === v ? '#ffb627' : '#d6dee6'}; font: inherit; font-size: 16px; font-weight: 900; cursor: pointer;` }))
+        };
+      })(),
+      themeAttr: s.theme === 'light' ? 'light' : 'dark', themeGlyph: s.theme === 'light' ? '🌙' : '☀️',
+      toggleTheme: () => this.save({ theme: s.theme === 'light' ? 'dark' : 'light' }),
+      starText: starOn.map(o => o ? '⭐' : '☆').join(''),
+      replayTour: () => this.save({ step: 'experiment', touched: {} }),
+      ...(() => {
+        const NC = { water: '#66ccff', air: '#9fd4ff', warmth: '#ff6a5e', light: '#ffb627', soil: '#d08a4e', fertiliser: '#5ee07a', darkness: '#b557e6' };
+        const picked = s.pred, n = picked.length;
+        const seedSays = n === 0 ? 'What do I need? 🤔' : n === 1 ? 'Ooh, one thing! More? 😋' : n < 4 ? `Yum! ${n} things so far 😄` : `${n} things! I’m so full! 🤩`;
+        return {
+          needs: NEEDS.map(([id, full], i) => { const on = picked.includes(id), col = NC[id] || '#5ee07a', sp = full.indexOf(' ');
+            return { on, glyph: full.slice(0, sp), label: full.slice(sp + 1), toggle: () => this.save({ pred: on ? picked.filter(x => x !== id) : [...picked, id] }),
+              glyphStyle: `font-size: 44px; line-height: 1; display: inline-block; animation: scFloatY ${2.2 + (i % 3) * 0.3}s ease-in-out ${i * 0.18}s infinite;${on ? ' filter: drop-shadow(0 0 10px ' + col + ');' : ''}`,
+              style: `position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 128px; padding: 14px 10px; border-radius: 20px; border: 2px solid ${on ? col : 'rgba(255,255,255,.12)'}; background: ${on ? 'radial-gradient(120% 100% at 50% 0%, ' + col + '40, ' + col + '14)' : '#0e1925'}; color: #fff; font: inherit; cursor: pointer; transition: transform 160ms ease, background 200ms ease, border-color 200ms ease, box-shadow 200ms ease; box-shadow: ${on ? '0 0 22px ' + col + '66, 0 10px 22px rgba(0,0,0,.35)' : '0 6px 14px rgba(0,0,0,.25)'};${on ? ' animation: scBoop 460ms cubic-bezier(.2,1.8,.4,1);' : ''}` }; }),
+          predCount: n ? `${n} picked` : 'none yet',
+          orbit: picked.map((id, i) => { const ang = n === 1 ? -90 : -160 + (140 / (n - 1)) * i, rad = ang * Math.PI / 180, R = 150, col = NC[id] || '#5ee07a';
+            const g = (NEEDS.find(x => x[0] === id) || ['', '❔ '])[1].split(' ')[0];
+            return { glyph: g, style: `position: absolute; left: calc(50% + ${(Math.cos(rad) * R).toFixed(0)}px); top: calc(60% + ${(Math.sin(rad) * R * 0.78).toFixed(0)}px); width: 62px; height: 62px; margin: -31px 0 0 -31px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 35% 30%, #ffffff30, ${col}55 60%, ${col}22); border: 2px solid ${col}; box-shadow: 0 0 20px ${col}88; animation: scPopIn 520ms cubic-bezier(.2,1.6,.4,1) both, scBubble ${2.4 + (i % 3) * 0.35}s ease-in-out ${0.5 + i * 0.25}s infinite;` }; }),
+          seedKey: 'seed' + n, seedSays,
+          seedStyle: `position: absolute; left: 50%; top: 60%; width: 92px; height: 66px; margin: -33px 0 0 -46px; border-radius: 50% 50% 48% 48% / 60% 60% 40% 40%; background: radial-gradient(circle at 35% 30%, #d9a06a, #8a5528 62%, #5a3416); box-shadow: 0 0 ${10 + n * 8}px rgba(255,214,107,${(0.15 + n * 0.08).toFixed(2)}), 0 10px 18px rgba(0,0,0,.45); animation: scSeedWiggle 700ms cubic-bezier(.2,1.4,.4,1) both, scSeedBreath 2.6s ease-in-out 700ms infinite;`,
+          mouthStyle: `position: absolute; left: 50%; top: 64%; width: ${n ? 22 : 12}px; height: ${n ? 11 : 4}px; margin-left: -${n ? 11 : 6}px; border-radius: 0 0 22px 22px; background: #1b1208;`,
+          drift: ['🍃', '🌱', '✨', '🍃', '✨', '🌿'].map((g, i) => ({ glyph: g, style: `position: absolute; left: ${8 + i * 16}%; top: -30px; font-size: ${16 + (i % 3) * 6}px; opacity: 0; pointer-events: none; animation: scDrift ${11 + i * 2}s linear ${i * 1.7}s infinite;` }))
+        };
+      })(),
+      savePrediction: () => this.save({ step: 'experiment' }),
+      saveStyle: `width: 100%; min-height: 64px; padding: 0 26px; border-radius: 18px; border: none; background: ${s.pred.length ? '#34b14d' : '#2b3340'}; color: #fff; font: inherit; font-size: 19px; font-weight: 900; cursor: pointer; box-shadow: ${s.pred.length ? '0 0 16px rgba(63,195,95,.45)' : 'none'}; font-size: 21px;${s.pred.length ? ' animation: scPulse 1.6s ease-in-out infinite;' : ''}`,
+      day: s.day,
+      dayBar: `height: 100%; width: ${(s.day / 21) * 100}%; background: linear-gradient(90deg, #ffb627, #5ee07a); border-radius: 999px; transition: width 380ms linear;`,
+      scene: {
+        img, stageLabel: stageMeta[0],
+        pillStyle: `white-space: nowrap; padding: 8px 16px; border-radius: 999px; font-size: 18px; font-weight: 900; color: ${stageMeta[1]}; background: ${stageMeta[1]}22; border: 1px solid ${stageMeta[1]};`,
+        imgStyle: `position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: ${r.filter || 'none'}; transform: scale(${r.scale}); transform-origin: 50% 100%; transition: filter 600ms ease, transform 600ms ease;`,
+        overlay: `position: absolute; inset: 0; background: rgba(2,5,10,${r.dim}); transition: background 400ms ease; pointer-events: none;`,
+        bug: r.bug, drops,
+        sun: s.light !== 'dark',
+        sunStyle: `position: absolute; right: -22cqw; top: -22cqw; width: 64cqw; height: 64cqw; mix-blend-mode: screen; pointer-events: none; opacity: ${s.light === 'sun' ? 1 : .32}; transition: opacity 500ms ease;`,
+        rulerFill: `position: absolute; left: 0; right: 0; bottom: 0; height: ${Math.min(100, (r.h / 25) * 100)}%; background: linear-gradient(to top, #34b14d, #5ee07a); box-shadow: 0 0 12px rgba(94,224,122,.6); transition: height 380ms linear;`,
+        heightText: r.h ? r.h.toFixed(1) : '0', img: P.seed,
+        note: s.day === 0 ? `Your ${P.name} seed is ready. Set the controls, then tap ▶ Grow.` : r.note,
+        noteStyle: `padding: 12px 16px; border-radius: 14px; font-size: 17px; font-weight: 800; line-height: 1.4; background: ${bad ? 'rgba(232,73,63,.14)' : 'rgba(102,204,255,.1)'}; border: 1px solid ${bad ? 'rgba(255,106,94,.6)' : 'rgba(102,204,255,.35)'}; color: ${bad ? '#ff6a5e' : '#d6dee6'};`
+      },
+      sc: { plant: s.plant, water: s.water, light: s.light, depth: s.depth, net: s.net, pot: s.pot, day: String(s.day), height: r.h.toFixed(2), stage: r.stage, outcome: r.key, sprout: String(P.sprout), running: s.running ? 'yes' : 'no' },
+      show3d: s.view !== 'real' || s.day < 21, showReal: s.view === 'real' && s.day >= 21,
+      views: [['bench', '🧪 3D bench'], ['real', s.day >= 21 ? '📷 Real plant' : '🔒 Real plant']].map(([id, label]) => {
+        const on = (s.view || 'bench') === id && (id === 'bench' || s.day >= 21), locked = id === 'real' && s.day < 21;
+        return { label, go: () => { if (!locked) this.setState({ view: id }); },
+          style: `white-space: nowrap; min-height: 44px; padding: 6px 16px; border-radius: 999px; border: 1px solid ${on ? '#ffb627' : 'rgba(255,255,255,.14)'}; background: ${on ? 'rgba(255,182,39,.16)' : '#0e1925'}; color: ${locked ? '#5a6775' : on ? '#ffb627' : '#d6dee6'}; font: inherit; font-size: 15px; font-weight: 900; cursor: ${locked ? 'not-allowed' : 'pointer'};${id === 'real' && !locked && !on ? ' animation: scPulse 1.6s ease-in-out infinite;' : ''}` };
+      }),
+      real: (() => {
+        const st = r.stage, healthy = r.key === 'healthy';
+        const src = st === 'seed' ? P.seed : st === 'young' ? P.young : P.adult;
+        return { name: P.name, alt: 'Our real ' + P.name, bgStyle: `position: absolute; inset: 0; background: #04070c url('${src}') center / cover no-repeat;`,
+          caption: healthy ? `Ours grew just like yours: seed → young plant → adult plant.` : st === 'seed'
+            ? `This is our ${P.name} seed. Yours never came up. What would you change?`
+            : `Ours looked like this at the ${st === 'young' ? 'young plant' : 'adult'} stage. Ours had water once a day, sun, a shallow seed, a net and a pot with holes.` };
+      })(),
+      toast: !!s.toast, toastWord: s.toast ? s.toast[0] : '', toastText: s.toast ? s.toast[1] : '',
+      grow: () => this.grow(), growLabel: s.running ? '⏸ Pause' : s.day >= 21 ? '▶ Grow again' : '▶ Grow',
+      reset: () => { this.stop(); this.setState({ day: 0, running: false, toast: null }); },
+      ringGrow: guide === 'grow', ringPlant: guide === 'plant', hint: HINTS[guide],
+      plantCardStyle: cardStyle(guide === 'plant'),
+      plants: Object.keys(PLANTS).map(k => ({ label: PLANTS[k].glyph + ' ' + PLANTS[k].name, pick: () => this.setCtl('plant', k), style: seg(s.plant === k, '#5ee07a') })),
+      controls: CONTROLS.map(c => ({ title: c.title, ring: guide === c.id, cardStyle: cardStyle(guide === c.id), opts: c.opts.map(([v, label]) => ({ label, pick: () => this.setCtl(c.id, v), style: seg(s[c.id] === v, c.color) })) })),
+      foundCount,
+      discoveries: DISC.map(d => { const on = !!s.found[d.key]; return { glyph: on ? d.glyph : '❔', label: on ? d.label : '???', style: `display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; font-size: 14px; font-weight: 800; background: ${on ? (d.fail ? 'rgba(232,73,63,.12)' : 'rgba(94,224,122,.14)') : '#0e1925'}; border: 1px solid ${on ? (d.fail ? 'rgba(255,106,94,.5)' : '#5ee07a') : 'rgba(255,255,255,.08)'}; color: ${on ? '#fff' : '#5a6775'};` }; }),
+      hasRuns: s.runs.length > 0, runs: s.runs,
+      stars: [['🪴', 'Grow a healthy adult plant', 'Find the right water, light, depth and net.'], ['🔍', 'Find 2 ways a plant can fail', `${fails} of 2 found`], ['🧠', 'Answer 3 questions', quizOk ? 'All correct!' : 'Below']].map((x, i) => ({
+        glyph: starOn[i] ? '⭐' : '☆', title: x[1], text: x[2],
+        style: `display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 18px; background: ${starOn[i] ? 'rgba(255,182,39,.12)' : 'rgba(7,13,21,.9)'}; border: 1px solid ${starOn[i] ? '#ffb627' : 'rgba(255,255,255,.1)'}; ${starOn[i] ? 'box-shadow: 0 0 18px rgba(255,182,39,.3);' : ''}`
+      })),
+      predText: s.pred.length ? s.pred.map(p => NEEDS.find(n => n[0] === p)[1].split(' ').slice(1).join(' ').toLowerCase()).join(', ') : '(no prediction saved)',
+      quiz: QUIZ.map((q, i) => {
+        const a = s.answers[i], answered = a !== undefined, ok = a === q.answer;
+        return { n: i + 1, text: q.text, answered,
+          fb: ok ? '✅ Yes! ' + q.why : '❌ Not quite. Try another answer.',
+          fbStyle: `padding: 10px 14px; border-radius: 12px; font-size: 16px; font-weight: 800; background: ${ok ? 'rgba(94,224,122,.12)' : 'rgba(232,73,63,.12)'}; color: ${ok ? '#5ee07a' : '#ff6a5e'};`,
+          opts: q.opts.map((label, j) => ({ label, pick: () => this.save({ answers: { ...s.answers, [i]: j } }),
+            style: seg(a === j, a === j ? (ok ? '#5ee07a' : '#e8493f') : '#4a90e2') + ' text-align: left; justify-content: flex-start;' })) };
+      }),
+      allStars: starOn.every(Boolean)
+    };
+  }
+}
+</script>
+</body>
+</html>

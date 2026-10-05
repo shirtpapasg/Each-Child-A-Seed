@@ -1,0 +1,57 @@
+/* ============================================================
+   SCIENCE CLAW — EFFECTS: radii, shadows, blur, glow, motion
+   Glassmorphic panels (blur + translucent black), rounded corners,
+   neon glow on accents, snappy arcade transitions.
+   ============================================================ */
+
+:root {
+  /* --- Corner radii --- */
+  --r-sm:   8px;
+  --r-md:   12px;    /* buttons, small panels */
+  --r-lg:   16px;
+  --r-xl:   20px;    /* HUD panels, modals */
+  --r-pill: 999px;
+  --r-round: 50%;
+
+  /* --- Blur (glassmorphism) --- */
+  --blur-panel:  blur(6px);   /* @kind other */
+  --blur-modal:  blur(10px);  /* @kind other */
+
+  /* --- Outer shadows (panels float over the 3D scene) --- */
+  --shadow-panel:  0 8px 28px rgba(0, 0, 0, 0.55);
+  --shadow-modal:  0 0 40px rgba(0, 0, 0, 0.70);
+  --shadow-btn:    0 2px 0 rgba(0, 0, 0, 0.35);
+  --shadow-btn-press: 0 1px 0 rgba(0, 0, 0, 0.35);
+
+  /* --- Inner highlight (top edge catch-light on glass) --- */
+  --inset-glass: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* --- Neon glows (per accent) --- */
+  --glow-green:  0 0 16px rgba(63, 195, 95, 0.55);
+  --glow-blue:   0 0 16px rgba(74, 144, 226, 0.55);
+  --glow-yellow: 0 0 16px rgba(255, 182, 39, 0.50);
+  --glow-purple: 0 0 16px rgba(181, 87, 230, 0.50);
+  --glow-red:    0 0 14px rgba(232, 73, 63, 0.55);
+  --glow-soft:   0 0 10px rgba(255, 255, 255, 0.12);
+
+  /* --- Text glow (neon labels) --- */
+  --text-glow-green:  0 0 8px rgba(94, 224, 122, 0.45);
+  --text-glow-yellow: 0 0 8px rgba(255, 182, 39, 0.40);
+
+  /* --- Borders --- */
+  --bw:        1px;        /* @kind other */
+  --bw-active: 2px;        /* @kind other */ /* selected view button ring */
+
+  /* --- Motion --- */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);     /* @kind other */
+  --ease-pop:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* @kind other */ /* arcade bounce */
+  --dur-fast:   120ms;  /* @kind other */
+  --dur-base:   180ms;  /* @kind other */
+  --dur-slow:   280ms;  /* @kind other */
+  --transition-control: all var(--dur-fast) var(--ease-out);
+
+  /* --- Semantic aliases --- */
+  --radius-panel:  var(--r-xl);
+  --radius-button: var(--r-md);
+  --shadow-card:   var(--shadow-panel);
+}

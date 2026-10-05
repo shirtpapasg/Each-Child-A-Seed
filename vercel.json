@@ -1,0 +1,13 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/sim1", "destination": "/ECAS Sim 1 Grow a Seed.dc.html" },
+    { "source": "/lesson-plan", "destination": "/ECAS Lesson Plan.dc.html" },
+    { "source": "/journal", "destination": "/ECAS Plant Journal.dc.html" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }] },
+    { "source": "/backend/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+  ]
+}

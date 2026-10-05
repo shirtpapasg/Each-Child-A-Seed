@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Copy the ECAS backend script</title>
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#f4f7fb;color:#10161f}
+a{color:#1a6fb0}a:hover{color:#0d4f85}
+main{max-width:980px;margin:0 auto;padding:24px;display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-size:26px}
+ol{margin:0;padding-left:22px;line-height:1.7;font-size:16px}
+button{align-self:flex-start;min-height:48px;padding:0 22px;border:none;border-radius:12px;background:#34b14d;color:#fff;font-size:17px;font-weight:800;cursor:pointer}
+button:hover{background:#2a9a40}
+#ok{color:#1f7a3a;font-weight:800}
+textarea{width:100%;height:60vh;box-sizing:border-box;padding:14px;border-radius:12px;border:1px solid #cfd9e4;font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;background:#fff}
+</style>
+</head>
+<body>
+<main>
+<h1>ECAS backend script</h1>
+<ol>
+<li>Click <strong>Copy script</strong> below.</li>
+<li>Go to <a href="https://script.google.com" target="_blank" rel="noopener">script.google.com</a> → <strong>New project</strong>.</li>
+<li>Delete everything in the editor, paste (Ctrl/Cmd + V), then click 💾 Save.</li>
+<li>Pick <strong>setup</strong> in the function menu and click ▶ Run. Then follow SETUP.md from step 2.</li>
+</ol>
+<div style="display:flex;gap:12px;align-items:center"><button id="copy">📋 Copy script</button><span id="ok"></span></div>
+<textarea id="code" readonly spellcheck="false">Loading…</textarea>
+</main>
+<script>
+fetch('Code.gs.txt').then(r => r.text()).then(t => { document.getElementById('code').value = t; });
+document.getElementById('copy').onclick = async () => {
+  const ta = document.getElementById('code');
+  try { await navigator.clipboard.writeText(ta.value); } catch (e) { ta.select(); document.execCommand('copy'); }
+  document.getElementById('ok').textContent = '✓ Copied. Now paste it into script.google.com';
+};
+</script>
+</body>
+</html>
