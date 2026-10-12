@@ -14,6 +14,8 @@ A static site with **no build step**. Every page opens directly in a browser.
 | `support.js` | Runtime that renders the `.dc.html` pages. **Required.** |
 | `doc-page.js` | Print layout for the lesson plan and journal |
 | `growseed-scene.js` | The 3D bench. Loads three.js from unpkg at runtime |
+| `heart.js` | Adds a 🔊 button beside the landing-page links and every lesson plan and journal heading; plays Heart's voice |
+| `voice/` | Heart's MP3 clips, one per heading, made once with Kokoro TTS (voice af_heart). Regenerate them if headings change |
 | `web/` | Plant photos |
 | `_ds/` | Design system stylesheets |
 | `vercel.json` | Short URLs: `/sim1`, `/lesson-plan`, `/journal` |
