@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script src="./heart.js"></script>
 </head>
 <body>
 <x-dc>
@@ -106,7 +107,7 @@ a{color:#66ccff}a:hover{color:#4a90e2}
 <section data-stage="seed" style="position: relative; overflow: hidden; min-height: 520px; display: flex; flex-direction: column; gap: 10px; padding: 26px; border-radius: 26px; background: radial-gradient(120% 80% at 50% 0%, #15304a 0%, #08131f 60%, #04070c 100%); border: 1px solid rgba(255,255,255,.1);">
 <sc-for list="{{ drift }}" as="d"><span style="{{ d.style }}">{{ d.glyph }}</span></sc-for>
 <div style="position: relative; font-size: 14px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: #ffb627;">Step 1 · Predict first</div>
-<div style="position: relative; font-size: 34px; font-weight: 900; line-height: 1.15; color: #fff;">What does a seed need to <span style="background: linear-gradient(90deg, #5ee07a, #66ccff, #ffb627, #5ee07a); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: scRainbow 4s linear infinite;">start growing</span>?</div>
+<div data-heart style="position: relative; font-size: 34px; font-weight: 900; line-height: 1.15; color: #fff;">What does a seed need to <span style="background: linear-gradient(90deg, #5ee07a, #66ccff, #ffb627, #5ee07a); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: scRainbow 4s linear infinite;">start growing</span>?</div>
 <div style="position: relative; font-size: 17px; color: #d6dee6;">Feed the seed! Tap what you think it needs. There’s no wrong answer yet.</div>
 <div style="position: relative; flex: 1; min-height: 320px;">
 <sc-for list="{{ orbit }}" as="o"><div style="{{ o.style }}"><span style="font-size: 30px; line-height: 1;">{{ o.glyph }}</span></div></sc-for>
@@ -937,7 +938,7 @@ class Component extends DCLogic {
         const seedSays = n === 0 ? 'What do I need? 🤔' : n === 1 ? 'Ooh, one thing! More? 😋' : n < 4 ? `Yum! ${n} things so far 😄` : `${n} things! I’m so full! 🤩`;
         return {
           needs: NEEDS.map(([id, full], i) => { const on = picked.includes(id), col = NC[id] || '#5ee07a', sp = full.indexOf(' ');
-            return { on, glyph: full.slice(0, sp), label: full.slice(sp + 1), toggle: () => this.save({ pred: on ? picked.filter(x => x !== id) : [...picked, id] }),
+            return { on, glyph: full.slice(0, sp), label: full.slice(sp + 1), toggle: () => { if (window.Heart) Heart.say(full.slice(sp + 1) + (on ? ' removed' : ' added')); this.save({ pred: on ? picked.filter(x => x !== id) : [...picked, id] }); },
               glyphStyle: `font-size: 44px; line-height: 1; display: inline-block; animation: scFloatY ${2.2 + (i % 3) * 0.3}s ease-in-out ${i * 0.18}s infinite;${on ? ' filter: drop-shadow(0 0 10px ' + col + ');' : ''}`,
               style: `position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-height: 128px; padding: 14px 10px; border-radius: 20px; border: 2px solid ${on ? col : 'rgba(255,255,255,.12)'}; background: ${on ? 'radial-gradient(120% 100% at 50% 0%, ' + col + '40, ' + col + '14)' : '#0e1925'}; color: #fff; font: inherit; cursor: pointer; transition: transform 160ms ease, background 200ms ease, border-color 200ms ease, box-shadow 200ms ease; box-shadow: ${on ? '0 0 22px ' + col + '66, 0 10px 22px rgba(0,0,0,.35)' : '0 6px 14px rgba(0,0,0,.25)'};${on ? ' animation: scBoop 460ms cubic-bezier(.2,1.8,.4,1);' : ''}` }; }),
           predCount: n ? `${n} picked` : 'none yet',

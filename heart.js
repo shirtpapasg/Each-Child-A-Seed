@@ -68,8 +68,19 @@
 
   function scan() {
     style();
-    document.querySelectorAll('main h1, nav a, doc-page h1, doc-page h2, doc-page h3').forEach(addButton);
+    document.querySelectorAll('main h1, nav a, doc-page h1, doc-page h2, doc-page h3, [data-heart]').forEach(addButton);
   }
+
+  // Pages can make Heart speak a short phrase, e.g. Heart.say('Water added').
+  window.Heart = {
+    say: function (text) {
+      if (current) { current.pause(); current = null; }
+      var a = new Audio(BASE + 'voice/' + slug(text) + '.mp3');
+      current = a;
+      a.onerror = function () { speakFallback(text); };
+      a.play().catch(function () { speakFallback(text); });
+    }
+  };
 
   function start() {
     scan();
