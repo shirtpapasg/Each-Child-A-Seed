@@ -219,11 +219,11 @@ a{color:#66ccff}a:hover{color:#4a90e2}
 </div>
 
 <div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
-<div style="display: flex; justify-content: space-between; align-items: baseline;"><div style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">What I found out</div><div style="font-size: 13px; font-weight: 800; color: #5a6775;">Page 4</div></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline;"><div data-heart style="font-size: 22px; font-weight: 900; line-height: 1.2; color: #ffb627;">What I found out</div><div style="font-size: 13px; font-weight: 800; color: #5a6775;">Page 4</div></div>
 <div style="font-size: 16px; color: #d6dee6;">Change <strong style="color: #fff;">one thing</strong> at a time. Write what happened to the plant. Your discoveries appear here as you find them.</div>
 <sc-for list="{{ jRows }}" as="r" hint-placeholder-count="5">
 <div style="display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr); gap: 12px; align-items: stretch;">
-<div style="padding: 12px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 6px;"><div style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 700; color: #8a98a6;">{{ r.tries }}</div><div style="display: flex; flex-wrap: wrap; gap: 4px;"><sc-for list="{{ r.chips }}" as="c"><span style="{{ c.style }}">{{ c.label }}</span></sc-for></div></div>
+<div style="padding: 12px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 6px;"><div data-heart style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 700; color: #8a98a6;">{{ r.tries }}</div><div style="display: flex; flex-wrap: wrap; gap: 4px;"><sc-for list="{{ r.chips }}" as="c"><span style="{{ c.style }}">{{ c.label }}</span></sc-for></div></div>
 <textarea value="{{ r.value }}" onChange="{{ r.onChange }}" rows="3" placeholder="{{ r.placeholder }}" style="resize: vertical; padding: 12px 14px; border-radius: 14px; background: #0e1925; border: 1px solid rgba(255,255,255,.16); color: #fff; font: inherit; font-size: 16px; font-weight: 600; line-height: 1.45;" style-focus="outline: 2px solid #66ccff; outline-offset: 1px"></textarea>
 </div>
 </sc-for>
@@ -368,14 +368,14 @@ a{color:#66ccff}a:hover{color:#4a90e2}
 <sc-if value="{{ isResources }}" hint-placeholder-val="{{ false }}">
 <main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
 <div style="width: 100%; max-width: 980px; display: flex; flex-direction: column; gap: 16px; animation: scRise 420ms ease-out both;">
-<div><div style="font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #ffb627;">📁 Resources</div><div style="font-size: 30px; font-weight: 900; line-height: 1.15;">Print or download again</div><div style="font-size: 16px; color: #d6dee6; margin-top: 6px;">Each file opens print-ready. Tap <strong style="color: #fff;">Save as PDF</strong>, then pick “Save as PDF” as the printer. The layout stays exactly the same.</div></div>
+<div><div style="font-size: 14px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: #ffb627;">📁 Resources</div><div data-heart style="font-size: 30px; font-weight: 900; line-height: 1.15;">Print or download again</div><div style="font-size: 16px; color: #d6dee6; margin-top: 6px;">Each file opens print-ready. Tap <strong style="color: #fff;">Save as PDF</strong>, then pick “Save as PDF” as the printer. The layout stays exactly the same.</div></div>
 <sc-for list="{{ resGroups }}" as="g" hint-placeholder-count="2">
 <div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
-<div style="font-size: 20px; font-weight: 900; color: #ffb627;">{{ g.title }}</div>
+<div data-heart style="font-size: 20px; font-weight: 900; color: #ffb627;">{{ g.title }}</div>
 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px;">
 <sc-for list="{{ g.items }}" as="r">
 <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 16px; background: #0e1925; border: 1px solid rgba(255,255,255,.08);">
-<div style="display: flex; gap: 12px; align-items: center;"><span style="font-size: 30px;">{{ r.glyph }}</span><div><div style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 800; color: #8a98a6;">{{ r.meta }}</div></div></div>
+<div style="display: flex; gap: 12px; align-items: center;"><span style="font-size: 30px;">{{ r.glyph }}</span><div><div data-heart style="font-size: 17px; font-weight: 900;">{{ r.title }}</div><div style="font-size: 13px; font-weight: 800; color: #8a98a6;">{{ r.meta }}</div></div></div>
 <div style="font-size: 14px; color: #d6dee6; line-height: 1.4;">{{ r.note }}</div>
 <div style="display: flex; gap: 8px; margin-top: auto;">
 <button onClick="{{ r.view }}" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); background: #2b3340; color: #fff; font: inherit; font-size: 15px; font-weight: 900; white-space: nowrap; cursor: pointer;" style-hover="background: #3a4452">👀 Open</button>
@@ -387,7 +387,7 @@ a{color:#66ccff}a:hover{color:#4a90e2}
 </div>
 </sc-for>
 <div style="padding: 18px 20px; border-radius: 20px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 12px;">
-<div style="font-size: 20px; font-weight: 900; color: #ffb627;">🖨️ Printing tips</div>
+<div data-heart style="font-size: 20px; font-weight: 900; color: #ffb627;">🖨️ Printing tips</div>
 <div style="display: grid; gap: 8px; font-size: 15px; color: #d6dee6; line-height: 1.45;">
 <div><strong style="color: #fff;">Plant Journal (A5):</strong> to make a folded booklet, print on A4 with <em>Booklet</em> or <em>2 pages per sheet, double-sided, flip on short edge</em>. 20 pages = 5 sheets.</div>
 <div><strong style="color: #fff;">Lesson plan (A4):</strong> print single-sided, portrait.</div>
@@ -402,18 +402,18 @@ a{color:#66ccff}a:hover{color:#4a90e2}
 <main style="flex: 1; display: flex; justify-content: center; padding: 24px 20px;">
 <div style="width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 16px; animation: scRise 420ms ease-out both;">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
-<sc-for list="{{ stars }}" as="s" hint-placeholder-count="3"><div style="{{ s.style }}"><div style="font-size: 30px;">{{ s.glyph }}</div><div style="font-size: 17px; font-weight: 900;">{{ s.title }}</div><div style="font-size: 14px; color: #d6dee6;">{{ s.text }}</div></div></sc-for>
+<sc-for list="{{ stars }}" as="s" hint-placeholder-count="3"><div style="{{ s.style }}"><div style="font-size: 30px;">{{ s.glyph }}</div><div data-heart style="font-size: 17px; font-weight: 900;">{{ s.title }}</div><div style="font-size: 14px; color: #d6dee6;">{{ s.text }}</div></div></sc-for>
 </div>
 <div style="padding: 16px 18px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: grid; gap: 6px;">
-<div style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #ffb627;">Was my prediction right?</div>
+<div data-heart style="font-size: 13px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: #ffb627;">Was my prediction right?</div>
 <div style="font-size: 17px; color: #d6dee6;">I said a seed needs: <strong style="color: #fff;">{{ predText }}</strong></div>
-<div style="font-size: 17px; color: #d6dee6;">The tests show: a seed starts growing with <strong style="color: #5ee07a;">water, air and warmth</strong>, using food stored inside it. <strong style="color: #5ee07a;">Light</strong> matters once the young plant appears.</div>
+<div data-heart style="font-size: 17px; color: #d6dee6;">The tests show: a seed starts growing with <strong style="color: #5ee07a;">water, air and warmth</strong>, using food stored inside it. <strong style="color: #5ee07a;">Light</strong> matters once the young plant appears.</div>
 </div>
 <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
 <div style="padding: 16px 18px; border-radius: 18px; background: rgba(7,13,21,.9); border: 1px solid rgba(255,255,255,.1); display: flex; flex-direction: column; gap: 10px;">
-<div style="font-size: 19px; font-weight: 900;">{{ q.n }}. {{ q.text }}</div>
+<div data-heart data-heart-list="{{ q.speech }}" style="font-size: 19px; font-weight: 900;">{{ q.n }}. {{ q.text }}</div>
 <div style="display: grid; gap: 8px;"><sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="{{ o.style }}" style-hover="filter: brightness(1.15)">{{ o.label }}</button></sc-for></div>
-<sc-if value="{{ q.answered }}"><div style="{{ q.fbStyle }}">{{ q.fb }}</div></sc-if>
+<sc-if value="{{ q.answered }}"><div data-heart style="{{ q.fbStyle }}">{{ q.fb }}</div></sc-if>
 </div>
 </sc-for>
 <sc-if value="{{ allStars }}"><div style="padding: 20px; border-radius: 20px; text-align: center; background: rgba(94,224,122,.12); border: 2px solid #5ee07a; box-shadow: 0 0 26px rgba(94,224,122,.4);"><div style="font-size: 28px; font-weight: 900; color: #5ee07a;">⭐⭐⭐ Well done, scientist!</div><div style="font-size: 17px; color: #d6dee6; margin-top: 6px;">Open 📓 E-journal and write what you found. Then add an “I wonder…” card to the board.</div></div></sc-if>
@@ -506,6 +506,24 @@ const CONTROLS = [
   { id: 'net', title: '🕸️ Net over the pot', color: '#5ee07a', opts: [['on', 'On'], ['off', 'Off']] },
   { id: 'pot', title: '🪣 Holes in the pot', color: '#ff9f5a', opts: [['open', 'With holes'], ['closed', 'No holes']] }
 ];
+// What Heart says when a control is changed (clips live in voice/, made by make_clips.py).
+const HEART_SAYS = {
+  "plant:basil": "Thai Basil selected.",
+  "plant:kangkong": "Kang Kong, wise choice.",
+  "plant:bayam": "Bayam selected. Let's grow it.",
+  "water:none": "No water at all. Let's see what happens.",
+  "water:day": "Watering once a day.",
+  "water:hour": "Watering every hour. That's a lot!",
+  "light:dark": "Lights off. It's dark now.",
+  "light:shade": "I will build a shade for it.",
+  "light:sun": "Full sun!",
+  "depth:shallow": "Planting the seed just under the soil.",
+  "depth:deep": "Burying the seed very deep.",
+  "net:on": "Net on. No bugs allowed.",
+  "net:off": "Net off.",
+  "pot:open": "A pot with holes, so water can drain out.",
+  "pot:closed": "A pot with no holes."
+};
 const DISC = [
   { key: 'healthy', glyph: '🪴', label: 'Healthy adult', fail: false },
   { key: 'dry', glyph: '🏜️', label: 'No water', fail: true },
@@ -705,7 +723,7 @@ class Component extends DCLogic {
     img.src = url;
   }
   stop() { clearInterval(this.timer); this.timer = null; }
-  setCtl(id, v) { this.stop(); this.save({ [id]: v, day: 0, running: false, toast: null, view: 'bench', touched: { ...this.state.touched, [id]: true } }); }
+  setCtl(id, v) { if (window.Heart && this.state[id] !== v && HEART_SAYS[id + ':' + v]) Heart.say(HEART_SAYS[id + ':' + v]); this.stop(); this.save({ [id]: v, day: 0, running: false, toast: null, view: 'bench', touched: { ...this.state.touched, [id]: true } }); }
   grow() {
     if (this.state.running) { this.stop(); this.setState({ running: false }); return; }
     const start = this.state.day >= 21 ? 0 : this.state.day;
@@ -1000,10 +1018,10 @@ class Component extends DCLogic {
       predText: s.pred.length ? s.pred.map(p => NEEDS.find(n => n[0] === p)[1].split(' ').slice(1).join(' ').toLowerCase()).join(', ') : '(no prediction saved)',
       quiz: QUIZ.map((q, i) => {
         const a = s.answers[i], answered = a !== undefined, ok = a === q.answer;
-        return { n: i + 1, text: q.text, answered,
+        return { n: i + 1, text: q.text, answered, speech: q.opts.join(' | '),
           fb: ok ? '✅ Yes! ' + q.why : '❌ Not quite. Try another answer.',
           fbStyle: `padding: 10px 14px; border-radius: 12px; font-size: 16px; font-weight: 800; background: ${ok ? 'rgba(94,224,122,.12)' : 'rgba(232,73,63,.12)'}; color: ${ok ? '#5ee07a' : '#ff6a5e'};`,
-          opts: q.opts.map((label, j) => ({ label, pick: () => this.save({ answers: { ...s.answers, [i]: j } }),
+          opts: q.opts.map((label, j) => ({ label, pick: () => { if (window.Heart) Heart.say(j === q.answer ? 'Yes! ' + q.why : 'Not quite. Try another answer.'); this.save({ answers: { ...s.answers, [i]: j } }); },
             style: seg(a === j, a === j ? (ok ? '#5ee07a' : '#e8493f') : '#4a90e2') + ' text-align: left; justify-content: flex-start;' })) };
       }),
       allStars: starOn.every(Boolean)

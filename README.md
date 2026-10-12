@@ -5,7 +5,7 @@ A Primary 3 lesson package on plant life cycles, built for NParks' **Every Child
 ## Contents
 - **Sim 1 · Grow a Seed:** a 3D simulation where students test water, light, seed depth, a net and pot drainage. It includes an E-journal (milestones, measurements, photos) and a Resources tab.
 - **Teacher lesson plan:** 4 × 30-minute periods, check-ins, answer key, reflection and misconceptions.
-- **Heart reads the titles:** tap 🔊 beside any page title or heading on the landing page, lesson plan or journals to hear it read aloud.
+- **Heart reads and listens:** tap 🔊 beside any title, heading, question or feedback to hear Heart read it. In Sim 1 she also responds as you change the controls ("Water added", "I will build a shade for it"). Tap 🎤 beside any E-journal text box to speak instead of typing.
 - **Plant Journal:** an A5 printed booklet in Thai Basil, Kang Kong and Bayam versions.
 
 ## Live links
