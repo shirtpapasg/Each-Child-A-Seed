@@ -80,8 +80,47 @@ const DQ_AREAS = [
     ]
   },
   {
+    id: 'G', color: '#ff6a5e', title: 'Bar graph or line graph?', sub: 'What a bar graph shows, and what it hides',
+    intro: 'Teach the bar graph first: it compares the plants at one moment. Then let students discover what it cannot show, so the line graph in the next part arrives as the answer.',
+    chart: true,
+    items: [
+      { id: 'G0', t: 'This is a bar graph', chart: 'bar', lines: [
+          'One bar for each plant.',
+          'The taller the bar, the taller the plant.',
+          'It shows one moment: the last week we measured.' ],
+        listen: 'Read one bar aloud with the class: name, then height. Ask students to order the plants from tallest to shortest.' },
+      { id: 'G1', q: 'Which plant is tallest now? Which is shortest? How much taller is the tallest?', chart: 'bar',
+        hint: 'Read the top of each bar against the scale.',
+        listen: 'Names and heights in cm, and the difference.',
+        push: 'Is comparing the plants easier here or in the table? Why?' },
+      { id: 'G2', t: 'What the bar graph cannot tell us', chart: 'bar', lines: [
+          'Did the tallest plant grow fast or slowly?',
+          'In which week did it overtake the others?',
+          'Was any plant growing faster at the end?' ],
+        listen: 'Let students try to answer from the bars. They cannot. That is the limitation: a bar graph shows one moment, not how things changed.' },
+      { id: 'G3', t: 'Could we draw a bar for every week?', chart: 'bars', lines: [
+          'Four bars for each week: sixteen bars.',
+          'Now every week is there, but it is crowded.',
+          'Try to follow one plant across the weeks with your finger.' ],
+        listen: 'Ask a student to trace Thai Basil from week 1 to week 4 by pointing. It is slow and easy to lose. We want a picture where one plant is one shape.' },
+      { id: 'G4', t: 'Join the dots: the line graph', chart: 'both', lines: [
+          'The same numbers, drawn as lines.',
+          'Each plant becomes one line you can follow.',
+          'Now we can see how each plant changed, week by week.' ],
+        listen: 'Point at the bar graph, then at the line graph: same data, different question answered. Bars: who is tallest now? Lines: how did each one grow?' },
+      { id: 'G5', q: 'Which graph would you use to find the tallest plant today? And to find the fastest grower? Why?', chart: 'both',
+        hint: 'Point to the graph that answers each question.',
+        listen: 'Bar graph for tallest now; line graph for fastest growth, because it shows change over time.',
+        push: 'Can the line graph also tell you the tallest plant today? So why keep the bar graph at all?' },
+      { id: 'G6', q: 'When would a bar graph be the better choice?',
+        hint: 'Think of things that do not change over time: favourite plants in our class, seeds in each packet.',
+        listen: 'Comparing groups at one time: counts, favourites, one measurement per plant.',
+        push: 'What is the one question each graph is best at answering?' }
+    ]
+  },
+  {
     id: 'B', color: '#3fc35f', title: 'Reading the growth chart', sub: 'Turning numbers into a picture',
-    intro: 'The four explainer slides teach how to read a growth chart and why plotting data helps. Then ask the questions with your own class chart.',
+    intro: 'The four explainer slides teach how to read a line graph and why plotting data helps. Then ask the questions with your own class chart.',
     chart: true,
     items: [
       { id: 'B0', t: 'This is a growth chart', chart: true, lines: [
@@ -223,6 +262,23 @@ const DQ_AREAS = [
         push: 'Write it on the I wonder board.' }
     ]
   }
+];
+
+/* The teacher tour: what each part of the builder does. Selectors point at the page. */
+const DQ_TOUR = [
+  { sel: 'header.top h1', title: 'Welcome, teacher', text: 'This page builds a slide deck for your post-lesson discussion. Pick questions, change the words if you like, and present. This tour takes about a minute.' },
+  { sel: '#cls', title: 'Your class', text: 'Type your class name. It appears on the cover slide and in the file names.' },
+  { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, and dive deep. Tick a question to add it to your deck.' },
+  { sel: '.tag.star', title: 'Main questions', text: 'Questions marked "main" are the heart of the discussion: sunlight, giving up one of three needs, spread out or gathered, and the factors that affect growth. They are ticked to start.' },
+  { sel: '.tag.exp', title: 'Explainer slides', text: 'An "explainer" is a teaching slide rather than a question: it shows a graph or the three lines of a study with short points to say.' },
+  { sel: '.data', title: 'Your class data', text: 'Type the heights from your class sheet here. Every bar graph and line graph in the deck redraws with your numbers. Leave a plant blank to hide it.' },
+  { sel: 'button[data-add]', title: 'Add your own', text: 'Each part has an "Add your own question" button. Your question gets a slide like any other and is saved on this device.' },
+  { sel: 'aside.deck', title: 'Your deck', text: 'The slides in order. Use ▲▼ to reorder, ✎ to change the words, the hint students see and your teacher notes, and ✕ to drop a slide.' },
+  { sel: '#btnPresent', title: 'Present', text: 'Opens the deck full screen. → and ← move, N shows your teacher notes (listen for, push further), E lets you retype the words on the slide itself, and 🔊 makes Heart read the question aloud.' },
+  { sel: '#btnPrint', title: 'Print or PDF', text: 'One slide per page, with the teacher notes under each. Choose "Save as PDF" in the print window.' },
+  { sel: '#btnPptx', title: 'PowerPoint', text: 'Downloads the same deck as a .pptx file with charts and speaker notes, for teachers who prefer PowerPoint.' },
+  { sel: '#btnLink', title: 'Share with colleagues', text: 'Copies a link that opens this exact deck, your edits and class data included, on any device. Paste it to the other teachers.' },
+  { sel: '#btnTour', title: 'Come back any time', text: 'Click Tour to see this again. Your selections are saved on this device, so you can close the page and return.' }
 ];
 
 /* Sample growth data for the chart slides. Teachers can replace it with their class data in the builder. */
