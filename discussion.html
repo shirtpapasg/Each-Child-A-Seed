@@ -95,7 +95,10 @@
   .fx .strip div{flex:1;min-width:0;padding:8px;border-radius:8px;background:var(--btn);border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--ink);transition:transform .4s}
   .fx .strip div b{display:block;color:var(--dim);font-size:11px}
   .fx .count{font-size:15px;font-weight:900;color:var(--green)}
-  .tour-pulse{animation:tourPulse .9s ease-in-out 4;position:relative;z-index:81}
+  .tour-pulse{animation:tourPulse .9s ease-in-out 4}
+  #tour .card{max-height:calc(100vh - 32px);overflow:auto}
+  .mini .fxring{outline:4px solid var(--yellow);outline-offset:6px;border-radius:999px}
+  .mini .fxedit{outline:3px dashed var(--yellow);outline-offset:.6vmin;border-radius:.6vmin}
   @keyframes tourPulse{50%{transform:scale(1.08);box-shadow:0 0 0 6px rgba(255,182,39,.5)}}
   .hintcard{position:absolute;left:50%;bottom:9vmin;transform:translateX(-50%);z-index:7;background:var(--panel);border:2px solid var(--yellow);border-radius:16px;padding:14px 22px;font-size:2.2vmin;color:var(--ink);display:none;white-space:nowrap}
   .hintcard.on{display:block}
@@ -628,7 +631,17 @@
     },
     'button[data-add]': () => { pulse('button[data-add]'); const a = DQ_AREAS[DQ_AREAS.length - 1]; fx(mini({ kind: 'q', id: 'demo', area: a, q: 'Would our plants grow on the Moon?', hint: 'Your own question, your own hint.' }), 'Your question gets its own slide'); },
     'aside.deck': () => { if (state.sel.length < 2) return; fxDeck(); let moved = false; later(1000, () => { const b = document.querySelector('#list button[data-down="0"]'); if (b) { b.click(); moved = true; fxDeck(); } }); later(3400, () => { const b = document.querySelector('#list button[data-up="1"]'); if (b && moved) { b.click(); moved = false; fxDeck(); } }); demoUndo = () => { const b = document.querySelector('#list button[data-up="1"]'); if (moved && b) b.click(); }; },
-    '#btnPresent': () => { pulse('#btnPresent'); const it = firstItem(i => i.star) || selected()[0]; if (!it) return; const s = qSlide(it); fx(mini(s), 'On screen'); later(1800, () => fx(mini(s, `<div class="notes on"><b>Teacher notes</b> · Listen for: ${esc(it.listen || '')}</div>`), 'Press N: your teacher notes appear')); },
+    '#btnPresent': () => {
+      pulse('#btnPresent');
+      const items = selected().filter(i => i.q), a = items[0], b2 = items[1] || items[0]; if (!a) return;
+      const sa = qSlide(a), sb = qSlide(b2);
+      const mark = (sel, cls) => { const el = document.querySelector('#tourFx .mini ' + sel); if (el) el.classList.add(cls); };
+      fx(mini(sa), '1 · The deck opens full screen on your first slide');
+      later(2600, () => fx(mini(sb), '2 · Press → for the next slide, ← to go back'));
+      later(5200, () => fx(mini(sb, `<div class="notes on"><b>Teacher notes</b> · Listen for: ${esc(b2.listen || '')}</div>`), '3 · Press N: your teacher notes appear for you only'));
+      later(7800, () => { fx(mini(sb), '4 · Tap 🔊 and Heart reads the question to the class'); mark('.heart-btn', 'fxring'); });
+      later(10400, () => { fx(mini(sb), '5 · Press E to retype the words on the slide itself'); mark('h1', 'fxedit'); });
+    },
     '#btnPrint': () => { pulse('#btnPrint'); const it = firstItem(i => i.star) || selected()[0]; if (it) fx(`<div class="mini" style="background:#fff"><div class="mini-in">${slideHTML(qSlide(it), true)}</div></div>`, 'One slide per page, notes underneath'); },
     '#btnPptx': () => { pulse('#btnPptx'); fx('', ''); later(1200, () => fx(`<div class="chip">📎 ECAS discussion deck${state.cls ? ' ' + esc(state.cls) : ''}.pptx</div>`, 'Downloads to your computer')); },
     '#btnLink': () => { pulse('#btnLink'); const link = location.href.split('?')[0] + '?q=' + state.sel.slice(0, 4).join(',') + '…'; fx('<div class="chip">🔗 </div>', 'Copied, ready to paste to colleagues'); link.split('').forEach((ch, k) => later(600 + k * 25, () => { const c = document.querySelector('#tourFx .chip'); if (c) c.textContent += ch; })); },
@@ -637,13 +650,18 @@
 
   // Keep the card beside its target and inside the window, even as the effect panel grows.
   let tourRect = null;
+  // Below the target if it fits, else above, else beside it; never on top of it when there is room elsewhere.
   function placeCard() {
     const r = tourRect, card = $('#tourCard'); if (!r) return;
-    const ch = card.offsetHeight || 200, below = r.bottom + 16;
-    let top = below + ch < window.innerHeight - 16 ? below : r.top - ch - 16;
-    if (top < 16) top = Math.max(16, Math.min(window.innerHeight - ch - 16, r.bottom + 16));
-    card.style.top = top + 'px';
-    card.style.left = Math.max(16, Math.min(window.innerWidth - card.offsetWidth - 16, r.left)) + 'px';
+    const ch = card.offsetHeight || 200, cw = card.offsetWidth || 420, H = window.innerHeight, W = window.innerWidth;
+    const clampX = x => Math.max(16, Math.min(W - cw - 16, x)), clampY = y => Math.max(16, Math.min(H - ch - 16, y));
+    let top, left;
+    if (r.bottom + 16 + ch <= H - 16) { top = r.bottom + 16; left = clampX(r.left); }
+    else if (r.top - 16 - ch >= 16) { top = r.top - 16 - ch; left = clampX(r.left); }
+    else if (r.right + 16 + cw <= W - 16) { top = clampY(r.top); left = r.right + 16; }
+    else if (r.left - 16 - cw >= 16) { top = clampY(r.top); left = r.left - 16 - cw; }
+    else { top = clampY(r.bottom + 16); left = clampX(W - cw - 16); }
+    card.style.top = top + 'px'; card.style.left = left + 'px';
   }
   function tourShow(i) {
     demoStop();

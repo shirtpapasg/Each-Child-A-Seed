@@ -18,7 +18,7 @@
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text.replace(/[^\w\s.,!?'’()\-:]/g, ''));
-    u.lang = 'en-US'; u.rate = 0.9;
+    u.lang = 'en-US'; u.rate = 1.0;
     window.speechSynthesis.speak(u);
   }
 
