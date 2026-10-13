@@ -14,6 +14,7 @@ A static site with **no build step**. Every page opens directly in a browser.
 | `support.js` | Runtime that renders the `.dc.html` pages. **Required.** |
 | `doc-page.js` | Print layout for the lesson plan and journal |
 | `growseed-scene.js` | The 3D bench. Loads three.js from unpkg at runtime |
+| `discussion.html` + `discussion-questions.js` | Post-lesson discussion deck builder (`/discuss`): teachers pick, edit, reorder and add questions from a bank in 5 areas (our data, journal answers, reading the growth chart, thinking like a scientist, dive deep), enter class growth data, then present (Heart reads each question, teacher notes on N, edit on E), print to PDF or download PowerPoint (pptxgenjs from unpkg). Selections save on the device and in a shareable link |
 | `heart.js` | Heart's voice. Adds a 🔊 button beside the landing-page links, every lesson plan and journal heading, and any element with `data-heart` in the sim (`data-heart-list="a \| b"` reads extra phrases after it). Exposes `Heart.say(text)`; the sim calls it from `HEART_SAYS` (Experiment controls), the Predict cards and the quiz. Also shows a floating 🎤 dictation button on any focused textarea (browser speech recognition) |
 | `voice/` | Heart's MP3 clips, one per heading, made once with Kokoro TTS (voice af_heart). Regenerate them if headings change |
 | `web/` | Plant photos |

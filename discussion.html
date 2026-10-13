@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post-lesson discussion deck · Each Child a Seed</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap">
+<script src="./discussion-questions.js"></script>
+<script src="./heart.js"></script>
+<style>
+  :root{--bg:#070d15;--panel:#0e1925;--line:rgba(255,255,255,.12);--ink:#f3f6f9;--muted:#bfd8d5;--dim:#8a98a6;--yellow:#ffb627;--green:#3fc35f;--blue:#66ccff;--purple:#b557e6;--red:#e8493f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.45}
+  a{color:var(--blue)}
+  button{font:inherit;cursor:pointer}
+  input,textarea,select{font:inherit}
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 20px 80px}
+  header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
+  header.top h1{margin:0;font-size:34px;font-weight:900;color:var(--yellow);line-height:1.1}
+  header.top p{margin:4px 0 0;color:var(--muted)}
+  .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  .tools label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  .tools input{min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:#fff;font-weight:800;font-size:17px;width:160px}
+  .btn{min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:#2b3340;color:#fff;font-weight:900;font-size:16px;display:inline-flex;align-items:center;gap:8px}
+  .btn:hover{filter:brightness(1.15)}
+  .btn.primary{background:var(--green);color:#04070c;border-color:transparent;box-shadow:0 0 18px rgba(63,195,95,.35)}
+  .btn.small{min-height:36px;font-size:14px;padding:0 12px}
+  .btn:disabled{opacity:.5;cursor:default}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:start}
+  @media (max-width:960px){.cols{grid-template-columns:1fr}aside.deck{position:static}}
+  .area{margin-bottom:18px;border-radius:20px;background:var(--panel);border:2px solid var(--ac);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 25%,transparent)}
+  .area>h2{margin:0;padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;font-size:22px;font-weight:900;color:var(--ac)}
+  .area>h2 small{font-size:15px;font-weight:700;color:var(--muted)}
+  .area>h2 .sel{margin-left:auto;display:flex;gap:6px}
+  .area>h2 .sel button{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0e1925;color:var(--muted)}
+  .area .intro{margin:0;padding:0 20px 12px;color:var(--muted);font-size:15px}
+  .item{display:flex;gap:12px;align-items:flex-start;padding:12px 20px;border-top:1px solid var(--line);cursor:pointer}
+  .item:hover{background:rgba(255,255,255,.03)}
+  .item input{width:22px;height:22px;margin-top:3px;accent-color:var(--ac);flex:none}
+  .item .txt{flex:1}
+  .item .q{font-weight:800}
+  .item .hint{color:var(--dim);font-size:14px}
+  .item .edited{color:var(--yellow);font-size:12px;font-weight:800}
+  .tag{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .tag.star{background:var(--purple);color:#04070c}
+  .tag.exp{background:#2b3340;color:var(--muted)}
+  .tag.mine{background:var(--yellow);color:#04070c}
+  .addrow{padding:10px 20px 14px;border-top:1px solid var(--line)}
+  .data{padding:14px 20px;border-top:1px solid var(--line)}
+  .data h3{margin:0 0 6px;font-size:16px;color:var(--muted)}
+  .data table{border-collapse:collapse;width:100%;font-size:15px}
+  .data th,.data td{padding:4px 6px;text-align:left}
+  .data th{color:var(--dim);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+  .data input{width:100%;min-width:60px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#070d15;color:#fff;font-weight:700}
+  .data input.name{min-width:140px}
+  .data .sw{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle;margin-right:6px}
+  .data .preview{margin-top:10px;background:#070d15;border-radius:14px;padding:8px}
+  .data .preview svg{width:100%;height:auto;display:block}
+  aside.deck{position:sticky;top:16px;border-radius:20px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;max-height:calc(100vh - 32px);overflow:auto}
+  aside.deck h2{margin:0 0 4px;font-size:20px;font-weight:900}
+  aside.deck .count{color:var(--muted);font-size:14px;margin-bottom:10px}
+  .dl{list-style:none;margin:0;padding:0}
+  .dl li{display:flex;gap:6px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+  .dl li .k{font-weight:900;flex:none;width:22px}
+  .dl li .t{flex:1;color:#fff}
+  .dl li .ops{display:flex;gap:2px;flex:none}
+  .dl li .ops button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#2b3340;color:#fff;font-size:13px;padding:0}
+  .dl li .ops button:hover{filter:brightness(1.2)}
+  .editor{margin-top:12px;padding:14px;border-radius:14px;background:#070d15;border:2px solid var(--yellow)}
+  .editor h3{margin:0 0 8px;font-size:16px;color:var(--yellow)}
+  .editor label{display:block;font-size:12px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin:8px 0 4px}
+  .editor textarea,.editor input,.editor select{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#0e1925;color:#fff;font-size:15px;resize:vertical}
+  .editor .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  aside.deck .how{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
+  kbd{font-family:inherit;font-weight:900;background:#2b3340;border-radius:6px;padding:1px 6px;color:#fff}
+
+  /* Presentation */
+  #present{display:none;position:fixed;inset:0;background:#04070c;z-index:50}
+  #present.on{display:block}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:4vmin;padding:7vmin 8vmin;background:var(--bg);color:var(--ink);opacity:0;transition:opacity .25s}
+  .slide.on{opacity:1;z-index:2}
+  .slide .eyebrow{font-size:2.2vmin;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+  .slide h1{margin:0;font-size:6.2vmin;font-weight:900;line-height:1.1;text-wrap:balance}
+  .slide h1.big{font-size:9vmin}
+  .slide .hint{font-size:3vmin;color:var(--muted);font-weight:700}
+  .slide ul{margin:0;padding-left:3.5vmin;font-size:3.4vmin;line-height:1.45;color:var(--ink)}
+  .slide li{margin:.6vmin 0}
+  .slide .two{display:grid;grid-template-columns:1fr 1fr;gap:5vmin;align-items:center}
+  .slide .chart{background:#0e1925;border-radius:2vmin;padding:2vmin}
+  .slide .chart svg{width:100%;height:auto;display:block}
+  .slide table.t{border-collapse:collapse;font-size:2.6vmin;width:100%}
+  .slide table.t th,.slide table.t td{border:1px solid var(--line);padding:1vmin 1.4vmin;text-align:left}
+  .slide table.t th{color:var(--muted);font-size:2vmin;text-transform:uppercase;letter-spacing:.06em}
+  .slide.divider{background:var(--ac);color:#04070c}
+  .slide.divider .eyebrow{color:rgba(4,7,12,.7)}
+  .slide.cover{background:radial-gradient(120% 80% at 50% 0%,#15304a 0%,#08131f 60%,#04070c 100%)}
+  .slide .foot{position:absolute;left:8vmin;bottom:3vmin;font-size:2vmin;color:var(--dim)}
+  #present.editing [contenteditable]{outline:2px dashed var(--yellow);outline-offset:.6vmin;border-radius:.6vmin;cursor:text}
+  .notes{position:absolute;left:0;right:0;bottom:0;z-index:5;background:rgba(7,13,21,.96);border-top:2px solid var(--yellow);padding:2vmin 8vmin;font-size:2.4vmin;color:var(--muted);display:none}
+  .notes.on{display:block}
+  .notes b{color:var(--yellow)}
+  .hud{position:absolute;right:2vmin;top:2vmin;z-index:6;display:flex;gap:8px}
+  .hud button{min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(43,51,64,.85);color:#fff;font-weight:900}
+  .hud button.on{background:var(--yellow);color:#04070c}
+  .hud .n{position:absolute;right:0;top:48px;font-size:13px;color:var(--dim);white-space:nowrap}
+  .heart-btn{font-size:.45em}
+
+  /* Print: one slide per landscape page */
+  #printDeck{display:none}
+  @media print{
+    @page{size:landscape;margin:0}
+    body{background:#fff}
+    .wrap,#present{display:none !important}
+    #printDeck{display:block}
+    #printDeck .slide{position:relative;inset:auto;opacity:1;width:100vw;height:100vh;page-break-after:always;break-after:page;gap:3vmin}
+    #printDeck .slide .pnotes{position:absolute;left:8vmin;right:8vmin;bottom:3vmin;font-size:1.9vmin;color:#5a6775;border-top:1px solid var(--line);padding-top:1vmin}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>🌱 Post-lesson discussion deck</h1>
+      <p>Pick the questions you want to ask. Edit any of them, add your own, then present, print or download the deck.</p>
+    </div>
+    <div class="tools">
+      <label>Class <input id="cls" placeholder="e.g. 3F" maxlength="24"></label>
+      <button class="btn primary" id="btnPresent">▶ Present</button>
+      <button class="btn" id="btnPrint">🖨 Print / PDF</button>
+      <button class="btn" id="btnPptx">⬇ PowerPoint</button>
+      <button class="btn" id="btnLink">🔗 Copy link</button>
+    </div>
+  </header>
+
+  <div class="cols">
+    <main id="areas"></main>
+    <aside class="deck">
+      <h2>Your deck</h2>
+      <div class="count" id="count"></div>
+      <ul class="dl" id="list"></ul>
+      <div id="editor"></div>
+      <div class="how">In the presentation: <kbd>→</kbd> next · <kbd>←</kbd> back · <kbd>N</kbd> teacher notes · <kbd>E</kbd> edit the slide · <kbd>Esc</kbd> exit · tap 🔊 and Heart reads the question.</div>
+    </aside>
+  </div>
+</div>
+
+<div id="present" aria-live="polite">
+  <div class="hud">
+    <button id="hudEdit" title="Edit this slide's words (E)">✎ Edit</button>
+    <button id="hudNotes" title="Show or hide teacher notes (N)">📝 Notes</button>
+    <button id="hudExit" title="Exit (Esc)">✕</button>
+    <div class="n" id="hudCount"></div>
+  </div>
+  <div id="slides"></div>
+  <div class="notes" id="notes"></div>
+</div>
+<div id="printDeck"></div>
+
+<script>
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s);
+  const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html !== undefined) e.innerHTML = html; return e; };
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const KEY = 'ecas-discussion-v2';
+  const areaById = Object.fromEntries(DQ_AREAS.map(a => [a.id, a]));
+  const BASE = Object.fromEntries(DQ_AREAS.flatMap(a => a.items.map(i => [i.id, { ...i, area: a.id }])));
+
+  /* State: class, the ordered selection, the teacher's edits and own questions, chart data.
+   * Restored from a shared link first, else from this device. */
+  let state = { cls: '', sel: Object.values(BASE).filter(i => i.star || i.t).map(i => i.id), edits: {}, custom: [], data: JSON.parse(JSON.stringify(DQ_SAMPLE)) };
+  try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.sel) state = { ...state, ...s }; } catch (e) {}
+  const p = new URLSearchParams(location.search);
+  const fromLink = key => { try { return JSON.parse(atob(p.get(key))); } catch (e) { return null; } };
+  if (p.get('x')) { const x = fromLink('x'); if (x) { if (x.custom) state.custom = x.custom; if (x.edits) state.edits = x.edits; } }
+  if (p.get('q')) state.sel = p.get('q').split(',').filter(id => item(id));
+  if (p.get('c')) state.cls = p.get('c');
+  if (p.get('d')) { const d = fromLink('d'); if (d && d.plants) state.data = d; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+  // An item as the teacher sees it: the bank's text with their edits on top, or one of their own.
+  function item(id) {
+    const base = BASE[id] || state.custom.find(c => c.id === id);
+    if (!base) return null;
+    const e = state.edits[id] || {};
+    return { ...base, ...e, areaObj: areaById[base.area], mine: !BASE[id], edited: !!state.edits[id] };
+  }
+  function selected() { return state.sel.map(item).filter(Boolean); }
+  function allIds() { return [...Object.keys(BASE), ...state.custom.map(c => c.id)]; }
+
+  /* ---------- the growth chart (SVG) ---------- */
+  function chartSVG(data, opts) {
+    const o = Object.assign({ w: 900, h: 520, dark: true }, opts || {});
+    const L = 90, R = 230, T = 30, B = 70, W = o.w - L - R, H = o.h - T - B;
+    const plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v)));
+    const max = Math.max(5, ...plants.flatMap(pl => pl.cm.map(Number).filter(n => !isNaN(n))));
+    const step = max > 30 ? 10 : max > 12 ? 5 : 2, yMax = Math.ceil(max / step) * step;
+    const n = data.weeks.length, x = i => L + (n === 1 ? W / 2 : i * W / (n - 1)), y = v => T + H - (v / yMax) * H;
+    const ink = o.dark ? '#f3f6f9' : '#1a1a1a', dim = o.dark ? '#8a98a6' : '#6a7179', grid = o.dark ? 'rgba(255,255,255,.12)' : '#e3e6e4';
+    let s = `<svg viewBox="0 0 ${o.w} ${o.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth chart: height in cm by week" font-family="Nunito, Arial, sans-serif">`;
+    for (let v = 0; v <= yMax; v += step) s += `<line x1="${L}" x2="${L + W}" y1="${y(v)}" y2="${y(v)}" stroke="${grid}"/><text x="${L - 12}" y="${y(v) + 6}" text-anchor="end" font-size="18" fill="${dim}">${v}</text>`;
+    data.weeks.forEach((wk, i) => { s += `<text x="${x(i)}" y="${T + H + 32}" text-anchor="middle" font-size="19" font-weight="700" fill="${ink}">${esc(wk)}</text>`; });
+    s += `<text x="${L + W / 2}" y="${T + H + 62}" text-anchor="middle" font-size="17" fill="${dim}">Week we measured</text>`;
+    s += `<text transform="translate(26 ${T + H / 2}) rotate(-90)" text-anchor="middle" font-size="17" fill="${dim}">Height in cm</text>`;
+    plants.forEach(pl => {
+      const pts = pl.cm.map((v, i) => [x(i), y(Number(v) || 0)]);
+      s += `<polyline fill="none" stroke="${pl.color}" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" points="${pts.map(p => p.join(',')).join(' ')}"/>`;
+      pts.forEach(p => { s += `<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="${pl.color}" stroke="${o.dark ? '#0e1925' : '#fff'}" stroke-width="3"/>`; });
+      const last = pts[pts.length - 1];
+      s += `<text x="${last[0] + 14}" y="${last[1] + 6}" font-size="18" font-weight="800" fill="${pl.color}">${esc(pl.name)}</text>`;
+    });
+    return s + '</svg>';
+  }
+  function tableHTML(data) {
+    let h = '<table class="t"><tr><th>Plant</th>' + data.weeks.map(w => `<th>${esc(w)}</th>`).join('') + '</tr>';
+    data.plants.filter(pl => pl.name).forEach(pl => { h += `<tr><td style="color:${pl.color};font-weight:800">${esc(pl.name)}</td>` + pl.cm.map(v => `<td>${v === '' ? '' : esc(v) + ' cm'}</td>`).join('') + '</tr>'; });
+    return h + '</table>';
+  }
+
+  /* ---------- builder: the question market ---------- */
+  function renderAreas() {
+    const root = $('#areas'); root.innerHTML = '';
+    DQ_AREAS.forEach(a => {
+      const box = el('section', 'area'); box.style.setProperty('--ac', a.color);
+      box.appendChild(el('h2', '', `${esc(a.title)} <small>${esc(a.sub)}</small><span class="sel"><button data-all="${a.id}">Select all</button><button data-none="${a.id}">None</button></span>`));
+      box.appendChild(el('p', 'intro', esc(a.intro)));
+      if (a.chart) box.appendChild(dataEditor());
+      [...a.items.map(i => i.id), ...state.custom.filter(c => c.area === a.id).map(c => c.id)].forEach(id => {
+        const i = item(id), row = el('label', 'item');
+        row.innerHTML = `<input type="checkbox" ${state.sel.includes(id) ? 'checked' : ''} data-id="${id}"><div class="txt"><div class="q">${esc(i.q || i.t)}${i.star ? '<span class="tag star">main</span>' : ''}${i.t ? '<span class="tag exp">explainer</span>' : ''}${i.mine ? '<span class="tag mine">mine</span>' : ''}</div>${i.hint ? `<div class="hint">${esc(i.hint)}</div>` : ''}${i.edited ? '<div class="edited">✎ edited by you</div>' : ''}</div>`;
+        box.appendChild(row);
+      });
+      box.appendChild(el('div', 'addrow', `<button class="btn small" data-add="${a.id}">+ Add your own question here</button>`));
+      root.appendChild(box);
+    });
+  }
+  $('#areas').addEventListener('change', e => {
+    const id = e.target.dataset.id; if (!id) return;
+    state.sel = e.target.checked ? [...state.sel, id] : state.sel.filter(x => x !== id);
+    save(); renderList();
+  });
+  $('#areas').addEventListener('click', e => {
+    const t = e.target;
+    if (t.dataset.all || t.dataset.none) {
+      const a = t.dataset.all || t.dataset.none, ids = allIds().filter(id => item(id).area === a);
+      state.sel = t.dataset.all ? [...new Set([...state.sel, ...ids])] : state.sel.filter(x => !ids.includes(x));
+      save(); renderAreas(); renderList();
+    } else if (t.dataset.add) {
+      const id = 'X' + Date.now().toString(36);
+      state.custom.push({ id, area: t.dataset.add, q: 'My question…', hint: '', listen: '', push: '' });
+      state.sel.push(id); save(); renderAreas(); renderList(); openEditor(id);
+    }
+  });
+  function dataEditor() {
+    const d = state.data, box = el('div', 'data');
+    let h = '<h3>Your class data for the chart slides (heights in cm). Leave a plant blank to hide it.</h3><table><tr><th>Plant</th>' + d.weeks.map((w, i) => `<th><input data-week="${i}" value="${esc(w)}"></th>`).join('') + '</tr>';
+    d.plants.forEach((pl, r) => { h += `<tr><td><span class="sw" style="background:${pl.color}"></span><input class="name" data-name="${r}" value="${esc(pl.name)}"></td>` + pl.cm.map((v, c) => `<td><input type="number" step="0.5" min="0" data-cm="${r},${c}" value="${esc(v)}"></td>`).join('') + '</tr>'; });
+    h += '</table><div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small" id="resetData">Reset to sample data</button><span style="color:var(--dim);font-size:13px">Copy the numbers from your class sheet; the chart updates as you type.</span></div><div class="preview" id="chartPreview"></div>';
+    box.innerHTML = h;
+    const redraw = () => { $('#chartPreview').innerHTML = chartSVG(state.data, { w: 900, h: 420 }); };
+    box.addEventListener('input', e => {
+      const t = e.target;
+      if (t.dataset.week !== undefined) d.weeks[+t.dataset.week] = t.value;
+      else if (t.dataset.name !== undefined) d.plants[+t.dataset.name].name = t.value;
+      else if (t.dataset.cm) { const [r, c] = t.dataset.cm.split(',').map(Number); d.plants[r].cm[c] = t.value === '' ? '' : Number(t.value); }
+      save(); redraw();
+    });
+    box.addEventListener('click', e => { if (e.target.id === 'resetData') { state.data = JSON.parse(JSON.stringify(DQ_SAMPLE)); save(); renderAreas(); } });
+    setTimeout(redraw, 0);
+    return box;
+  }
+
+  /* ---------- the deck panel: order, edit, remove ---------- */
+  function renderList() {
+    const items = selected(), list = $('#list'); list.innerHTML = '';
+    let areas = 0, last = null; items.forEach(i => { if (i.area !== last) { areas++; last = i.area; } });
+    $('#count').textContent = `${items.length} question${items.length === 1 ? '' : 's'} · ${items.length + areas + 2} slides`;
+    items.forEach((i, k) => {
+      const li = el('li', '', `<span class="k" style="color:${i.areaObj.color}">${esc(i.area)}</span><span class="t">${esc(i.q || i.t)}${i.edited || i.mine ? ' <span style="color:var(--yellow)">✎</span>' : ''}</span><span class="ops"><button data-up="${k}" title="Move up">▲</button><button data-down="${k}" title="Move down">▼</button><button data-edit="${i.id}" title="Edit">✎</button><button data-del="${i.id}" title="Remove from deck">✕</button></span>`);
+      list.appendChild(li);
+    });
+    $('#btnPresent').disabled = $('#btnPrint').disabled = $('#btnPptx').disabled = items.length === 0;
+  }
+  $('#list').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const d = b.dataset;
+    if (d.up !== undefined || d.down !== undefined) {
+      const k = +(d.up !== undefined ? d.up : d.down), j = d.up !== undefined ? k - 1 : k + 1;
+      if (j < 0 || j >= state.sel.length) return;
+      [state.sel[k], state.sel[j]] = [state.sel[j], state.sel[k]];
+    } else if (d.del) { state.sel = state.sel.filter(x => x !== d.del); renderAreas(); }
+    else if (d.edit) { openEditor(d.edit); return; }
+    save(); renderList();
+  });
+  function openEditor(id) {
+    const i = item(id); if (!i) return;
+    const ed = $('#editor');
+    const isExp = !!i.t;
+    ed.innerHTML = `<div class="editor"><h3>✎ Edit this slide</h3>
+      <label>${isExp ? 'Slide title' : 'Question (what students see)'}</label><textarea id="edQ" rows="3">${esc(i.q || i.t)}</textarea>
+      ${isExp ? `<label>Points on the slide (one per line)</label><textarea id="edLines" rows="4">${esc((i.lines || []).join('\n'))}</textarea>` : `<label>Hint under the question (students see)</label><input id="edHint" value="${esc(i.hint)}">`}
+      <label>Teacher notes · listen for</label><textarea id="edListen" rows="2">${esc(i.listen)}</textarea>
+      ${isExp ? '' : `<label>Teacher notes · push further</label><textarea id="edPush" rows="2">${esc(i.push)}</textarea>`}
+      <div class="row"><button class="btn small primary" id="edSave">Save</button><button class="btn small" id="edCancel">Cancel</button>${i.mine ? '<button class="btn small" id="edDelete" style="margin-left:auto;color:#ff9f9a">Delete my question</button>' : i.edited ? '<button class="btn small" id="edReset" style="margin-left:auto">Back to original</button>' : ''}</div></div>`;
+    ed.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    $('#edSave').onclick = () => {
+      const e = { listen: $('#edListen').value.trim() };
+      if (isExp) { e.t = $('#edQ').value.trim(); e.lines = $('#edLines').value.split('\n').map(s => s.trim()).filter(Boolean); }
+      else { e.q = $('#edQ').value.trim(); e.hint = $('#edHint').value.trim(); e.push = $('#edPush').value.trim(); }
+      if (i.mine) Object.assign(state.custom.find(c => c.id === id), e); else state.edits[id] = e;
+      save(); ed.innerHTML = ''; renderAreas(); renderList();
+    };
+    $('#edCancel').onclick = () => { ed.innerHTML = ''; };
+    const del = $('#edDelete'); if (del) del.onclick = () => { state.custom = state.custom.filter(c => c.id !== id); state.sel = state.sel.filter(x => x !== id); save(); ed.innerHTML = ''; renderAreas(); renderList(); };
+    const rs = $('#edReset'); if (rs) rs.onclick = () => { delete state.edits[id]; save(); ed.innerHTML = ''; renderAreas(); renderList(); };
+  }
+
+  /* ---------- the deck ---------- */
+  function buildDeck() {
+    const items = selected(), cls = state.cls.trim(), slides = [];
+    const today = new Date().toLocaleDateString('en-SG', { day: 'numeric', month: 'long', year: 'numeric' });
+    slides.push({ kind: 'cover', title: 'Our seeds, our data', sub: cls ? `Class ${cls} · What did we find out?` : 'What did we find out?', foot: `Each Child a Seed · ${today}`, notes: 'Say: You grew real plants and collected real data. Today we think like scientists about what the numbers tell us.' });
+    let last = null;
+    items.forEach(i => {
+      const a = i.areaObj;
+      if (i.area !== last) { slides.push({ kind: 'divider', area: a, title: a.title, sub: a.sub, notes: a.intro }); last = i.area; }
+      if (i.t) slides.push({ kind: 'explain', id: i.id, area: a, t: i.t, lines: i.lines || [], chart: i.chart, table: i.table, notes: i.listen });
+      else slides.push({ kind: 'q', id: i.id, area: a, q: i.q, hint: i.hint, chart: i.chart, notes: [i.listen && `Listen for: ${i.listen}`, i.push && `Push further: ${i.push}`].filter(Boolean).join('  ·  ') });
+    });
+    slides.push({ kind: 'end', title: 'I wonder…', sub: 'Every scientist ends with a new question. What is yours?', notes: 'Finish with one question the class cannot answer yet, and put it on the I wonder board.' });
+    return slides;
+  }
+  function slideHTML(s, forPrint) {
+    const ac = s.area ? s.area.color : '#ffb627';
+    const chart = s.chart ? `<div class="chart">${chartSVG(state.data)}</div>` : '';
+    let inner = '';
+    if (s.kind === 'cover') inner = `<div class="eyebrow">Each Child a Seed · Post-lesson discussion</div><h1 class="big">${esc(s.title)}</h1><div class="hint">${esc(s.sub)}</div><div class="foot">${esc(s.foot)}</div>`;
+    else if (s.kind === 'divider') inner = `<div class="eyebrow">Part ${esc(s.area.id)}</div><h1 class="big">${esc(s.title)}</h1><div class="hint" style="color:rgba(4,7,12,.75)">${esc(s.sub)}</div>`;
+    else if (s.kind === 'end') inner = `<div class="eyebrow">You did it</div><h1 class="big">${esc(s.title)}</h1><div class="hint">${esc(s.sub)}</div>`;
+    else if (s.kind === 'q') {
+      const body = `<div class="eyebrow">${esc(s.area.title)}</div><h1 data-heart data-field="q">${esc(s.q)}</h1><div class="hint" data-field="hint">${esc(s.hint)}</div>`;
+      inner = s.chart ? `<div class="two"><div>${body}</div>${chart}</div>` : body;
+    } else {
+      const body = `<div class="eyebrow">${esc(s.area.title)}</div><h1 data-heart data-field="t">${esc(s.t)}</h1><ul data-field="lines">${s.lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>`;
+      inner = s.table ? `<div class="two"><div>${body}</div><div><div class="chart" style="margin-bottom:2vmin">${tableHTML(state.data)}</div>${chart}</div></div>` : s.chart ? `<div class="two"><div>${body}</div>${chart}</div>` : body;
+    }
+    return `<section class="slide ${s.kind === 'divider' ? 'divider' : ''} ${s.kind === 'cover' ? 'cover' : ''}" data-id="${esc(s.id || '')}" style="--ac:${ac}">${inner}${forPrint && s.notes ? `<div class="pnotes">Teacher notes: ${esc(s.notes)}</div>` : ''}</section>`;
+  }
+
+  /* ---------- present ---------- */
+  let deck = [], cur = 0, notesOn = false, editOn = false;
+  function present() {
+    deck = buildDeck(); cur = 0; editOn = false; $('#present').classList.remove('editing'); $('#hudEdit').classList.remove('on');
+    $('#slides').innerHTML = deck.map(s => slideHTML(s)).join('');
+    $('#present').classList.add('on'); show(0);
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+  }
+  function show(i) {
+    cur = Math.max(0, Math.min(deck.length - 1, i));
+    document.querySelectorAll('#slides .slide').forEach((s, k) => s.classList.toggle('on', k === cur));
+    $('#hudCount').textContent = `${cur + 1} / ${deck.length}`;
+    const n = $('#notes'); n.innerHTML = deck[cur].notes ? `<b>Teacher notes</b> · ${esc(deck[cur].notes)}` : ''; n.classList.toggle('on', notesOn && !!deck[cur].notes);
+    applyEditable();
+  }
+  // Editing on the slide itself: the question, hint and points become editable; changes are kept with the deck.
+  function applyEditable() {
+    document.querySelectorAll('#slides [data-field]').forEach(f => f.contentEditable = 'false');
+    if (!editOn) return;
+    const s = document.querySelectorAll('#slides .slide')[cur]; if (!s || !s.dataset.id) return;
+    s.querySelectorAll('[data-field]').forEach(f => { f.contentEditable = 'true'; });
+    s.querySelectorAll('.heart-btn').forEach(b => { b.contentEditable = 'false'; });
+  }
+  // The words of a field, without Heart's speaker button.
+  const words = f => { const c = f.cloneNode(true); c.querySelectorAll('.heart-btn').forEach(b => b.remove()); return c.textContent.replace(/\s+/g, ' ').trim(); };
+  $('#slides').addEventListener('input', e => {
+    const f = e.target.closest('[data-field]'), s = e.target.closest('.slide'); if (!f || !s || !s.dataset.id) return;
+    const id = s.dataset.id, field = f.dataset.field, i = item(id);
+    const val = field === 'lines' ? [...f.querySelectorAll('li')].map(li => words(li)).filter(Boolean) : words(f);
+    const target = i.mine ? state.custom.find(c => c.id === id) : (state.edits[id] = state.edits[id] || {});
+    target[field] = val; save();
+    const d = deck[cur]; if (field === 'q') d.q = val; else if (field === 't') d.t = val; else if (field === 'hint') d.hint = val; else d.lines = val;
+  });
+  function toggleEdit() { editOn = !editOn; $('#present').classList.toggle('editing', editOn); $('#hudEdit').classList.toggle('on', editOn); applyEditable(); if (!editOn) { renderAreas(); renderList(); } }
+  function exit() { editOn = false; $('#present').classList.remove('on', 'editing'); $('#hudEdit').classList.remove('on'); if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); renderAreas(); renderList(); }
+  document.addEventListener('keydown', e => {
+    if (!$('#present').classList.contains('on')) return;
+    if (e.target.isContentEditable) { if (e.key === 'Escape') { e.target.blur(); toggleEdit(); } return; }
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(cur + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'Escape') exit();
+    else if (e.key.toLowerCase() === 'n') { notesOn = !notesOn; show(cur); }
+    else if (e.key.toLowerCase() === 'e') toggleEdit();
+  });
+  $('#slides').addEventListener('click', e => { if (editOn || e.target.closest('button')) return; show(cur + 1); });
+  $('#hudExit').addEventListener('click', exit);
+  $('#hudNotes').addEventListener('click', () => { notesOn = !notesOn; show(cur); });
+  $('#hudEdit').addEventListener('click', toggleEdit);
+  $('#btnPresent').addEventListener('click', present);
+
+  /* ---------- print / PDF ---------- */
+  $('#btnPrint').addEventListener('click', () => {
+    $('#printDeck').innerHTML = buildDeck().map(s => slideHTML(s, true)).join('');
+    setTimeout(() => window.print(), 50);
+  });
+
+  /* ---------- PowerPoint ---------- */
+  $('#btnPptx').addEventListener('click', async () => {
+    const b = $('#btnPptx'); b.disabled = true; b.textContent = '⬇ Making…';
+    try {
+      if (!window.PptxGenJS) await new Promise((ok, no) => { const s = document.createElement('script'); s.src = 'https://unpkg.com/pptxgenjs@3.12.0/dist/pptxgen.bundle.js'; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+      const pptx = new PptxGenJS(); pptx.layout = 'LAYOUT_WIDE';
+      const F = 'Nunito';
+      buildDeck().forEach(s => {
+        const sl = pptx.addSlide(); const ac = s.area ? s.area.color : '#ffb627';
+        const div = s.kind === 'divider';
+        sl.background = { color: div ? ac.slice(1) : '070d15' };
+        const ink = div ? '04070c' : 'F3F6F9', muted = div ? '2a2a2a' : 'BFD8D5';
+        const hasChart = s.chart || s.table, tw = hasChart ? 6.2 : 12.3;
+        let y = 0.8;
+        const eyebrow = s.kind === 'cover' ? 'Each Child a Seed · Post-lesson discussion' : s.kind === 'end' ? 'You did it' : div ? `Part ${s.area.id}` : s.area.title;
+        sl.addText(eyebrow.toUpperCase(), { x: 0.6, y, w: tw, h: 0.4, fontFace: F, fontSize: 14, bold: true, color: div ? '2a2a2a' : ac.slice(1), charSpacing: 2 }); y += 0.55;
+        const title = s.q || s.t || s.title, big = ['cover', 'divider', 'end'].includes(s.kind);
+        sl.addText(title, { x: 0.6, y, w: tw, h: big ? 2.2 : 2.6, fontFace: F, fontSize: big ? 48 : 32, bold: true, color: ink, valign: 'top' }); y += big ? 2.3 : 2.7;
+        if (s.hint || s.sub) sl.addText(s.hint || s.sub, { x: 0.6, y, w: tw, h: 1, fontFace: F, fontSize: 20, bold: true, color: muted, valign: 'top' });
+        if (s.lines && s.lines.length) sl.addText(s.lines.map(l => ({ text: l, options: { bullet: true, breakLine: true } })), { x: 0.6, y, w: tw, h: 3, fontFace: F, fontSize: 20, color: ink, valign: 'top' });
+        if (hasChart) {
+          const plants = state.data.plants.filter(pl => pl.name);
+          sl.addChart(pptx.ChartType.line, plants.map(pl => ({ name: pl.name, labels: state.data.weeks, values: pl.cm.map(v => Number(v) || 0) })),
+            { x: 7.2, y: 0.9, w: 5.6, h: 5.4, chartColors: plants.map(pl => pl.color.slice(1)), lineSize: 3, lineDataSymbolSize: 9, showLegend: true, legendPos: 'b', legendColor: 'BFD8D5', legendFontSize: 12, catAxisLabelColor: 'BFD8D5', valAxisLabelColor: 'BFD8D5', valAxisTitle: 'Height in cm', showValAxisTitle: true, valAxisTitleColor: 'BFD8D5', valGridLine: { color: '2b3340', size: 1 }, catGridLine: { style: 'none' } });
+        }
+        if (s.foot) sl.addText(s.foot, { x: 0.6, y: 6.7, w: 8, h: 0.4, fontFace: F, fontSize: 12, color: '8A98A6' });
+        if (s.notes) sl.addNotes(s.notes);
+      });
+      await pptx.writeFile({ fileName: `ECAS discussion deck${state.cls ? ' ' + state.cls : ''}.pptx` });
+    } catch (e) { alert('Sorry, the PowerPoint file could not be made on this network. Use Print / PDF instead.'); }
+    b.disabled = false; b.textContent = '⬇ PowerPoint';
+  });
+
+  /* ---------- share link: everything a colleague needs to open the same deck ---------- */
+  $('#btnLink').addEventListener('click', async () => {
+    const u = new URL(location.href.split('?')[0]);
+    u.searchParams.set('q', state.sel.join(','));
+    if (state.cls.trim()) u.searchParams.set('c', state.cls.trim());
+    if (JSON.stringify(state.data) !== JSON.stringify(DQ_SAMPLE)) u.searchParams.set('d', btoa(unescape(encodeURIComponent(JSON.stringify(state.data)))));
+    if (state.custom.length || Object.keys(state.edits).length) u.searchParams.set('x', btoa(unescape(encodeURIComponent(JSON.stringify({ custom: state.custom, edits: state.edits })))));
+    try { await navigator.clipboard.writeText(u.toString()); $('#btnLink').textContent = '✓ Link copied'; } catch (e) { prompt('Copy this link:', u.toString()); }
+    setTimeout(() => { $('#btnLink').textContent = '🔗 Copy link'; }, 2000);
+  });
+
+  $('#cls').value = state.cls;
+  $('#cls').addEventListener('input', e => { state.cls = e.target.value; save(); });
+  renderAreas(); renderList();
+})();
+</script>
+</body>
+</html>
