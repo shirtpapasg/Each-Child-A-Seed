@@ -98,6 +98,20 @@ const DQ_AREAS = [
           'In which week did it overtake the others?',
           'Was any plant growing faster at the end?' ],
         listen: 'Let students try to answer from the bars. They cannot. That is the limitation: a bar graph shows one moment, not how things changed.' },
+      { id: 'GW', t: 'The same plant, week by week', chart: 'weeks', lines: [
+          'Now each bar is one week, for one plant.',
+          'The bars climb: we can see this plant growing.',
+          'But it only shows one plant.' ],
+        listen: 'Ask: which week did it grow the most? Students can answer this from the bars. Then ask: is this the fastest-growing plant in our class? They cannot tell from one graph.' },
+      { id: 'GM', t: 'A bar graph for every plant', chart: 'multi', lines: [
+          'Four plants, so four graphs.',
+          'To compare, your eyes must jump from graph to graph.',
+          'Which plant grew fastest? Which was tallest in week 3? Hard to tell.' ],
+        listen: 'Give students 20 seconds to find the fastest grower from the four graphs. Collect answers and the disagreements. The difficulty is the point: separate bar graphs make comparing plants slow and unsure.' },
+      { id: 'GQ', q: 'Look at the four bar graphs. Which plant grew the most between week 2 and week 3? How sure are you?', chart: 'multi',
+        hint: 'How many graphs did you have to look at? How many numbers did you have to hold in your head?',
+        listen: 'Answers that disagree, and the feeling that it is hard to compare across graphs.',
+        push: 'What would make this comparison easier? Could we put all four plants on one picture?' },
       { id: 'G3', t: 'Could we draw a bar for every week?', chart: 'bars', lines: [
           'Four bars for each week: sixteen bars.',
           'Now every week is there, but it is crowded.',

@@ -98,6 +98,7 @@
   .slide ul{margin:0;padding-left:3.5vmin;font-size:3.4vmin;line-height:1.45;color:var(--ink)}
   .slide li{margin:.6vmin 0}
   .slide .two{display:grid;grid-template-columns:1fr 1fr;gap:5vmin;align-items:center}
+  .slide .two h1{font-size:5vmin}
   .slide .chart{background:#0e1925;border-radius:2vmin;padding:2vmin}
   .slide .chart svg{width:100%;height:auto;display:block}
   .slide table.t{border-collapse:collapse;font-size:2.6vmin;width:100%}
@@ -226,20 +227,32 @@
     });
     return s + '</svg>';
   }
-  /* Bar graphs: 'bar' = one bar per plant at the last week; 'bars' = a group of bars for every week. */
+  /* Bar graphs: 'bar' = one bar per plant at the last week; 'weeks' = one plant, a bar per week (opts.plant);
+   * 'bars' = a group of bars for every week. */
   function barSVG(data, mode, opts) {
-    const o = Object.assign({ w: 900, h: 520 }, opts || {});
-    const L = 90, R = 40, T = 40, B = mode === 'bars' ? 70 : 110, W = o.w - L - R, H = o.h - T - B;
+    const o = Object.assign({ w: 900, h: 520, plant: 0 }, opts || {});
+    const L = 90, R = 40, T = mode === 'weeks' ? 60 : 40, B = mode === 'bar' ? 110 : 70, W = o.w - L - R, H = o.h - T - B;
     const plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v)));
     const lastIdx = data.weeks.length - 1;
     const max = Math.max(5, ...plants.flatMap(pl => pl.cm.map(Number).filter(n => !isNaN(n))));
     const step = max > 30 ? 10 : max > 12 ? 5 : 2, yMax = Math.ceil(max / step) * step;
     const y = v => T + H - (v / yMax) * H, ink = '#f3f6f9', dim = '#8a98a6', grid = 'rgba(255,255,255,.12)';
-    const label = mode === 'bars' ? 'Height in cm, every week' : `Height in cm at ${esc(data.weeks[lastIdx])}`;
-    let s = `<svg viewBox="0 0 ${o.w} ${o.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar graph: ${label}" font-family="Nunito, Arial, sans-serif">`;
+    const one = plants[o.plant] || plants[0];
+    const label = mode === 'bars' ? 'Height in cm, every week' : mode === 'weeks' ? `${one ? one.name : ''}, week by week` : `Height in cm at ${esc(data.weeks[lastIdx])}`;
+    let s = `<svg viewBox="0 0 ${o.w} ${o.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar graph: ${esc(label)}" font-family="Nunito, Arial, sans-serif">`;
     for (let v = 0; v <= yMax; v += step) s += `<line x1="${L}" x2="${L + W}" y1="${y(v)}" y2="${y(v)}" stroke="${grid}"/><text x="${L - 12}" y="${y(v) + 6}" text-anchor="end" font-size="18" fill="${dim}">${v}</text>`;
     s += `<text transform="translate(26 ${T + H / 2}) rotate(-90)" text-anchor="middle" font-size="17" fill="${dim}">Height in cm</text>`;
-    if (mode === 'bars') {
+    if (mode === 'weeks' && one) {
+      const gw = W / data.weeks.length, bw = Math.min(120, gw * 0.6);
+      s += `<text x="${L + W / 2}" y="${T - 24}" text-anchor="middle" font-size="24" font-weight="800" fill="${one.color}">${esc(one.name)}</text>`;
+      data.weeks.forEach((wk, wi) => {
+        const v = Number(one.cm[wi]) || 0, bx = L + wi * gw + (gw - bw) / 2;
+        s += `<rect x="${bx}" y="${y(v)}" width="${bw}" height="${T + H - y(v)}" rx="8" fill="${one.color}"/>`;
+        s += `<text x="${bx + bw / 2}" y="${y(v) - 10}" text-anchor="middle" font-size="20" font-weight="800" fill="${one.color}">${v} cm</text>`;
+        s += `<text x="${bx + bw / 2}" y="${T + H + 32}" text-anchor="middle" font-size="19" font-weight="700" fill="${ink}">${esc(wk)}</text>`;
+      });
+      s += `<text x="${L + W / 2}" y="${T + H + 62}" text-anchor="middle" font-size="17" fill="${dim}">Week we measured</text>`;
+    } else if (mode === 'bars') {
       const gw = W / data.weeks.length, bw = Math.min(40, (gw - 24) / Math.max(1, plants.length));
       data.weeks.forEach((wk, wi) => {
         const gx = L + wi * gw + (gw - bw * plants.length) / 2;
@@ -264,6 +277,13 @@
   }
   function chartFor(kind) {
     if (kind === 'bar') return `<div class="chart">${barSVG(state.data, 'bar')}</div>`;
+    if (kind === 'weeks') return `<div class="chart">${barSVG(state.data, 'weeks', { plant: 0 })}</div>`;
+    if (kind === 'multi') {
+      const n = state.data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v))).length;
+      let g = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5vmin">';
+      for (let i = 0; i < n; i++) g += `<div class="chart" style="padding:1vmin">${barSVG(state.data, 'weeks', { plant: i, w: 520, h: 400 })}</div>`;
+      return g + '</div>';
+    }
     if (kind === 'bars') return `<div class="chart">${barSVG(state.data, 'bars')}</div>`;
     if (kind === 'both') return `<div style="display:flex;flex-direction:column;gap:2vmin"><div class="chart">${barSVG(state.data, 'bar', { h: 400 })}</div><div class="chart">${chartSVG(state.data, { h: 400 })}</div></div>`;
     return `<div class="chart">${chartSVG(state.data)}</div>`;
@@ -489,7 +509,11 @@
           const lineOpts = { chartColors: plants.map(pl => pl.color.slice(1)), lineSize: 3, lineDataSymbolSize: 9, ...axes };
           const barData = [{ name: `Height at ${wk[lastIdx]}`, labels: plants.map(pl => pl.name), values: plants.map(pl => Number(pl.cm[lastIdx]) || 0) }];
           const barOpts = { chartColors: plants.map(pl => pl.color.slice(1)), barDir: 'col', barGapWidthPct: 60, showValue: true, dataLabelColor: 'F3F6F9', dataLabelFontSize: 12, ...axes, showLegend: false };
+          const weekData = pl => [{ name: pl.name, labels: wk, values: pl.cm.map(v => Number(v) || 0) }];
+          const weekOpts = pl => ({ ...barOpts, chartColors: [pl.color.slice(1)], showTitle: true, title: pl.name, titleColor: pl.color.slice(1), titleFontSize: 13 });
           if (s.chart === 'bar') sl.addChart(pptx.ChartType.bar, barData, { x: 7.2, y: 0.9, w: 5.6, h: 5.4, ...barOpts });
+          else if (s.chart === 'weeks' && plants[0]) sl.addChart(pptx.ChartType.bar, weekData(plants[0]), { x: 7.2, y: 0.9, w: 5.6, h: 5.4, ...weekOpts(plants[0]) });
+          else if (s.chart === 'multi') plants.slice(0, 4).forEach((pl, i) => sl.addChart(pptx.ChartType.bar, weekData(pl), { x: 7.2 + (i % 2) * 2.9, y: 0.7 + Math.floor(i / 2) * 3.2, w: 2.8, h: 3.1, ...weekOpts(pl), showValue: false, valAxisTitle: '', showValAxisTitle: false, catAxisLabelFontSize: 9, valAxisLabelFontSize: 9 }));
           else if (s.chart === 'bars') sl.addChart(pptx.ChartType.bar, lineData, { x: 7.2, y: 0.9, w: 5.6, h: 5.4, chartColors: plants.map(pl => pl.color.slice(1)), barDir: 'col', barGrouping: 'clustered', barGapWidthPct: 40, ...axes });
           else if (s.chart === 'both') { sl.addChart(pptx.ChartType.bar, barData, { x: 7.2, y: 0.7, w: 5.6, h: 3, ...barOpts }); sl.addChart(pptx.ChartType.line, lineData, { x: 7.2, y: 3.8, w: 5.6, h: 3.4, ...lineOpts }); }
           else sl.addChart(pptx.ChartType.line, lineData, { x: 7.2, y: 0.9, w: 5.6, h: 5.4, ...lineOpts });
