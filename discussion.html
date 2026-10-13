@@ -8,7 +8,8 @@
 <script src="./discussion-questions.js"></script>
 <script src="./heart.js"></script>
 <style>
-  :root{--bg:#070d15;--panel:#0e1925;--line:rgba(255,255,255,.12);--ink:#f3f6f9;--muted:#bfd8d5;--dim:#8a98a6;--yellow:#ffb627;--green:#3fc35f;--blue:#66ccff;--purple:#b557e6;--red:#e8493f}
+  :root{--bg:#070d15;--panel:#0e1925;--line:rgba(255,255,255,.12);--ink:#f3f6f9;--muted:#bfd8d5;--dim:#8a98a6;--btn:#2b3340;--field:#070d15;--yellow:#ffb627;--green:#3fc35f;--blue:#66ccff;--purple:#b557e6;--red:#e8493f;--cover:radial-gradient(120% 80% at 50% 0%,#15304a 0%,#08131f 60%,#04070c 100%)}
+  html[data-theme="light"]{--bg:#f6f8fa;--panel:#ffffff;--line:rgba(20,33,61,.14);--ink:#14213d;--muted:#4a5568;--dim:#6a7179;--btn:#e3e8ee;--field:#ffffff;--yellow:#b36b00;--green:#1e8a3c;--blue:#0f6fa8;--purple:#7d35b8;--red:#c0392b;--cover:radial-gradient(120% 80% at 50% 0%,#e4f1ff 0%,#f6f8fa 60%,#ffffff 100%)}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.45}
   a{color:var(--blue)}
@@ -20,8 +21,8 @@
   header.top p{margin:4px 0 0;color:var(--muted)}
   .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
   .tools label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
-  .tools input{min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:#fff;font-weight:800;font-size:17px;width:160px}
-  .btn{min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:#2b3340;color:#fff;font-weight:900;font-size:16px;display:inline-flex;align-items:center;gap:8px}
+  .tools input{min-height:46px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:800;font-size:17px;width:160px}
+  .btn{min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--btn);color:var(--ink);font-weight:900;font-size:16px;display:inline-flex;align-items:center;gap:8px}
   .btn:hover{filter:brightness(1.15)}
   .btn.primary{background:var(--green);color:#04070c;border-color:transparent;box-shadow:0 0 18px rgba(63,195,95,.35)}
   .btn.small{min-height:36px;font-size:14px;padding:0 12px}
@@ -32,7 +33,7 @@
   .area>h2{margin:0;padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;font-size:22px;font-weight:900;color:var(--ac)}
   .area>h2 small{font-size:15px;font-weight:700;color:var(--muted)}
   .area>h2 .sel{margin-left:auto;display:flex;gap:6px}
-  .area>h2 .sel button{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0e1925;color:var(--muted)}
+  .area>h2 .sel button{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
   .area .intro{margin:0;padding:0 20px 12px;color:var(--muted);font-size:15px}
   .item{display:flex;gap:12px;align-items:flex-start;padding:12px 20px;border-top:1px solid var(--line);cursor:pointer}
   .item:hover{background:rgba(255,255,255,.03)}
@@ -43,7 +44,7 @@
   .item .edited{color:var(--yellow);font-size:12px;font-weight:800}
   .tag{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
   .tag.star{background:var(--purple);color:#04070c}
-  .tag.exp{background:#2b3340;color:var(--muted)}
+  .tag.exp{background:var(--btn);color:var(--muted)}
   .tag.mine{background:var(--yellow);color:#04070c}
   .addrow{padding:10px 20px 14px;border-top:1px solid var(--line)}
   .data{padding:14px 20px;border-top:1px solid var(--line)}
@@ -51,10 +52,10 @@
   .data table{border-collapse:collapse;width:100%;font-size:15px}
   .data th,.data td{padding:4px 6px;text-align:left}
   .data th{color:var(--dim);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
-  .data input{width:100%;min-width:60px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:#070d15;color:#fff;font-weight:700}
+  .data input{width:100%;min-width:60px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--field);color:var(--ink);font-weight:700}
   .data input.name{min-width:140px}
   .data .sw{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle;margin-right:6px}
-  .data .preview{margin-top:10px;background:#070d15;border-radius:14px;padding:8px}
+  .data .preview{margin-top:10px;background:var(--field);border-radius:14px;padding:8px}
   .data .preview svg{width:100%;height:auto;display:block}
   aside.deck{position:sticky;top:16px;border-radius:20px;background:var(--panel);border:1px solid var(--line);padding:16px 18px;max-height:calc(100vh - 32px);overflow:auto}
   aside.deck h2{margin:0 0 4px;font-size:20px;font-weight:900}
@@ -62,17 +63,17 @@
   .dl{list-style:none;margin:0;padding:0}
   .dl li{display:flex;gap:6px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
   .dl li .k{font-weight:900;flex:none;width:22px}
-  .dl li .t{flex:1;color:#fff}
+  .dl li .t{flex:1;color:var(--ink)}
   .dl li .ops{display:flex;gap:2px;flex:none}
-  .dl li .ops button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#2b3340;color:#fff;font-size:13px;padding:0}
+  .dl li .ops button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--btn);color:var(--ink);font-size:13px;padding:0}
   .dl li .ops button:hover{filter:brightness(1.2)}
-  .editor{margin-top:12px;padding:14px;border-radius:14px;background:#070d15;border:2px solid var(--yellow)}
+  .editor{margin-top:12px;padding:14px;border-radius:14px;background:var(--field);border:2px solid var(--yellow)}
   .editor h3{margin:0 0 8px;font-size:16px;color:var(--yellow)}
   .editor label{display:block;font-size:12px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin:8px 0 4px}
-  .editor textarea,.editor input,.editor select{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#0e1925;color:#fff;font-size:15px;resize:vertical}
+  .editor textarea,.editor input,.editor select{width:100%;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:15px;resize:vertical}
   .editor .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
   aside.deck .how{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--dim)}
-  kbd{font-family:inherit;font-weight:900;background:#2b3340;border-radius:6px;padding:1px 6px;color:#fff}
+  kbd{font-family:inherit;font-weight:900;background:var(--btn);border-radius:6px;padding:1px 6px;color:var(--ink)}
 
   /* Teacher tour */
   #tour{display:none;position:fixed;inset:0;z-index:80}
@@ -83,11 +84,11 @@
   #tour .card p{margin:0 0 14px;font-size:16px;color:var(--ink)}
   #tour .card .row{display:flex;gap:8px;align-items:center}
   #tour .card .step{margin-right:auto;font-size:13px;color:var(--dim);font-weight:800}
-  .hintcard{position:absolute;left:50%;bottom:9vmin;transform:translateX(-50%);z-index:7;background:rgba(14,25,37,.96);border:2px solid var(--yellow);border-radius:16px;padding:14px 22px;font-size:2.2vmin;color:var(--ink);display:none;white-space:nowrap}
+  .hintcard{position:absolute;left:50%;bottom:9vmin;transform:translateX(-50%);z-index:7;background:var(--panel);border:2px solid var(--yellow);border-radius:16px;padding:14px 22px;font-size:2.2vmin;color:var(--ink);display:none;white-space:nowrap}
   .hintcard.on{display:block}
 
   /* Presentation */
-  #present{display:none;position:fixed;inset:0;background:#04070c;z-index:50}
+  #present{display:none;position:fixed;inset:0;background:var(--bg);z-index:50}
   #present.on{display:block}
   .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:4vmin;padding:7vmin 8vmin;background:var(--bg);color:var(--ink);opacity:0;transition:opacity .25s}
   .slide.on{opacity:1;z-index:2}
@@ -99,21 +100,24 @@
   .slide li{margin:.6vmin 0}
   .slide .two{display:grid;grid-template-columns:1fr 1fr;gap:5vmin;align-items:center}
   .slide .two h1{font-size:5vmin}
-  .slide .chart{background:#0e1925;border-radius:2vmin;padding:2vmin}
+  .slide .chart{background:var(--panel);border:1px solid var(--line);border-radius:2vmin;padding:2vmin}
   .slide .chart svg{width:100%;height:auto;display:block}
   .slide table.t{border-collapse:collapse;font-size:2.6vmin;width:100%}
   .slide table.t th,.slide table.t td{border:1px solid var(--line);padding:1vmin 1.4vmin;text-align:left}
   .slide table.t th{color:var(--muted);font-size:2vmin;text-transform:uppercase;letter-spacing:.06em}
   .slide.divider{background:var(--ac);color:#04070c}
   .slide.divider .eyebrow{color:rgba(4,7,12,.7)}
-  .slide.cover{background:radial-gradient(120% 80% at 50% 0%,#15304a 0%,#08131f 60%,#04070c 100%)}
+  .slide.divider .hint{color:rgba(4,7,12,.75)}
+  html[data-theme="light"] .slide.divider{color:#ffffff}
+  html[data-theme="light"] .slide.divider .eyebrow,html[data-theme="light"] .slide.divider .hint{color:rgba(255,255,255,.85)}
+  .slide.cover{background:var(--cover)}
   .slide .foot{position:absolute;left:8vmin;bottom:3vmin;font-size:2vmin;color:var(--dim)}
   #present.editing [contenteditable]{outline:2px dashed var(--yellow);outline-offset:.6vmin;border-radius:.6vmin;cursor:text}
-  .notes{position:absolute;left:0;right:0;bottom:0;z-index:5;background:rgba(7,13,21,.96);border-top:2px solid var(--yellow);padding:2vmin 8vmin;font-size:2.4vmin;color:var(--muted);display:none}
+  .notes{position:absolute;left:0;right:0;bottom:0;z-index:5;background:var(--panel);border-top:2px solid var(--yellow);padding:2vmin 8vmin;font-size:2.4vmin;color:var(--muted);display:none}
   .notes.on{display:block}
   .notes b{color:var(--yellow)}
   .hud{position:absolute;right:2vmin;top:2vmin;z-index:6;display:flex;gap:8px}
-  .hud button{min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:rgba(43,51,64,.85);color:#fff;font-weight:900}
+  .hud button{min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--btn);color:var(--ink);font-weight:900}
   .hud button.on{background:var(--yellow);color:#04070c}
   .hud .n{position:absolute;right:0;top:48px;font-size:13px;color:var(--dim);white-space:nowrap}
   .heart-btn{font-size:.45em}
@@ -122,7 +126,7 @@
   #printDeck{display:none}
   @media print{
     @page{size:landscape;margin:0}
-    body{background:#fff}
+    body{background:var(--bg)}
     .wrap,#present{display:none !important}
     #printDeck{display:block}
     #printDeck .slide{position:relative;inset:auto;opacity:1;width:100vw;height:100vh;page-break-after:always;break-after:page;gap:3vmin}
@@ -144,6 +148,7 @@
       <button class="btn" id="btnPptx">⬇ PowerPoint</button>
       <button class="btn" id="btnLink">🔗 Copy link</button>
       <button class="btn" id="btnTour" title="A one-minute tour of this page">❓ Tour</button>
+      <button class="btn" id="btnTheme" title="Switch between light and dark">☀️ Light</button>
     </div>
   </header>
 
@@ -161,13 +166,14 @@
 
 <div id="present" aria-live="polite">
   <div class="hud">
+    <button id="hudTheme" title="Light or dark (L)">☀️</button>
     <button id="hudEdit" title="Edit this slide's words (E)">✎ Edit</button>
     <button id="hudNotes" title="Show or hide teacher notes (N)">📝 Notes</button>
     <button id="hudExit" title="Exit (Esc)">✕</button>
     <div class="n" id="hudCount"></div>
   </div>
   <div id="slides"></div>
-  <div class="hintcard" id="hintcard">→ next · ← back · <b>N</b> teacher notes · <b>E</b> edit the words · tap 🔊 and Heart reads · <b>Esc</b> exit</div>
+  <div class="hintcard" id="hintcard">→ next · ← back · <b>N</b> teacher notes · <b>E</b> edit the words · <b>L</b> light or dark · tap 🔊 and Heart reads · <b>Esc</b> exit</div>
   <div class="notes" id="notes"></div>
 </div>
 <div id="tour"><div class="spot" id="tourSpot"></div><div class="card" id="tourCard"></div></div>
@@ -180,6 +186,24 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const KEY = 'ecas-discussion-v2';
   const areaById = Object.fromEntries(DQ_AREAS.map(a => [a.id, a]));
+
+  /* Light or dark. The bank's accent colours are made for the dark theme; on light they get a deeper shade. */
+  const LIGHT = { '#ffb627': '#b36b00', '#3fc35f': '#1e8a3c', '#66ccff': '#0f6fa8', '#b557e6': '#7d35b8', '#ff6a5e': '#c0392b', '#ff9f5a': '#b5551a', '#e8493f': '#c0392b' };
+  const isLight = () => document.documentElement.dataset.theme === 'light';
+  const accent = c => (isLight() && LIGHT[c]) || c;
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem('ecas-theme', t); } catch (e) {}
+    const b = document.getElementById('btnTheme'), h = document.getElementById('hudTheme');
+    if (b) b.textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+    if (h) h.textContent = t === 'light' ? '🌙' : '☀️';
+  }
+  function toggleTheme() {
+    applyTheme(isLight() ? 'dark' : 'light');
+    renderAreas(); renderList();
+    if ($('#present').classList.contains('on')) { $('#slides').innerHTML = deck.map(s => slideHTML(s)).join(''); show(cur); }
+  }
+  try { applyTheme(localStorage.getItem('ecas-theme') === 'light' ? 'light' : 'dark'); } catch (e) { applyTheme('dark'); }
   const BASE = Object.fromEntries(DQ_AREAS.flatMap(a => a.items.map(i => [i.id, { ...i, area: a.id }])));
 
   /* State: class, the ordered selection, the teacher's edits and own questions, chart data.
@@ -206,13 +230,14 @@
 
   /* ---------- the growth chart (SVG) ---------- */
   function chartSVG(data, opts) {
-    const o = Object.assign({ w: 900, h: 520, dark: true }, opts || {});
+    const o = Object.assign({ w: 900, h: 520, dark: !isLight() }, opts || {});
     const L = 90, R = 230, T = 30, B = 70, W = o.w - L - R, H = o.h - T - B;
-    const plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v)));
+    let plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v)));
     const max = Math.max(5, ...plants.flatMap(pl => pl.cm.map(Number).filter(n => !isNaN(n))));
     const step = max > 30 ? 10 : max > 12 ? 5 : 2, yMax = Math.ceil(max / step) * step;
     const n = data.weeks.length, x = i => L + (n === 1 ? W / 2 : i * W / (n - 1)), y = v => T + H - (v / yMax) * H;
-    const ink = o.dark ? '#f3f6f9' : '#1a1a1a', dim = o.dark ? '#8a98a6' : '#6a7179', grid = o.dark ? 'rgba(255,255,255,.12)' : '#e3e6e4';
+    const ink = o.dark ? '#f3f6f9' : '#14213d', dim = o.dark ? '#8a98a6' : '#6a7179', grid = o.dark ? 'rgba(255,255,255,.12)' : 'rgba(20,33,61,.14)';
+    plants = plants.map(pl => ({ ...pl, color: accent(pl.color) }));
     let s = `<svg viewBox="0 0 ${o.w} ${o.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Growth chart: height in cm by week" font-family="Nunito, Arial, sans-serif">`;
     for (let v = 0; v <= yMax; v += step) s += `<line x1="${L}" x2="${L + W}" y1="${y(v)}" y2="${y(v)}" stroke="${grid}"/><text x="${L - 12}" y="${y(v) + 6}" text-anchor="end" font-size="18" fill="${dim}">${v}</text>`;
     data.weeks.forEach((wk, i) => { s += `<text x="${x(i)}" y="${T + H + 32}" text-anchor="middle" font-size="19" font-weight="700" fill="${ink}">${esc(wk)}</text>`; });
@@ -232,11 +257,12 @@
   function barSVG(data, mode, opts) {
     const o = Object.assign({ w: 900, h: 520, plant: 0 }, opts || {});
     const L = 90, R = 40, T = mode === 'weeks' ? 60 : 40, B = mode === 'bar' ? 110 : 70, W = o.w - L - R, H = o.h - T - B;
-    const plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v)));
+    const plants = data.plants.filter(pl => pl.name && pl.cm.some(v => v !== '' && v !== null && !isNaN(v))).map(pl => ({ ...pl, color: accent(pl.color) }));
     const lastIdx = data.weeks.length - 1;
     const max = Math.max(5, ...plants.flatMap(pl => pl.cm.map(Number).filter(n => !isNaN(n))));
     const step = max > 30 ? 10 : max > 12 ? 5 : 2, yMax = Math.ceil(max / step) * step;
-    const y = v => T + H - (v / yMax) * H, ink = '#f3f6f9', dim = '#8a98a6', grid = 'rgba(255,255,255,.12)';
+    const dark = !isLight();
+    const y = v => T + H - (v / yMax) * H, ink = dark ? '#f3f6f9' : '#14213d', dim = dark ? '#8a98a6' : '#6a7179', grid = dark ? 'rgba(255,255,255,.12)' : 'rgba(20,33,61,.14)';
     const one = plants[o.plant] || plants[0];
     const label = mode === 'bars' ? 'Height in cm, every week' : mode === 'weeks' ? `${one ? one.name : ''}, week by week` : `Height in cm at ${esc(data.weeks[lastIdx])}`;
     let s = `<svg viewBox="0 0 ${o.w} ${o.h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar graph: ${esc(label)}" font-family="Nunito, Arial, sans-serif">`;
@@ -290,7 +316,7 @@
   }
   function tableHTML(data) {
     let h = '<table class="t"><tr><th>Plant</th>' + data.weeks.map(w => `<th>${esc(w)}</th>`).join('') + '</tr>';
-    data.plants.filter(pl => pl.name).forEach(pl => { h += `<tr><td style="color:${pl.color};font-weight:800">${esc(pl.name)}</td>` + pl.cm.map(v => `<td>${v === '' ? '' : esc(v) + ' cm'}</td>`).join('') + '</tr>'; });
+    data.plants.filter(pl => pl.name).forEach(pl => { h += `<tr><td style="color:${accent(pl.color)};font-weight:800">${esc(pl.name)}</td>` + pl.cm.map(v => `<td>${v === '' ? '' : esc(v) + ' cm'}</td>`).join('') + '</tr>'; });
     return h + '</table>';
   }
 
@@ -298,7 +324,7 @@
   function renderAreas() {
     const root = $('#areas'); root.innerHTML = '';
     DQ_AREAS.forEach(a => {
-      const box = el('section', 'area'); box.style.setProperty('--ac', a.color);
+      const box = el('section', 'area'); box.style.setProperty('--ac', accent(a.color));
       box.appendChild(el('h2', '', `${esc(a.title)} <small>${esc(a.sub)}</small><span class="sel"><button data-all="${a.id}">Select all</button><button data-none="${a.id}">None</button></span>`));
       box.appendChild(el('p', 'intro', esc(a.intro)));
       if (a.chart) box.appendChild(dataEditor());
@@ -331,7 +357,7 @@
   function dataEditor() {
     const d = state.data, box = el('div', 'data');
     let h = '<h3>Your class data for the chart slides (heights in cm). Leave a plant blank to hide it.</h3><table><tr><th>Plant</th>' + d.weeks.map((w, i) => `<th><input data-week="${i}" value="${esc(w)}"></th>`).join('') + '</tr>';
-    d.plants.forEach((pl, r) => { h += `<tr><td><span class="sw" style="background:${pl.color}"></span><input class="name" data-name="${r}" value="${esc(pl.name)}"></td>` + pl.cm.map((v, c) => `<td><input type="number" step="0.5" min="0" data-cm="${r},${c}" value="${esc(v)}"></td>`).join('') + '</tr>'; });
+    d.plants.forEach((pl, r) => { h += `<tr><td><span class="sw" style="background:${accent(pl.color)}"></span><input class="name" data-name="${r}" value="${esc(pl.name)}"></td>` + pl.cm.map((v, c) => `<td><input type="number" step="0.5" min="0" data-cm="${r},${c}" value="${esc(v)}"></td>`).join('') + '</tr>'; });
     h += '</table><div style="margin-top:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn small" id="resetData">Reset to sample data</button><span style="color:var(--dim);font-size:13px">Copy the numbers from your class sheet; the chart updates as you type.</span></div><div class="preview" id="chartPreview"></div>';
     box.innerHTML = h;
     const redraw = () => { $('#chartPreview').innerHTML = chartSVG(state.data, { w: 900, h: 420 }); };
@@ -353,7 +379,7 @@
     let areas = 0, last = null; items.forEach(i => { if (i.area !== last) { areas++; last = i.area; } });
     $('#count').textContent = `${items.length} question${items.length === 1 ? '' : 's'} · ${items.length + areas + 2} slides`;
     items.forEach((i, k) => {
-      const li = el('li', '', `<span class="k" style="color:${i.areaObj.color}">${esc(i.area)}</span><span class="t">${esc(i.q || i.t)}${i.edited || i.mine ? ' <span style="color:var(--yellow)">✎</span>' : ''}</span><span class="ops"><button data-up="${k}" title="Move up">▲</button><button data-down="${k}" title="Move down">▼</button><button data-edit="${i.id}" title="Edit">✎</button><button data-del="${i.id}" title="Remove from deck">✕</button></span>`);
+      const li = el('li', '', `<span class="k" style="color:${accent(i.areaObj.color)}">${esc(i.area)}</span><span class="t">${esc(i.q || i.t)}${i.edited || i.mine ? ' <span style="color:var(--yellow)">✎</span>' : ''}</span><span class="ops"><button data-up="${k}" title="Move up">▲</button><button data-down="${k}" title="Move down">▼</button><button data-edit="${i.id}" title="Edit">✎</button><button data-del="${i.id}" title="Remove from deck">✕</button></span>`);
       list.appendChild(li);
     });
     $('#btnPresent').disabled = $('#btnPrint').disabled = $('#btnPptx').disabled = items.length === 0;
@@ -408,11 +434,11 @@
     return slides;
   }
   function slideHTML(s, forPrint) {
-    const ac = s.area ? s.area.color : '#ffb627';
+    const ac = accent(s.area ? s.area.color : '#ffb627');
     const chart = s.chart ? chartFor(s.chart) : '';
     let inner = '';
     if (s.kind === 'cover') inner = `<div class="eyebrow">Each Child a Seed · Post-lesson discussion</div><h1 class="big">${esc(s.title)}</h1><div class="hint">${esc(s.sub)}</div><div class="foot">${esc(s.foot)}</div>`;
-    else if (s.kind === 'divider') inner = `<div class="eyebrow">Part ${esc(s.area.id)}</div><h1 class="big">${esc(s.title)}</h1><div class="hint" style="color:rgba(4,7,12,.75)">${esc(s.sub)}</div>`;
+    else if (s.kind === 'divider') inner = `<div class="eyebrow">Part ${esc(s.area.id)}</div><h1 class="big">${esc(s.title)}</h1><div class="hint">${esc(s.sub)}</div>`;
     else if (s.kind === 'end') inner = `<div class="eyebrow">You did it</div><h1 class="big">${esc(s.title)}</h1><div class="hint">${esc(s.sub)}</div>`;
     else if (s.kind === 'q') {
       const body = `<div class="eyebrow">${esc(s.area.title)}</div><h1 data-heart data-field="q">${esc(s.q)}</h1><div class="hint" data-field="hint">${esc(s.hint)}</div>`;
@@ -439,6 +465,7 @@
     document.querySelectorAll('#slides .slide').forEach((s, k) => s.classList.toggle('on', k === cur));
     $('#hudCount').textContent = `${cur + 1} / ${deck.length}`;
     const n = $('#notes'); n.innerHTML = deck[cur].notes ? `<b>Teacher notes</b> · ${esc(deck[cur].notes)}` : ''; n.classList.toggle('on', notesOn && !!deck[cur].notes);
+    if (notesOn) $('#hintcard').classList.remove('on');
     applyEditable();
   }
   // Editing on the slide itself: the question, hint and points become editable; changes are kept with the deck.
@@ -469,7 +496,10 @@
     else if (e.key === 'Escape') exit();
     else if (e.key.toLowerCase() === 'n') { notesOn = !notesOn; show(cur); }
     else if (e.key.toLowerCase() === 'e') toggleEdit();
+    else if (e.key.toLowerCase() === 'l') toggleTheme();
   });
+  $('#hudTheme').addEventListener('click', toggleTheme);
+  $('#btnTheme').addEventListener('click', toggleTheme);
   $('#slides').addEventListener('click', e => { if (editOn || e.target.closest('button')) return; show(cur + 1); });
   $('#hudExit').addEventListener('click', exit);
   $('#hudNotes').addEventListener('click', () => { notesOn = !notesOn; show(cur); });
@@ -490,25 +520,26 @@
       const pptx = new PptxGenJS(); pptx.layout = 'LAYOUT_WIDE';
       const F = 'Nunito';
       buildDeck().forEach(s => {
-        const sl = pptx.addSlide(); const ac = s.area ? s.area.color : '#ffb627';
+        const sl = pptx.addSlide(); const ac = accent(s.area ? s.area.color : '#ffb627'), light = isLight();
         const div = s.kind === 'divider';
-        sl.background = { color: div ? ac.slice(1) : '070d15' };
-        const ink = div ? '04070c' : 'F3F6F9', muted = div ? '2a2a2a' : 'BFD8D5';
+        sl.background = { color: div ? ac.slice(1) : (light ? 'F6F8FA' : '070d15') };
+        const ink = div ? (light ? 'FFFFFF' : '04070c') : (light ? '14213D' : 'F3F6F9'), muted = div ? (light ? 'F6F8FA' : '2a2a2a') : (light ? '4A5568' : 'BFD8D5');
         const hasChart = s.chart || s.table, tw = hasChart ? 6.2 : 12.3;
         let y = 0.8;
         const eyebrow = s.kind === 'cover' ? 'Each Child a Seed · Post-lesson discussion' : s.kind === 'end' ? 'You did it' : div ? `Part ${s.area.id}` : s.area.title;
-        sl.addText(eyebrow.toUpperCase(), { x: 0.6, y, w: tw, h: 0.4, fontFace: F, fontSize: 14, bold: true, color: div ? '2a2a2a' : ac.slice(1), charSpacing: 2 }); y += 0.55;
+        sl.addText(eyebrow.toUpperCase(), { x: 0.6, y, w: tw, h: 0.4, fontFace: F, fontSize: 14, bold: true, color: div ? muted : ac.slice(1), charSpacing: 2 }); y += 0.55;
         const title = s.q || s.t || s.title, big = ['cover', 'divider', 'end'].includes(s.kind);
         sl.addText(title, { x: 0.6, y, w: tw, h: big ? 2.2 : 2.6, fontFace: F, fontSize: big ? 48 : 32, bold: true, color: ink, valign: 'top' }); y += big ? 2.3 : 2.7;
         if (s.hint || s.sub) sl.addText(s.hint || s.sub, { x: 0.6, y, w: tw, h: 1, fontFace: F, fontSize: 20, bold: true, color: muted, valign: 'top' });
         if (s.lines && s.lines.length) sl.addText(s.lines.map(l => ({ text: l, options: { bullet: true, breakLine: true } })), { x: 0.6, y, w: tw, h: 3, fontFace: F, fontSize: 20, color: ink, valign: 'top' });
         if (hasChart) {
-          const plants = state.data.plants.filter(pl => pl.name), wk = state.data.weeks, lastIdx = wk.length - 1;
-          const axes = { showLegend: true, legendPos: 'b', legendColor: 'BFD8D5', legendFontSize: 12, catAxisLabelColor: 'BFD8D5', valAxisLabelColor: 'BFD8D5', valAxisTitle: 'Height in cm', showValAxisTitle: true, valAxisTitleColor: 'BFD8D5', valGridLine: { color: '2b3340', size: 1 }, catGridLine: { style: 'none' } };
+          const plants = state.data.plants.filter(pl => pl.name).map(pl => ({ ...pl, color: accent(pl.color) })), wk = state.data.weeks, lastIdx = wk.length - 1;
+          const lab = light ? '4A5568' : 'BFD8D5';
+          const axes = { showLegend: true, legendPos: 'b', legendColor: lab, legendFontSize: 12, catAxisLabelColor: lab, valAxisLabelColor: lab, valAxisTitle: 'Height in cm', showValAxisTitle: true, valAxisTitleColor: lab, valGridLine: { color: light ? 'DDE3EA' : '2b3340', size: 1 }, catGridLine: { style: 'none' } };
           const lineData = plants.map(pl => ({ name: pl.name, labels: wk, values: pl.cm.map(v => Number(v) || 0) }));
           const lineOpts = { chartColors: plants.map(pl => pl.color.slice(1)), lineSize: 3, lineDataSymbolSize: 9, ...axes };
           const barData = [{ name: `Height at ${wk[lastIdx]}`, labels: plants.map(pl => pl.name), values: plants.map(pl => Number(pl.cm[lastIdx]) || 0) }];
-          const barOpts = { chartColors: plants.map(pl => pl.color.slice(1)), barDir: 'col', barGapWidthPct: 60, showValue: true, dataLabelColor: 'F3F6F9', dataLabelFontSize: 12, ...axes, showLegend: false };
+          const barOpts = { chartColors: plants.map(pl => pl.color.slice(1)), barDir: 'col', barGapWidthPct: 60, showValue: true, dataLabelColor: light ? '14213D' : 'F3F6F9', dataLabelFontSize: 12, ...axes, showLegend: false };
           const weekData = pl => [{ name: pl.name, labels: wk, values: pl.cm.map(v => Number(v) || 0) }];
           const weekOpts = pl => ({ ...barOpts, chartColors: [pl.color.slice(1)], showTitle: true, title: pl.name, titleColor: pl.color.slice(1), titleFontSize: 13 });
           if (s.chart === 'bar') sl.addChart(pptx.ChartType.bar, barData, { x: 7.2, y: 0.9, w: 5.6, h: 5.4, ...barOpts });
@@ -518,7 +549,7 @@
           else if (s.chart === 'both') { sl.addChart(pptx.ChartType.bar, barData, { x: 7.2, y: 0.7, w: 5.6, h: 3, ...barOpts }); sl.addChart(pptx.ChartType.line, lineData, { x: 7.2, y: 3.8, w: 5.6, h: 3.4, ...lineOpts }); }
           else sl.addChart(pptx.ChartType.line, lineData, { x: 7.2, y: 0.9, w: 5.6, h: 5.4, ...lineOpts });
         }
-        if (s.foot) sl.addText(s.foot, { x: 0.6, y: 6.7, w: 8, h: 0.4, fontFace: F, fontSize: 12, color: '8A98A6' });
+        if (s.foot) sl.addText(s.foot, { x: 0.6, y: 6.7, w: 8, h: 0.4, fontFace: F, fontSize: 12, color: light ? '6A7179' : '8A98A6' });
         if (s.notes) sl.addNotes(s.notes);
       });
       await pptx.writeFile({ fileName: `ECAS discussion deck${state.cls ? ' ' + state.cls : ''}.pptx` });
