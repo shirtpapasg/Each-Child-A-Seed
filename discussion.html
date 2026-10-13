@@ -571,15 +571,17 @@
   /* ---------- the teacher tour ---------- */
   const TOURKEY = 'ecas-discussion-tour-seen';
   let tourStep = 0;
+  let tourVoice = false;
   function tourShow(i) {
     const steps = DQ_TOUR.filter(st => document.querySelector(st.sel));
     if (i < 0 || i >= steps.length) { tourEnd(); return; }
     tourStep = i;
     const st = steps[i], target = document.querySelector(st.sel);
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (tourVoice && window.Heart) Heart.say([st.title, st.text]);
     setTimeout(() => {
       const r = target.getBoundingClientRect(), pad = 8;
-      const spot = $('#tourSpot'); spot.style.left = (r.left - pad) + 'px'; spot.style.top = (r.top - pad) + 'px'; spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
+      const spot = $('#tourSpot'); spot.style.display = ''; spot.style.left = (r.left - pad) + 'px'; spot.style.top = (r.top - pad) + 'px'; spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
       const card = $('#tourCard');
       card.innerHTML = `<h3>${esc(st.title)}</h3><p>${esc(st.text)}</p><div class="row"><span class="step">${i + 1} of ${steps.length}</span>${i > 0 ? '<button class="btn small" id="tourBack">Back</button>' : ''}<button class="btn small" id="tourSkip">Skip</button><button class="btn small primary" id="tourNext">${i === steps.length - 1 ? 'Done' : 'Next'}</button></div>`;
       const below = r.bottom + 16, ch = card.offsetHeight || 200;
@@ -590,18 +592,28 @@
       const bk = $('#tourBack'); if (bk) bk.onclick = () => tourShow(i - 1);
     }, 350);
   }
-  function tourStart() { $('#tour').classList.add('on'); tourShow(0); }
-  function tourEnd() { $('#tour').classList.remove('on'); try { localStorage.setItem(TOURKEY, '1'); } catch (e) {} }
-  $('#btnTour').addEventListener('click', tourStart);
+  // The welcome card: the tour begins on a click, which also lets Heart speak (browsers need a tap before audio).
+  function tourWelcome() {
+    $('#tour').classList.add('on');
+    const spot = $('#tourSpot'); spot.style.display = 'none';
+    const card = $('#tourCard');
+    card.innerHTML = `<h3>Welcome, teacher</h3><p>This page builds your post-lesson discussion deck. Heart will walk you through each feature and read it aloud. It takes about a minute.</p><div class="row"><button class="btn small" id="tourSkip">Skip for now</button><button class="btn small primary" id="tourGo">▶ Start the tour</button></div>`;
+    card.style.left = Math.max(16, (window.innerWidth - card.offsetWidth) / 2) + 'px';
+    card.style.top = Math.max(16, (window.innerHeight - card.offsetHeight) / 2 - 40) + 'px';
+    $('#tourGo').onclick = () => { tourVoice = true; tourShow(0); };
+    $('#tourSkip').onclick = tourEnd;
+  }
+  function tourEnd() { $('#tour').classList.remove('on'); tourVoice = false; if (window.Heart) Heart.stop(); try { localStorage.setItem(TOURKEY, '1'); } catch (e) {} }
+  $('#btnTour').addEventListener('click', tourWelcome);
   document.addEventListener('keydown', e => {
     if (!$('#tour').classList.contains('on')) return;
+    if ($('#tourGo')) { if (e.key === 'Enter') $('#tourGo').click(); else if (e.key === 'Escape') tourEnd(); return; }
     if (e.key === 'ArrowRight' || e.key === 'Enter') tourShow(tourStep + 1);
     else if (e.key === 'ArrowLeft') tourShow(tourStep - 1);
     else if (e.key === 'Escape') tourEnd();
   });
-  // First visit: start the tour after the page settles. In the presentation, show the keys once.
-  let seen = false; try { seen = !!localStorage.getItem(TOURKEY); } catch (e) {}
-  if (!seen && !p.get('q')) setTimeout(tourStart, 700);
+  // Every visit opens with the welcome card; the tour itself starts on the teacher's click.
+  setTimeout(tourWelcome, 600);
 
   $('#cls').value = state.cls;
   $('#cls').addEventListener('input', e => { state.cls = e.target.value; save(); });

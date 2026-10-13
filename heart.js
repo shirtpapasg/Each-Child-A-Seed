@@ -86,7 +86,10 @@
   }
 
   // Pages can make Heart speak a phrase or a list of phrases, e.g. Heart.say('Water added').
-  window.Heart = { say: function (phrases) { play(phrases, null); } };
+  window.Heart = {
+    say: function (phrases) { play(phrases, null); },
+    stop: function () { if (current) { current.onpause = null; current.onended = null; current.pause(); current = null; } if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+  };
 
   /* Dictation: a floating 🎤 button appears beside any text box the student is typing in.
    * Tap it, speak, and the words are added to the box. Uses the browser's own speech
