@@ -84,6 +84,19 @@
   #tour .card p{margin:0 0 14px;font-size:16px;color:var(--ink)}
   #tour .card .row{display:flex;gap:8px;align-items:center}
   #tour .card .step{margin-right:auto;font-size:13px;color:var(--dim);font-weight:800}
+  #tour .card .fx{margin:0 0 14px;display:flex;flex-direction:column;gap:8px}
+  #tour .card .fx .cap{font-size:13px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  .mini{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+  .mini-in{position:absolute;left:0;top:0;width:1366px;height:768px;transform-origin:0 0}
+  .mini .slide{opacity:1;position:absolute;inset:0;transition:none}
+  .mini .notes{display:block}
+  .fx .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--btn);border:1px solid var(--line);font-size:14px;font-weight:800;color:var(--ink);max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+  .fx .strip{display:flex;gap:6px}
+  .fx .strip div{flex:1;min-width:0;padding:8px;border-radius:8px;background:var(--btn);border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--ink);transition:transform .4s}
+  .fx .strip div b{display:block;color:var(--dim);font-size:11px}
+  .fx .count{font-size:15px;font-weight:900;color:var(--green)}
+  .tour-pulse{animation:tourPulse .9s ease-in-out 4;position:relative;z-index:81}
+  @keyframes tourPulse{50%{transform:scale(1.08);box-shadow:0 0 0 6px rgba(255,182,39,.5)}}
   .hintcard{position:absolute;left:50%;bottom:9vmin;transform:translateX(-50%);z-index:7;background:var(--panel);border:2px solid var(--yellow);border-radius:16px;padding:14px 22px;font-size:2.2vmin;color:var(--ink);display:none;white-space:nowrap}
   .hintcard.on{display:block}
 
@@ -572,21 +585,81 @@
   const TOURKEY = 'ecas-discussion-tour-seen';
   let tourStep = 0;
   let tourVoice = false;
+
+  /* Each tour step shows the feature working while Heart talks, then puts everything back. */
+  let demoTimers = [], demoUndo = null;
+  const later = (ms, fn) => demoTimers.push(setTimeout(fn, ms));
+  const pulse = sel => document.querySelectorAll(sel).forEach(e => e.classList.add('tour-pulse'));
+  function demoStop() {
+    demoTimers.forEach(clearTimeout); demoTimers = [];
+    if (demoUndo) { try { demoUndo(); } catch (e) {} demoUndo = null; }
+    document.querySelectorAll('.tour-pulse').forEach(e => e.classList.remove('tour-pulse'));
+  }
+  // The effect panel inside the tour card: a small live picture of what the feature changes.
+  function fx(html, cap) { const f = $('#tourFx'); if (!f) return; f.innerHTML = html ? (cap ? `<div class="cap">${esc(cap)}</div>` : '') + html : ''; f.style.display = html ? '' : 'none'; f.querySelectorAll('.mini').forEach(m => { m.querySelector('.mini-in').style.transform = `scale(${m.clientWidth / 1366})`; }); placeCard(); }
+  const mini = (s, extra) => `<div class="mini"><div class="mini-in">${slideHTML(s)}${extra || ''}</div></div>`;
+  const coverSlide = () => buildDeck()[0];
+  const qSlide = i => ({ kind: 'q', id: i.id, area: i.areaObj, q: i.q, hint: i.hint, chart: i.chart });
+  const explainSlide = i => ({ kind: 'explain', id: i.id, area: i.areaObj, t: i.t, lines: i.lines || [], chart: i.chart, table: i.table });
+  const firstItem = pred => { for (const id of allIds()) { const it = item(id); if (it && pred(it)) return it; } return null; };
+  const fxCover = () => fx(mini(coverSlide()), 'Your cover slide');
+  const fxDeck = () => { const items = selected().slice(0, 3); fx(`<div class="count">${esc($('#count').textContent)}</div><div class="strip">${items.map((i, k) => `<div><b>Slide ${k + 2}</b>${esc((i.q || i.t).slice(0, 38))}…</div>`).join('')}</div>`, 'The first slides, in order'); };
+  const DEMOS = {
+    '#btnTheme': () => { fxCover(); let flips = 0; const flip = () => { toggleTheme(); flips++; fxCover(); }; later(1200, flip); later(4200, flip); demoUndo = () => { if (flips % 2) toggleTheme(); }; },
+    '#cls': () => { const el = $('#cls'), orig = el.value, origState = state.cls; fxCover(); el.value = ''; 'Primary 3F'.split('').forEach((ch, k) => later(900 + k * 160, () => { el.value += ch; state.cls = el.value; fxCover(); })); later(4600, () => { el.value = orig; state.cls = origState; fxCover(); }); demoUndo = () => { el.value = orig; state.cls = origState; }; },
+    '.area': () => {
+      const box = document.querySelector('.area input[type=checkbox]:not(:checked)'); if (!box) return;
+      const it = item(box.dataset.id); let on = false;
+      fx(`<div class="count">${esc($('#count').textContent)}</div>`, 'Your deck');
+      later(1000, () => { box.click(); on = true; fx(`<div class="count">${esc($('#count').textContent)}  ·  a new slide:</div>${mini(it.q ? qSlide(it) : explainSlide(it))}`, 'Your deck'); });
+      later(4200, () => { box.click(); on = false; fx(`<div class="count">${esc($('#count').textContent)}</div>`, 'Your deck'); });
+      demoUndo = () => { if (on) box.click(); };
+    },
+    '.tag.star': () => { pulse('.tag.star'); const it = firstItem(i => i.star); if (it) fx(mini(qSlide(it)), 'A main question becomes a slide like this'); },
+    '.tag.exp': () => { pulse('.tag.exp'); const it = firstItem(i => i.t && i.chart === 'bar') || firstItem(i => i.t); if (it) fx(mini(explainSlide(it)), 'An explainer slide'); },
+    '.data': () => {
+      const inp = document.querySelector('.data input[data-cm="0,3"]'); if (!inp) return;
+      const it = firstItem(i => i.chart === true && i.t) || firstItem(i => i.chart);
+      const draw = () => { if (it) fx(mini(it.t ? explainSlide(it) : qSlide(it)), 'The chart slide, redrawn with your numbers'); };
+      draw();
+      const orig = inp.value, base = Number(orig) || 0, set = v => { inp.value = v; inp.dispatchEvent(new Event('input', { bubbles: true })); draw(); };
+      for (let k = 1; k <= 6; k++) { later(900 + k * 260, () => set(base + k)); later(3600 + k * 260, () => set(base + 6 - k)); }
+      later(5500, () => set(orig)); demoUndo = () => set(orig);
+    },
+    'button[data-add]': () => { pulse('button[data-add]'); const a = DQ_AREAS[DQ_AREAS.length - 1]; fx(mini({ kind: 'q', id: 'demo', area: a, q: 'Would our plants grow on the Moon?', hint: 'Your own question, your own hint.' }), 'Your question gets its own slide'); },
+    'aside.deck': () => { if (state.sel.length < 2) return; fxDeck(); let moved = false; later(1000, () => { const b = document.querySelector('#list button[data-down="0"]'); if (b) { b.click(); moved = true; fxDeck(); } }); later(3400, () => { const b = document.querySelector('#list button[data-up="1"]'); if (b && moved) { b.click(); moved = false; fxDeck(); } }); demoUndo = () => { const b = document.querySelector('#list button[data-up="1"]'); if (moved && b) b.click(); }; },
+    '#btnPresent': () => { pulse('#btnPresent'); const it = firstItem(i => i.star) || selected()[0]; if (!it) return; const s = qSlide(it); fx(mini(s), 'On screen'); later(1800, () => fx(mini(s, `<div class="notes on"><b>Teacher notes</b> · Listen for: ${esc(it.listen || '')}</div>`), 'Press N: your teacher notes appear')); },
+    '#btnPrint': () => { pulse('#btnPrint'); const it = firstItem(i => i.star) || selected()[0]; if (it) fx(`<div class="mini" style="background:#fff"><div class="mini-in">${slideHTML(qSlide(it), true)}</div></div>`, 'One slide per page, notes underneath'); },
+    '#btnPptx': () => { pulse('#btnPptx'); fx('', ''); later(1200, () => fx(`<div class="chip">📎 ECAS discussion deck${state.cls ? ' ' + esc(state.cls) : ''}.pptx</div>`, 'Downloads to your computer')); },
+    '#btnLink': () => { pulse('#btnLink'); const link = location.href.split('?')[0] + '?q=' + state.sel.slice(0, 4).join(',') + '…'; fx('<div class="chip">🔗 </div>', 'Copied, ready to paste to colleagues'); link.split('').forEach((ch, k) => later(600 + k * 25, () => { const c = document.querySelector('#tourFx .chip'); if (c) c.textContent += ch; })); },
+    '#btnTour': () => pulse('#btnTour')
+  };
+
+  // Keep the card beside its target and inside the window, even as the effect panel grows.
+  let tourRect = null;
+  function placeCard() {
+    const r = tourRect, card = $('#tourCard'); if (!r) return;
+    const ch = card.offsetHeight || 200, below = r.bottom + 16;
+    let top = below + ch < window.innerHeight - 16 ? below : r.top - ch - 16;
+    if (top < 16) top = Math.max(16, Math.min(window.innerHeight - ch - 16, r.bottom + 16));
+    card.style.top = top + 'px';
+    card.style.left = Math.max(16, Math.min(window.innerWidth - card.offsetWidth - 16, r.left)) + 'px';
+  }
   function tourShow(i) {
+    demoStop();
     const steps = DQ_TOUR.filter(st => document.querySelector(st.sel));
     if (i < 0 || i >= steps.length) { tourEnd(); return; }
     tourStep = i;
     const st = steps[i], target = document.querySelector(st.sel);
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (tourVoice && window.Heart) Heart.say([st.title, st.text]);
+    if (DEMOS[st.sel]) later(650, () => DEMOS[st.sel]());
     setTimeout(() => {
       const r = target.getBoundingClientRect(), pad = 8;
       const spot = $('#tourSpot'); spot.style.display = ''; spot.style.left = (r.left - pad) + 'px'; spot.style.top = (r.top - pad) + 'px'; spot.style.width = (r.width + pad * 2) + 'px'; spot.style.height = (r.height + pad * 2) + 'px';
       const card = $('#tourCard');
-      card.innerHTML = `<h3>${esc(st.title)}</h3><p>${esc(st.text)}</p><div class="row"><span class="step">${i + 1} of ${steps.length}</span>${i > 0 ? '<button class="btn small" id="tourBack">Back</button>' : ''}<button class="btn small" id="tourSkip">Skip</button><button class="btn small primary" id="tourNext">${i === steps.length - 1 ? 'Done' : 'Next'}</button></div>`;
-      const below = r.bottom + 16, ch = card.offsetHeight || 200;
-      card.style.top = (below + ch < window.innerHeight - 16 ? below : Math.max(16, r.top - ch - 16)) + 'px';
-      card.style.left = Math.max(16, Math.min(window.innerWidth - card.offsetWidth - 16, r.left)) + 'px';
+      card.innerHTML = `<h3>${esc(st.title)}</h3><p>${esc(st.text)}</p><div class="fx" id="tourFx" style="display:none"></div><div class="row"><span class="step">${i + 1} of ${steps.length}</span>${i > 0 ? '<button class="btn small" id="tourBack">Back</button>' : ''}<button class="btn small" id="tourSkip">Skip</button><button class="btn small primary" id="tourNext">${i === steps.length - 1 ? 'Done' : 'Next'}</button></div>`;
+      tourRect = r; placeCard();
       $('#tourNext').onclick = () => tourShow(i + 1);
       $('#tourSkip').onclick = tourEnd;
       const bk = $('#tourBack'); if (bk) bk.onclick = () => tourShow(i - 1);
@@ -603,7 +676,7 @@
     $('#tourGo').onclick = () => { tourVoice = true; tourShow(0); };
     $('#tourSkip').onclick = tourEnd;
   }
-  function tourEnd() { $('#tour').classList.remove('on'); tourVoice = false; if (window.Heart) Heart.stop(); try { localStorage.setItem(TOURKEY, '1'); } catch (e) {} }
+  function tourEnd() { demoStop(); $('#tour').classList.remove('on'); tourVoice = false; if (window.Heart) Heart.stop(); try { localStorage.setItem(TOURKEY, '1'); } catch (e) {} }
   $('#btnTour').addEventListener('click', tourWelcome);
   document.addEventListener('keydown', e => {
     if (!$('#tour').classList.contains('on')) return;
