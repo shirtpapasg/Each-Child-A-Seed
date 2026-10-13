@@ -288,7 +288,7 @@ const DQ_TOUR = [
   { sel: '.tag.exp', title: 'Explainer slides', text: 'An "explainer" is a teaching slide rather than a question: it shows a graph or the three lines of a study with short points to say.' },
   { sel: '.data', title: 'Your class data', text: 'Type the heights from your class sheet here. Every bar graph and line graph in the deck redraws with your numbers. Leave a plant blank to hide it.' },
   { sel: 'button[data-add]', title: 'Add your own', text: 'Each part has an "Add your own question" button. Your question gets a slide like any other and is saved on this device.' },
-  { sel: 'aside.deck', title: 'Your deck', text: 'The slides in order. Use ▲▼ to reorder, ✎ to change the words, the hint students see and your teacher notes, and ✕ to drop a slide.' },
+  { sel: 'aside.deck', title: 'Your deck', text: 'The slides in order. Drag a slide by its handle, or use the arrows, to reorder. The pencil changes the words, the hint students see and your teacher notes. The cross drops a slide.' },
   { sel: '#btnPresent', title: 'Present', text: 'Opens the deck full screen. → and ← move, N shows your teacher notes (listen for, push further), E lets you retype the words on the slide itself, and 🔊 makes Heart read the question aloud.' },
   { sel: '#btnPrint', title: 'Print or PDF', text: 'One slide per page, with the teacher notes under each. Choose "Save as PDF" in the print window.' },
   { sel: '#btnPptx', title: 'PowerPoint', text: 'Downloads the same deck as a .pptx file with charts and speaker notes, for teachers who prefer PowerPoint.' },
