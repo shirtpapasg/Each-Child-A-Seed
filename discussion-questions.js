@@ -281,6 +281,7 @@ const DQ_AREAS = [
 /* The teacher tour: what each part of the builder does. Selectors point at the page. */
 const DQ_TOUR = [
   { sel: 'header.top h1', title: 'Welcome, teacher', text: 'This page builds a slide deck for your post-lesson discussion. Pick questions, change the words if you like, and present. This tour takes about a minute.' },
+  { sel: '#btnTheme', title: 'Light or dark', text: 'Not everyone likes a dark screen. This button switches the whole page and every slide to light, or back to dark. The page remembers your choice, and you can press L while presenting.' },
   { sel: '#cls', title: 'Your class', text: 'Type your class name. It appears on the cover slide and in the file names.' },
   { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, and dive deep. Tick a question to add it to your deck.' },
   { sel: '.tag.star', title: 'Main questions', text: 'Questions marked "main" are the heart of the discussion: sunlight, giving up one of three needs, spread out or gathered, and the factors that affect growth. They are ticked to start.' },
