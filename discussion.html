@@ -41,6 +41,42 @@
   .item .txt{flex:1}
   .item .q{font-weight:800}
   .item .hint{color:var(--dim);font-size:14px}
+  /* Scaffolded bank (the teacher, 2026-10-22: "collapse all the points into just the main heading, with a short caption explaining
+     what to expect when clicked … make the user not feel overwhelmed"): each part is a heading and one line until it is opened,
+     one part open at a time; a question's hint shows once it is ticked */
+  .area{transition:box-shadow .3s,transform .2s}
+  .area:not(.open){box-shadow:none}
+  .area:not(.open):hover{transform:translateY(-2px);box-shadow:0 8px 22px color-mix(in srgb,var(--ac) 22%,transparent)}
+  .area>.ah{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:auto 1fr auto auto;grid-template-areas:"num t n chev" "num c n chev";column-gap:14px;row-gap:3px;align-items:center;padding:16px 20px;cursor:pointer;border-radius:18px}
+  .area>.ah:focus-visible{outline:3px solid var(--ac);outline-offset:3px}
+  .ah .ah-num{grid-area:num;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:17px;background:color-mix(in srgb,var(--ac) 20%,transparent);color:var(--ac)}
+  .ah .ah-t{grid-area:t;font-size:21px;font-weight:900;color:var(--ac);line-height:1.15}
+  .ah .ah-c{grid-area:c;font-size:14.5px;font-weight:700;color:var(--muted)}
+  .ah .ah-n{grid-area:n;font-size:13px;font-weight:900;padding:6px 12px;border-radius:999px;white-space:nowrap;background:color-mix(in srgb,var(--ac) 18%,transparent);color:var(--ac);transition:transform .25s}
+  .ah .ah-n.zero{background:transparent;border:1px dashed var(--line);color:var(--dim)}
+  .ah .ah-n.pop{transform:scale(1.18)}
+  .ah .chev{grid-area:chev;width:11px;height:11px;border-right:3px solid var(--ac);border-bottom:3px solid var(--ac);transform:translateY(-3px) rotate(45deg);transition:transform .3s}
+  .area.open .ah .chev{transform:translateY(3px) rotate(225deg)}
+  .area .ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.2,.8,.2,1)}
+  .area.open .ab{grid-template-rows:1fr}
+  .area .ab-in{overflow:hidden;min-height:0}
+  .area.instant .ab,.area.instant .chev{transition:none}
+  .area .selbar{display:flex;justify-content:flex-end;gap:6px;padding:0 20px 10px}
+  .area .selbar button{font-size:13px;font-weight:800;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted)}
+  .area.open .item{animation:dq-in .35s both}
+  .area.open .item:nth-of-type(2){animation-delay:.04s}.area.open .item:nth-of-type(3){animation-delay:.08s}.area.open .item:nth-of-type(4){animation-delay:.12s}.area.open .item:nth-of-type(5){animation-delay:.16s}.area.open .item:nth-of-type(n+6){animation-delay:.2s}
+  @keyframes dq-in{from{opacity:0;transform:translateY(6px)}}
+  .item .hint{display:none}
+  .item:has(input:checked) .hint{display:block;animation:dq-in .25s both}
+  .item:has(input:checked){background:color-mix(in srgb,var(--ac) 7%,transparent)}
+  /* the deck list shows each question's real slide, small; tap it to present from there, hover to see it bigger */
+  .dl li{display:grid;grid-template-columns:18px 118px 1fr;grid-template-areas:"g th t" "g th ops";column-gap:10px;row-gap:6px;align-items:start}
+  .dl li .grip{grid-area:g;align-self:center}.dl li .thumb{grid-area:th}.dl li .t{grid-area:t;line-height:1.3}.dl li .ops{grid-area:ops;align-self:end}.dl li .k{display:none}
+  .dl li .thumb{width:118px;cursor:zoom-in;border-radius:6px;transition:transform .2s,box-shadow .2s}
+  .dl li .thumb:hover{transform:scale(1.04);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+  #peek{position:fixed;z-index:40;width:480px;pointer-events:none;opacity:0;transform:translateX(10px) scale(.96);transition:opacity .18s,transform .18s;box-shadow:0 18px 50px rgba(0,0,0,.45);border-radius:12px}
+  #peek.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.area .ab,.area .ah .chev,.area.open .item,.item:has(input:checked) .hint{transition:none;animation:none}}
   .item .edited{color:var(--yellow);font-size:12px;font-weight:800}
   .tag{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
   .tag.star{background:var(--purple);color:#04070c}
@@ -342,29 +378,48 @@
   }
 
   /* ---------- builder: the question market ---------- */
+  let openArea = null;   /* which part is open; none at first, so the page starts as six short headings */
+  function chosenIn(aid) { return state.sel.filter(id => { const i = item(id); return i && i.area === aid; }).length; }
+  function chipText(n) { return n ? `${n} chosen` : 'none yet'; }
+  function setOpen(id, instant) {
+    openArea = id;
+    document.querySelectorAll('#areas .area').forEach(b => {
+      const on = b.dataset.area === id; b.classList.toggle('open', on); b.querySelector('.ah').setAttribute('aria-expanded', on);
+      if (instant) { b.classList.add('instant'); requestAnimationFrame(() => requestAnimationFrame(() => b.classList.remove('instant'))); }
+    });
+  }
+  function updateChips() {
+    document.querySelectorAll('#areas [data-n]').forEach(c => { const n = chosenIn(c.dataset.n); if (c.textContent !== chipText(n)) { c.classList.add('pop'); setTimeout(() => c.classList.remove('pop'), 250); } c.textContent = chipText(n); c.classList.toggle('zero', !n); });
+  }
   function renderAreas() {
     const root = $('#areas'); root.innerHTML = '';
-    DQ_AREAS.forEach(a => {
-      const box = el('section', 'area'); box.style.setProperty('--ac', accent(a.color));
-      box.appendChild(el('h2', '', `${esc(a.title)} <small>${esc(a.sub)}</small><span class="sel"><button data-all="${a.id}">Select all</button><button data-none="${a.id}">None</button></span>`));
-      box.appendChild(el('p', 'intro', esc(a.intro)));
-      if (a.chart) box.appendChild(dataEditor());
-      [...a.items.map(i => i.id), ...state.custom.filter(c => c.area === a.id).map(c => c.id)].forEach(id => {
+    DQ_AREAS.forEach((a, k) => {
+      const ids = [...a.items.map(i => i.id), ...state.custom.filter(c => c.area === a.id).map(c => c.id)], n = chosenIn(a.id);
+      const box = el('section', 'area' + (openArea === a.id ? ' open' : '')); box.style.setProperty('--ac', accent(a.color)); box.dataset.area = a.id;
+      box.appendChild(el('button', 'ah', `<span class="ah-num">${k + 1}</span><span class="ah-t">${esc(a.title)}</span><span class="ah-c">${esc(a.sub)} · ${ids.length} question${ids.length === 1 ? '' : 's'}${a.chart ? ' and your class numbers' : ''}</span><span class="ah-n${n ? '' : ' zero'}" data-n="${a.id}">${chipText(n)}</span><span class="chev" aria-hidden="true"></span>`));
+      const h = box.lastChild; h.type = 'button'; h.dataset.open = a.id; h.setAttribute('aria-expanded', openArea === a.id);
+      const ab = el('div', 'ab'), inner = el('div', 'ab-in'); ab.appendChild(inner); box.appendChild(ab);
+      inner.appendChild(el('div', 'selbar', `<button data-all="${a.id}">Select all</button><button data-none="${a.id}">None</button>`));
+      inner.appendChild(el('p', 'intro', esc(a.intro)));
+      if (a.chart) inner.appendChild(dataEditor());
+      ids.forEach(id => {
         const i = item(id), row = el('label', 'item');
         row.innerHTML = `<input type="checkbox" ${state.sel.includes(id) ? 'checked' : ''} data-id="${id}"><div class="txt"><div class="q">${esc(i.q || i.t)}${i.star ? '<span class="tag star">main</span>' : ''}${i.t ? '<span class="tag exp">explainer</span>' : ''}${i.mine ? '<span class="tag mine">mine</span>' : ''}</div>${i.hint ? `<div class="hint">${esc(i.hint)}</div>` : ''}${i.edited ? '<div class="edited">✎ edited by you</div>' : ''}</div>`;
-        box.appendChild(row);
+        inner.appendChild(row);
       });
-      box.appendChild(el('div', 'addrow', `<button class="btn small" data-add="${a.id}">+ Add your own question here</button>`));
+      inner.appendChild(el('div', 'addrow', `<button class="btn small" data-add="${a.id}">+ Add your own question here</button>`));
       root.appendChild(box);
     });
   }
   $('#areas').addEventListener('change', e => {
     const id = e.target.dataset.id; if (!id) return;
     state.sel = e.target.checked ? [...state.sel, id] : state.sel.filter(x => x !== id);
-    save(); renderList();
+    save(); renderList(); updateChips();
   });
   $('#areas').addEventListener('click', e => {
     const t = e.target;
+    const h = t.closest('[data-open]');
+    if (h) { const id = h.dataset.open; setOpen(openArea === id ? null : id); if (openArea) setTimeout(() => h.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 430); return; }
     if (t.dataset.all || t.dataset.none) {
       const a = t.dataset.all || t.dataset.none, ids = allIds().filter(id => item(id).area === a);
       state.sel = t.dataset.all ? [...new Set([...state.sel, ...ids])] : state.sel.filter(x => !ids.includes(x));
@@ -400,11 +455,12 @@
     let areas = 0, last = null; items.forEach(i => { if (i.area !== last) { areas++; last = i.area; } });
     $('#count').textContent = `${items.length} question${items.length === 1 ? '' : 's'} · ${items.length + areas + 2} slides`;
     items.forEach((i, k) => {
-      const li = el('li', '', `<span class="grip" title="Drag to reorder">⠿</span><span class="k" style="color:${accent(i.areaObj.color)}">${esc(i.area)}</span><span class="t">${esc(i.q || i.t)}${i.edited || i.mine ? ' <span style="color:var(--yellow)">✎</span>' : ''}</span><span class="ops"><button data-up="${k}" title="Move up">▲</button><button data-down="${k}" title="Move down">▼</button><button data-edit="${i.id}" title="Edit">✎</button><button data-del="${i.id}" title="Remove from deck">✕</button></span>`);
+      const li = el('li', '', `<span class="grip" title="Drag to reorder">⠿</span><div class="mini thumb" data-goto="${esc(i.id)}" title="Present from this slide"><div class="mini-in">${slideHTML(itemSlide(i))}</div></div><span class="k" style="color:${accent(i.areaObj.color)}">${esc(i.area)}</span><span class="t">${esc(i.q || i.t)}${i.edited || i.mine ? ' <span style="color:var(--yellow)">✎</span>' : ''}</span><span class="ops"><button data-up="${k}" title="Move up">▲</button><button data-down="${k}" title="Move down">▼</button><button data-edit="${i.id}" title="Edit">✎</button><button data-del="${i.id}" title="Remove from deck">✕</button></span>`);
       li.dataset.index = k;
       list.appendChild(li);
     });
     $('#btnPresent').disabled = $('#btnPrint').disabled = $('#btnPptx').disabled = items.length === 0;
+    requestAnimationFrame(() => fitMinis(list));
   }
   // Drag a slide by its ⠿ grip to a new place in the deck (mouse, pen or touch).
   (function () {
@@ -475,12 +531,17 @@
     items.forEach(i => {
       const a = i.areaObj;
       if (i.area !== last) { slides.push({ kind: 'divider', area: a, title: a.title, sub: a.sub, notes: a.intro }); last = i.area; }
-      if (i.t) slides.push({ kind: 'explain', id: i.id, area: a, t: i.t, lines: i.lines || [], chart: i.chart, table: i.table, notes: i.listen });
-      else slides.push({ kind: 'q', id: i.id, area: a, q: i.q, hint: i.hint, chart: i.chart, notes: [i.listen && `Listen for: ${i.listen}`, i.push && `Push further: ${i.push}`].filter(Boolean).join('  ·  ') });
+      slides.push(itemSlide(i));
     });
     slides.push({ kind: 'end', title: 'I wonder…', sub: 'Every scientist ends with a new question. What is yours?', notes: 'Finish with one question the class cannot answer yet, and put it on the I wonder board.' });
     return slides;
   }
+  function itemSlide(i) {
+    const a = i.areaObj;
+    if (i.t) return { kind: 'explain', id: i.id, area: a, t: i.t, lines: i.lines || [], chart: i.chart, table: i.table, notes: i.listen };
+    return { kind: 'q', id: i.id, area: a, q: i.q, hint: i.hint, chart: i.chart, notes: [i.listen && `Listen for: ${i.listen}`, i.push && `Push further: ${i.push}`].filter(Boolean).join('  ·  ') };
+  }
+  function fitMinis(root) { (root || document).querySelectorAll('.mini').forEach(m => { const n = m.querySelector('.mini-in'); if (n && m.clientWidth) n.style.transform = `scale(${m.clientWidth / 1366})`; }); }
   function slideHTML(s, forPrint) {
     const ac = accent(s.area ? s.area.color : '#ffb627');
     const chart = s.chart ? chartFor(s.chart) : '';
@@ -500,6 +561,24 @@
 
   /* ---------- present ---------- */
   let deck = [], cur = 0, notesOn = false, editOn = false;
+  /* tap a preview to present from that slide; hover to see it bigger beside the deck */
+  $('#list').addEventListener('click', e => {
+    const g = e.target.closest('[data-goto]'); if (!g) return;
+    present(); const k = deck.findIndex(x => x.id === g.dataset.goto); if (k >= 0) show(k);
+  });
+  (function () {
+    const peek = el('div', 'mini'); peek.id = 'peek'; peek.innerHTML = '<div class="mini-in"></div>'; document.body.appendChild(peek);
+    $('#list').addEventListener('mouseover', e => {
+      const g = e.target.closest('.thumb'); if (!g) return;
+      peek.querySelector('.mini-in').innerHTML = g.querySelector('.mini-in').innerHTML;
+      const r = g.getBoundingClientRect(), w = Math.min(480, Math.max(260, r.left - 30));
+      peek.style.width = w + 'px'; peek.style.left = Math.max(10, r.left - w - 16) + 'px';
+      peek.style.top = Math.max(10, Math.min(innerHeight - w * 9 / 16 - 10, r.top + r.height / 2 - w * 9 / 32)) + 'px';
+      fitMinis(peek.parentNode); peek.querySelector('.mini-in').style.transform = `scale(${w / 1366})`; peek.classList.add('on');
+    });
+    $('#list').addEventListener('mouseout', e => { if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest('.thumb')) peek.classList.remove('on'); });
+    addEventListener('resize', () => fitMinis($('#list')));
+  })();
   function present() {
     deck = buildDeck(); cur = 0; editOn = false; $('#present').classList.remove('editing'); $('#hudEdit').classList.remove('on');
     $('#slides').innerHTML = deck.map(s => slideHTML(s)).join('');
@@ -644,6 +723,7 @@
     '#cls': () => { const el = $('#cls'), orig = el.value, origState = state.cls; fxCover(); el.value = ''; 'Primary 3F'.split('').forEach((ch, k) => later(900 + k * 160, () => { el.value += ch; state.cls = el.value; fxCover(); })); later(4600, () => { el.value = orig; state.cls = origState; fxCover(); }); demoUndo = () => { el.value = orig; state.cls = origState; }; },
     '.area': () => {
       const box = document.querySelector('.area input[type=checkbox]:not(:checked)'); if (!box) return;
+      { const ar = box.closest('.area'); if (ar && !ar.classList.contains('open')) setOpen(ar.dataset.area, true); }
       const it = item(box.dataset.id); let on = false;
       fx(`<div class="count">${esc($('#count').textContent)}</div>`, 'Your deck');
       later(1000, () => { box.click(); on = true; fx(`<div class="count">${esc($('#count').textContent)}  ·  a new slide:</div>${mini(it.q ? qSlide(it) : explainSlide(it))}`, 'Your deck'); });
@@ -701,6 +781,7 @@
     if (i < 0 || i >= steps.length) { tourEnd(); return; }
     tourStep = i;
     const st = steps[i], target = document.querySelector(st.sel);
+    { const ar = target.closest && target.closest('.area'); if (ar && ar !== target && !ar.classList.contains('open')) setOpen(ar.dataset.area, true); }   /* the bank starts closed */
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (tourVoice && window.Heart) Heart.say([st.title, st.text]);
     if (DEMOS[st.sel]) later(650, () => DEMOS[st.sel]());
