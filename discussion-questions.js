@@ -284,6 +284,7 @@ const DQ_TOUR = [
   { sel: '#btnTheme', title: 'Light or dark', text: 'Not everyone likes a dark screen. This button switches the whole page and every slide to light, or back to dark. The page remembers your choice, and you can press L while presenting.' },
   { sel: '#cls', title: 'Your class', text: 'Type your class name. It appears on the cover slide and in the file names.' },
   { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, and dive deep. Tick a question to add it to your deck.' },
+  { sel: '#search', title: 'Search', text: 'Looking for something? Type a word, such as light or graph. Only the questions that match stay on the page, with the word marked. Press the slash key to jump here, and Escape to clear it.' },
   { sel: '.tag.star', title: 'Main questions', text: 'Questions marked "main" are the heart of the discussion: sunlight, giving up one of three needs, spread out or gathered, and the factors that affect growth. They are ticked to start.' },
   { sel: '.tag.exp', title: 'Explainer slides', text: 'An "explainer" is a teaching slide rather than a question: it shows a graph or the three lines of a study with short points to say.' },
   { sel: '.data', title: 'Your class data', text: 'Type the heights from your class sheet here. Every bar graph and line graph in the deck redraws with your numbers. Leave a plant blank to hide it.' },

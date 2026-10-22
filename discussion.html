@@ -78,6 +78,18 @@
   #peek.on{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.area .ab,.area .ah .chev,.area.open .item,.item:has(input:checked) .hint{transition:none;animation:none}}
   .item .edited{color:var(--yellow);font-size:12px;font-weight:800}
+  /* search the question bank: matching parts open, other parts and non-matching questions step aside */
+  .search{position:relative;margin-bottom:16px}
+  .search input{width:100%;min-height:52px;padding:0 48px 0 48px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--ink);font-size:17px;font-weight:700}
+  .search input:focus{outline:none;border-color:var(--yellow)}
+  .search .glass{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;opacity:.7}
+  .search .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;border:none;background:var(--btn);color:var(--ink);font-size:15px;display:none}
+  .search.has .clear{display:block}
+  .search .found{margin:8px 4px 0;font-size:14px;font-weight:800;color:var(--muted);min-height:1em}
+  .search .found b{color:var(--yellow)}
+  #areas.searching .selbar,#areas.searching .intro,#areas.searching .data,#areas.searching .addrow{display:none}
+  #areas.searching .area .ab{transition:none}
+  mark{background:color-mix(in srgb,var(--yellow) 35%,transparent);color:inherit;border-radius:4px;padding:0 2px}
   .tag{display:inline-block;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
   .tag.star{background:var(--purple);color:#04070c}
   .tag.exp{background:var(--btn);color:var(--muted)}
@@ -210,7 +222,10 @@
   </header>
 
   <div class="cols">
-    <main id="areas"></main>
+    <main>
+      <div class="search" id="searchBox"><span class="glass" aria-hidden="true">🔍</span><input id="search" type="search" placeholder="Search the questions, e.g. sunlight, bar graph, seeds…" aria-label="Search the questions" autocomplete="off"><button class="clear" id="searchClear" type="button" aria-label="Clear the search">✕</button><div class="found" id="searchFound" aria-live="polite"></div></div>
+      <div id="areas"></div>
+    </main>
     <aside class="deck">
       <h2>Your deck</h2>
       <div class="count" id="count"></div>
@@ -391,26 +406,57 @@
   function updateChips() {
     document.querySelectorAll('#areas [data-n]').forEach(c => { const n = chosenIn(c.dataset.n); if (c.textContent !== chipText(n)) { c.classList.add('pop'); setTimeout(() => c.classList.remove('pop'), 250); } c.textContent = chipText(n); c.classList.toggle('zero', !n); });
   }
+  let query = '';
+  const norm = t => String(t || '').toLowerCase().replace(/[\u2018\u2019]/g, "'");
+  const qWords = () => norm(query).split(/\s+/).filter(Boolean);
+  // A question matches when every word typed appears in what the teacher can see: the question, its hint or its points, or its part's title.
+  function matches(i, a) {
+    const ws = qWords(); if (!ws.length) return true;
+    const hay = norm([i.q, i.t, i.hint, (i.lines || []).join(' '), a.title, a.sub].join(' '));
+    return ws.every(w => hay.includes(w));
+  }
+  function hl(text) {
+    const ws = qWords(), safe = esc(text); if (!ws.length) return safe;
+    const re = new RegExp('(' + ws.map(w => esc(w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')', 'gi');
+    return safe.replace(re, '<mark>$1</mark>');
+  }
   function renderAreas() {
     const root = $('#areas'); root.innerHTML = '';
+    const searching = qWords().length > 0; let hits = 0, partsHit = 0;
+    root.classList.toggle('searching', searching);
     DQ_AREAS.forEach((a, k) => {
-      const ids = [...a.items.map(i => i.id), ...state.custom.filter(c => c.area === a.id).map(c => c.id)], n = chosenIn(a.id);
-      const box = el('section', 'area' + (openArea === a.id ? ' open' : '')); box.style.setProperty('--ac', accent(a.color)); box.dataset.area = a.id;
-      box.appendChild(el('button', 'ah', `<span class="ah-num">${k + 1}</span><span class="ah-t">${esc(a.title)}</span><span class="ah-c">${esc(a.sub)} · ${ids.length} question${ids.length === 1 ? '' : 's'}${a.chart ? ' and your class numbers' : ''}</span><span class="ah-n${n ? '' : ' zero'}" data-n="${a.id}">${chipText(n)}</span><span class="chev" aria-hidden="true"></span>`));
-      const h = box.lastChild; h.type = 'button'; h.dataset.open = a.id; h.setAttribute('aria-expanded', openArea === a.id);
+      const all = [...a.items.map(i => i.id), ...state.custom.filter(c => c.area === a.id).map(c => c.id)], n = chosenIn(a.id);
+      const ids = searching ? all.filter(id => matches(item(id), a)) : all;
+      if (searching && !ids.length) return;
+      hits += ids.length; partsHit++;
+      const box = el('section', 'area' + ((searching || openArea === a.id) ? ' open' : '')); box.style.setProperty('--ac', accent(a.color)); box.dataset.area = a.id;
+      box.appendChild(el('button', 'ah', `<span class="ah-num">${k + 1}</span><span class="ah-t">${esc(a.title)}</span><span class="ah-c">${esc(a.sub)} · ${searching ? `${ids.length} of ${all.length} match` : `${ids.length} question${ids.length === 1 ? '' : 's'}${a.chart ? ' and your class numbers' : ''}`}</span><span class="ah-n${n ? '' : ' zero'}" data-n="${a.id}">${chipText(n)}</span><span class="chev" aria-hidden="true"></span>`));
+      const h = box.lastChild; h.type = 'button'; h.dataset.open = a.id; h.setAttribute('aria-expanded', searching || openArea === a.id);
       const ab = el('div', 'ab'), inner = el('div', 'ab-in'); ab.appendChild(inner); box.appendChild(ab);
       inner.appendChild(el('div', 'selbar', `<button data-all="${a.id}">Select all</button><button data-none="${a.id}">None</button>`));
       inner.appendChild(el('p', 'intro', esc(a.intro)));
       if (a.chart) inner.appendChild(dataEditor());
       ids.forEach(id => {
         const i = item(id), row = el('label', 'item');
-        row.innerHTML = `<input type="checkbox" ${state.sel.includes(id) ? 'checked' : ''} data-id="${id}"><div class="txt"><div class="q">${esc(i.q || i.t)}${i.star ? '<span class="tag star">main</span>' : ''}${i.t ? '<span class="tag exp">explainer</span>' : ''}${i.mine ? '<span class="tag mine">mine</span>' : ''}</div>${i.hint ? `<div class="hint">${esc(i.hint)}</div>` : ''}${i.edited ? '<div class="edited">✎ edited by you</div>' : ''}</div>`;
+        row.innerHTML = `<input type="checkbox" ${state.sel.includes(id) ? 'checked' : ''} data-id="${id}"><div class="txt"><div class="q">${hl(i.q || i.t)}${i.star ? '<span class="tag star">main</span>' : ''}${i.t ? '<span class="tag exp">explainer</span>' : ''}${i.mine ? '<span class="tag mine">mine</span>' : ''}</div>${i.hint ? `<div class="hint"${searching && qWords().some(w => norm(i.hint).includes(w)) ? ' style="display:block"' : ''}>${hl(i.hint)}</div>` : ''}${i.edited ? '<div class="edited">✎ edited by you</div>' : ''}</div>`;
         inner.appendChild(row);
       });
       inner.appendChild(el('div', 'addrow', `<button class="btn small" data-add="${a.id}">+ Add your own question here</button>`));
       root.appendChild(box);
     });
+    const found = $('#searchFound');
+    if (found) found.innerHTML = !searching ? '' : hits ? `<b>${hits}</b> question${hits === 1 ? '' : 's'} found in ${partsHit} part${partsHit === 1 ? '' : 's'}` : `No questions match "${esc(query.trim())}". Try one word, such as <b>light</b>, <b>graph</b> or <b>seed</b>.`;
+    $('#searchBox').classList.toggle('has', !!query);
   }
+  $('#search').addEventListener('input', e => { query = e.target.value; renderAreas(); });
+  $('#searchClear').addEventListener('click', () => { query = ''; $('#search').value = ''; renderAreas(); $('#search').focus(); });
+  $('#search').addEventListener('keydown', e => { if (e.key === 'Escape') { $('#searchClear').click(); } });
+  // Press / anywhere on the builder to jump to the search box.
+  document.addEventListener('keydown', e => {
+    if (e.key !== '/' || e.target.closest('input,textarea,[contenteditable="true"]')) return;
+    if ($('#present').classList.contains('on') || $('#tour').classList.contains('on')) return;
+    e.preventDefault(); $('#search').focus();
+  });
   $('#areas').addEventListener('change', e => {
     const id = e.target.dataset.id; if (!id) return;
     state.sel = e.target.checked ? [...state.sel, id] : state.sel.filter(x => x !== id);
@@ -419,6 +465,7 @@
   $('#areas').addEventListener('click', e => {
     const t = e.target;
     const h = t.closest('[data-open]');
+    if (h && qWords().length) { const b = h.closest('.area'), on = !b.classList.contains('open'); b.classList.toggle('open', on); h.setAttribute('aria-expanded', on); return; }
     if (h) { const id = h.dataset.open; setOpen(openArea === id ? null : id); if (openArea) setTimeout(() => h.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 430); return; }
     if (t.dataset.all || t.dataset.none) {
       const a = t.dataset.all || t.dataset.none, ids = allIds().filter(id => item(id).area === a);
@@ -729,6 +776,12 @@
       later(1000, () => { box.click(); on = true; fx(`<div class="count">${esc($('#count').textContent)}  ·  a new slide:</div>${mini(it.q ? qSlide(it) : explainSlide(it))}`, 'Your deck'); });
       later(4200, () => { box.click(); on = false; fx(`<div class="count">${esc($('#count').textContent)}</div>`, 'Your deck'); });
       demoUndo = () => { if (on) box.click(); };
+    },
+    '#search': () => {
+      const box = $('#search'), orig = box.value, type = v => { box.value = v; query = v; renderAreas(); };
+      fx('', ''); type('');
+      'light'.split('').forEach((ch, k) => later(700 + k * 220, () => { type(box.value + ch); if (k === 4) fx(`<div class="count">${esc($('#searchFound').textContent)}</div>`, 'Only the matching questions stay, with the word marked'); }));
+      later(4600, () => type(orig)); demoUndo = () => type(orig);
     },
     '.tag.star': () => { pulse('.tag.star'); const it = firstItem(i => i.star); if (it) fx(mini(qSlide(it)), 'A main question becomes a slide like this'); },
     '.tag.exp': () => { pulse('.tag.exp'); const it = firstItem(i => i.t && i.chart === 'bar') || firstItem(i => i.t); if (it) fx(mini(explainSlide(it)), 'An explainer slide'); },
