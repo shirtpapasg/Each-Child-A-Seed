@@ -14,31 +14,38 @@
     return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   }
 
-  function speakFallback(text) {
-    if (!('speechSynthesis' in window)) return;
+  // The device's own voice, used when a clip is missing. then() runs when it has finished (or at once if there is no voice).
+  function speakFallback(text, then) {
+    if (!('speechSynthesis' in window)) { if (then) then(); return; }
     window.speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(text.replace(/[^\w\s.,!?'’()\-:]/g, ''));
     u.lang = 'en-US'; u.rate = 1.0;
+    if (then) { u.onend = then; u.onerror = then; }
     window.speechSynthesis.speak(u);
   }
 
   // Play one phrase, or a list of phrases one after another.
-  function play(phrases, btn) {
+  // Play one phrase or a list in turn. onDone runs once the last one has been heard, unless something else started playing first.
+  var generation = 0;
+  function play(phrases, btn, onDone) {
     if (typeof phrases === 'string') phrases = [phrases];
-    if (current) { current.onpause = null; current.pause(); current = null; }
+    var mine = ++generation;
+    if (current) { current.onpause = null; current.onended = null; current.pause(); current = null; }
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     document.querySelectorAll('.heart-btn.is-playing').forEach(function (b) { b.classList.remove('is-playing'); });
     var i = 0;
     function done() { if (btn) btn.classList.remove('is-playing'); }
     function next() {
-      if (i >= phrases.length) { current = null; done(); return; }
+      if (mine !== generation) return;
+      if (i >= phrases.length) { current = null; done(); if (onDone) onDone(); return; }
       var text = phrases[i++];
       var a = new Audio(BASE + 'voice/' + slug(text) + '.mp3');
       current = a;
       a.onended = next;
       a.onpause = done;
-      a.onerror = function () { speakFallback(text); next(); };
-      a.play().catch(function () { speakFallback(text); next(); });
+      var fell = false, fallback = function () { if (fell) return; fell = true; if (mine === generation) speakFallback(text, next); };
+      a.onerror = fallback;
+      a.play().catch(fallback);
     }
     if (btn) btn.classList.add('is-playing');
     next();
@@ -87,8 +94,8 @@
 
   // Pages can make Heart speak a phrase or a list of phrases, e.g. Heart.say('Water added').
   window.Heart = {
-    say: function (phrases) { play(phrases, null); },
-    stop: function () { if (current) { current.onpause = null; current.onended = null; current.pause(); current = null; } if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+    say: function (phrases, onDone) { play(phrases, null, onDone); },
+    stop: function () { generation++; if (current) { current.onpause = null; current.onended = null; current.pause(); current = null; } if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
   };
 
   /* Dictation: a floating 🎤 button appears beside any text box the student is typing in.
