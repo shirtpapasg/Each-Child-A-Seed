@@ -222,6 +222,7 @@
               <div class="ev"><b>Evidence:</b> ${esc(t.evidence)}</div>
               <div class="row" style="margin-top:6px">${t.traits.map(traitChip).join(' ')}</div>
               ${t.teacherNote ? `<div class="tn">📝 ${esc(t.teacherNote)}</div>` : ''}
+              ${t.example ? `<div class="ops"><a class="btn small primary" href="${esc(t.example)}" target="_blank" rel="noopener">🖼 See the example poster</a></div>` : ''}
               <div class="ops">
                 <button class="btn small" data-copy="${t.id}">📋 Copy for SLS</button>
                 <button class="btn small" data-edit="${t.id}">✎ Edit</button>

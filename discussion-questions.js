@@ -1,5 +1,5 @@
 /* Question bank for the post-lesson discussion deck (discussion.html).
- * Seven areas. Each item is either a question slide (q) or an explainer slide (t + lines).
+ * Eight areas. Each item is either a question slide (q) or an explainer slide (t + lines).
  * Student-facing text goes on the slide; `listen` and `push` are the teacher's notes.
  * Heart's clips for every q and t are made by make_clips.py; keep the text as plain sentences. */
 const DQ_AREAS = [
@@ -319,6 +319,71 @@ const DQ_AREAS = [
         listen: 'Real sources of inspiration and questions that go beyond the lesson.',
         push: 'Write your I wonder question on the board. Who could help us find the answer?' }
     ]
+  },
+  {
+    id: 'W', color: '#e8493f', title: 'Less food waste at home', sub: 'Our audit, the 5 Whys, and a use-me-first system',
+    intro: 'Three steps: what our home food-waste audits showed, why the food was wasted (the 5 Whys), then a use-me-first system to remind the family. The Tree students lead with their own data and inventions. These are left unticked to start.',
+    items: [
+      { id: 'W0', opt: true, t: 'Our food-waste audit', lines: [
+          'For 7 days, we weighed the food our family threw away.',
+          'We sorted it: food that could have been eaten, and food that could not, like peels and bones.',
+          'Then we looked for patterns: which day, which meal, which food.' ],
+        listen: 'Ask two or three Tree students to share their totals and their biggest category before the questions.' },
+      { id: 'W1', opt: true, q: 'On which day did your family throw away the most food? What was different about that day?',
+        hint: 'Think about cooking, eating out, parties or shopping days.',
+        listen: 'A link between a pattern in the data and a family routine (e.g. leftovers after a weekend gathering, food bought but not cooked).',
+        push: 'Is one week enough to be sure? What would you need to do to be more certain?' },
+      { id: 'W2', opt: true, q: 'Was most of your waste food that could have been eaten, or food that could not? Why does that difference matter?',
+        hint: 'Peels and bones, or leftovers and food that went bad?',
+        listen: 'Only the food that could have been eaten can be saved by changing habits; peels can go to compost instead.',
+        push: 'Is a banana peel really waste? Where could it go instead of the bin?' },
+      { id: 'W3', opt: true, q: 'Two families threw away the same weight of food. Do they waste the same amount?',
+        hint: 'What else would you want to know about each family?',
+        listen: 'Family size, the kind of waste (heavy peels or light leftovers), how much food they bought. The same number can mean different things.',
+        push: 'How could we make a fairer comparison between families?' },
+      { id: 'W4', opt: true, q: 'The scale showed 0 grams for a few grapes. Does that mean nothing was wasted?',
+        hint: 'How small a weight can our scale show?',
+        listen: 'The scale cannot measure very small amounts; small wastes add up over a week.',
+        push: 'How could we measure the small things? Count them, or save them up and weigh them together?' },
+      { id: 'W5', opt: true, t: 'The 5 Whys', lines: [
+          'Rice was thrown away. Why? We cooked too much.',
+          'Why? Nobody measured. Why? We guess every time.',
+          'Ask why until you reach a habit you can change.' ],
+        listen: 'Model one chain on the board with the class, then let students build their own for a food from their audit.' },
+      { id: 'W6', opt: true, q: 'Pick one food from your audit. Ask why five times. Where did your chain end?',
+        hint: 'Stop when you reach something your family could change.',
+        listen: 'A chain that moves from the food to a habit or a decision (buying, cooking, storing, serving).',
+        push: 'Was your first answer the real cause? Which why changed your mind?' },
+      { id: 'W7', opt: true, q: 'Two classmates asked why about the same leftover rice, but their chains ended at different reasons. Can both be right?',
+        hint: 'Can a problem have more than one cause?',
+        listen: 'Yes: problems can have several causes. Different families have different habits.',
+        push: 'How could we find out which cause matters most in your home?' },
+      { id: 'W8', opt: true, q: 'Is food usually wasted because of the food, or because of a habit? How can you tell?',
+        hint: 'Look at the end of your 5 Whys chain.',
+        listen: 'Most chains end at a habit (forgetting, buying too much, cooking too much), which is good news: habits can change.',
+        push: 'Which habit would be the easiest to change first? Which would save the most food?' },
+      { id: 'W9', opt: true, t: 'Invent a use-me-first system', lines: [
+          'Food gets wasted when it is forgotten at the back of the fridge.',
+          'Design something that reminds the family to eat it first: a labelled box, colour stickers or a chart.',
+          'Test it for a week, then weigh the waste again to see if it worked.' ],
+        listen: 'Show one example from a Tree student if there is one. Everyone makes a simple version; Tree students test and improve theirs.' },
+      { id: 'W10', opt: true, q: 'Where and when does your family forget food? Where should your reminder be, so they see it at that moment?',
+        hint: 'A reminder works only if it is seen at the right time.',
+        listen: 'A reminder placed where the decision happens: the fridge door, the rice pot, the shopping list.',
+        push: 'Would the same place work in every home? Why or why not?' },
+      { id: 'W11', opt: true, q: 'How can your reminder be helpful or fun, so the grown-ups do not ignore it?',
+        hint: 'Think colours, pictures, a game or a reward.',
+        listen: 'Kind, clear and quick reminders; a family challenge or a chart of grams saved.',
+        push: 'What would make you ignore a reminder? How will yours avoid that?' },
+      { id: 'W12', opt: true, q: 'How will you know if your use-me-first system worked? What will you measure, and for how long?',
+        hint: 'Remember your audit.',
+        listen: 'Weigh the waste for another week with the system and compare with the first week; keep everything else the same.',
+        push: 'If the waste went down, can you be sure it was because of your system? What else could have changed?' },
+      { id: 'W13', opt: true, q: 'Your family stopped using your system after three days. What would you change?',
+        hint: 'Ask them why first.',
+        listen: 'Asking for feedback, finding the reason, and improving the design rather than giving up.',
+        push: 'Scientists and inventors improve their designs many times. What would version 2 of yours look like?' }
+    ]
   }
 ];
 
@@ -327,7 +392,7 @@ const DQ_TOUR = [
   { sel: 'header.top h1', title: 'Welcome, teacher', text: 'This page builds a slide deck for your post-lesson discussion. Pick questions, change the words if you like, and present. This tour takes about a minute.' },
   { sel: '#btnTheme', title: 'Light or dark', text: 'Not everyone likes a dark screen. This button switches the whole page and every slide to light, or back to dark. The page remembers your choice, and you can press L while presenting.' },
   { sel: '#cls', title: 'Your class', text: 'Type your class name. It appears on the cover slide and in the file names.' },
-  { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, dive deep, and care for plants. Tick a question to add it to your deck.' },
+  { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, dive deep, care for plants, and less food waste at home. Tick a question to add it to your deck.' },
   { sel: '#search', title: 'Search', text: 'Looking for something? Type a word, such as light or graph. Only the questions that match stay on the page, with the word marked. Press the slash key to jump here, and Escape to clear it.' },
   { sel: '.tag.star', title: 'Main questions', text: 'Questions marked "main" are the heart of the discussion: sunlight, giving up one of three needs, spread out or gathered, and the factors that affect growth. They are ticked to start.' },
   { sel: '.tag.exp', title: 'Explainer slides', text: 'An "explainer" is a teaching slide rather than a question: it shows a graph or the three lines of a study with short points to say.' },

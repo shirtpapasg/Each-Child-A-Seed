@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Example poster · Use Me First! · Each Child a Seed</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap">
+<style>
+  /* An example of the E5 poster for students: one area (the use-me-first system), backed by the student's own audit and 5 Whys.
+     The poster is drawn at A3 (1123 × 1587 px) and scaled to fit the screen; it prints on one A3 or A4 page. */
+  :root{--page:#0f1720;--ink:#1d2433;--cream:#fff8ec;--red:#f2493d;--red2:#c9302a;--yellow:#ffc233;--green:#2fb35a;--teal:#1aa59a;--blue:#2f7fd8;--grey:#9aa4b2;--line:#e9dcc4}
+  html[data-theme="light"]{--page:#e9edf2}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);font-family:Nunito,system-ui,sans-serif;color:var(--ink)}
+  .bar-top{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;padding:14px 16px 4px}
+  .bar-top a,.bar-top button{font:inherit;font-weight:900;font-size:15px;padding:9px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:#2b3340;color:#fff;text-decoration:none;cursor:pointer}
+  html[data-theme="light"] .bar-top a,html[data-theme="light"] .bar-top button{background:#fff;color:#14213d;border-color:rgba(20,33,61,.15)}
+  .bar-top button.on{background:var(--yellow);color:#1d2433}
+  .stage{display:flex;justify-content:center;padding:12px 16px 40px}
+  .fit{position:relative}
+  .poster{width:1123px;height:1587px;transform-origin:top left;background:var(--cream);position:absolute;left:0;top:0;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.35);border-radius:6px}
+
+  /* Title */
+  .head{position:relative;flex:none;height:262px;padding:40px 56px 0;background:
+      radial-gradient(circle at 92% 18%,rgba(255,194,51,.55) 0 90px,transparent 91px),
+      radial-gradient(circle at 6% 92%,rgba(47,179,90,.25) 0 70px,transparent 71px),var(--cream)}
+  .kicker{display:inline-block;font-weight:900;font-size:22px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--teal);padding:6px 16px;border-radius:999px}
+  .title{margin:16px 0 0;font-size:100px;line-height:.95;white-space:nowrap;font-weight:900;color:var(--red);letter-spacing:-.02em;text-shadow:6px 6px 0 #ffd9d4}
+  .title span{color:var(--ink);text-shadow:6px 6px 0 #e6e9ef}
+  .sub{margin:12px 0 0;font-size:28px;font-weight:800;max-width:820px;line-height:1.2}
+  .sticker{position:absolute;right:60px;top:34px;width:184px;height:184px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;text-align:center;font-weight:900;font-size:27px;line-height:1.05;transform:rotate(12deg);box-shadow:0 8px 0 var(--red2);border:6px dashed #fff}
+  .sticker b{display:block;font-size:56px}
+
+  /* Panels */
+  .grid{flex:none;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:4px 56px 0}
+  .card{background:#fff;border:4px solid var(--ink);border-radius:26px;padding:14px 22px 16px;position:relative;box-shadow:8px 8px 0 var(--ink)}
+  .card h2{margin:0 0 4px;font-size:30px;font-weight:900;display:flex;align-items:center;gap:12px}
+  .num{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:26px;flex:none}
+  .card p{margin:3px 0;font-size:20px;font-weight:700;line-height:1.3}
+  .big{white-space:nowrap;font-size:64px;font-weight:900;line-height:1;color:var(--red)}
+  .w{background:linear-gradient(transparent 60%,#ffe08a 60%);padding:0 3px;font-weight:900}
+  .whys{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+  .why{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;line-height:1.2}
+  .why i{font-style:normal;flex:none;font-size:15px;font-weight:900;color:#fff;background:var(--blue);border-radius:999px;padding:4px 10px}
+  .why.s1{padding-left:0}.why.s2{padding-left:22px}.why.s3{padding-left:44px}.why.s4{padding-left:66px}.why.s5{padding-left:88px}
+  .key{margin-top:10px;background:var(--yellow);border-radius:16px;padding:10px 14px;font-size:22px;font-weight:900}
+  .result{display:flex;flex-direction:column;gap:10px;margin:10px 0 4px}
+  .rbar{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:10px;font-weight:900;font-size:20px}
+  .rbar div{height:44px;border-radius:12px;display:flex;align-items:center;justify-content:flex-end;padding-right:12px;color:#fff;font-size:22px}
+  .v2{margin-top:8px;border:3px dashed var(--teal);border-radius:16px;padding:8px 12px;font-size:19px;font-weight:800;line-height:1.3}
+  .honest{font-size:17px!important;color:#5a6476}
+  .solution{grid-column:1/-1;display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:center}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 26px}
+  .lg{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900}
+  .dot{width:36px;height:36px;border-radius:50%;border:4px solid var(--ink);flex:none}
+
+  /* Call to action */
+  .cta{position:relative;margin:auto 56px 0;background:var(--red);color:#fff;border-radius:30px;padding:16px 28px;display:flex;align-items:center;gap:22px;box-shadow:0 10px 0 var(--red2)}
+  .cta .icon{font-size:62px;line-height:1}
+  .cta b{display:block;font-size:38px;line-height:1.05;font-weight:900}
+  .cta span{font-size:21px;font-weight:800;opacity:.95}
+  .foot{flex:none;margin:0 56px;padding:14px 0 22px;display:flex;justify-content:space-between;font-size:19px;font-weight:800;color:#5a6476}
+
+  /* Teacher view: numbered badges show where each success-criteria item is met. */
+  .badge{position:absolute;display:none;width:52px;height:52px;border-radius:50%;background:#7d35b8;color:#fff;font-weight:900;font-size:26px;place-items:center;border:4px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.35);z-index:3}
+  .annot .badge{display:grid}
+  .crit{max-width:1123px;margin:0 auto 40px;padding:0 16px;display:none;color:#e9eef4}
+  html[data-theme="light"] .crit{color:#14213d}
+  .annot-on .crit{display:block}
+  .crit ol{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+  .crit li{display:flex;gap:10px;align-items:flex-start;background:rgba(125,53,184,.16);border:1px solid rgba(125,53,184,.5);border-radius:14px;padding:10px 12px;font-weight:700;line-height:1.35}
+  .crit li b{flex:none;width:30px;height:30px;border-radius:50%;background:#7d35b8;color:#fff;display:grid;place-items:center}
+  @page{size:A3 portrait;margin:0}
+  @media print{
+    body{background:#fff}
+    .bar-top,.crit{display:none!important}
+    .stage{padding:0}
+    .fit{width:auto!important;height:auto!important}
+    .poster{position:static;transform:none!important;box-shadow:none;border-radius:0;zoom:1}
+    .badge{display:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="bar-top">
+  <a href="challenge.html">← Care for Plants</a>
+  <button id="btnAnnot" title="Show where the poster meets each item on the checklist">🔎 What makes it great?</button>
+  <button id="btnPrint">🖨 Print (A3 or A4)</button>
+</div>
+
+<div class="stage"><div class="fit" id="fit"><div class="poster" id="poster">
+
+  <div class="head">
+    <span class="kicker">Less food waste at home</span>
+    <h1 class="title">USE ME <span>FIRST!</span></h1>
+    <p class="sub">How one box in our fridge helped my family waste less food.</p>
+    <div class="sticker"><div><b>−59%</b>wasted food in 1 week</div></div>
+    <div class="badge" style="left:20px;top:110px">1</div>
+  </div>
+
+  <div class="grid">
+    <!-- 1 · The problem: the audit -->
+    <div class="card">
+      <h2><span class="num" style="background:var(--red)">1</span> The problem</h2>
+      <p>We weighed our food waste for 7 days.</p>
+      <div style="display:flex;align-items:flex-end;gap:14px;margin:4px 0 2px">
+        <div class="big">1.8 kg</div><p style="margin:0 0 8px">in one week!<br><span class="w">1.1 kg</span> could have been eaten.</p>
+      </div>
+      <svg viewBox="0 0 470 236" width="100%" role="img" aria-label="Food thrown away each day. Saturday was the most, 520 grams, after a family dinner.">
+        <g font-family="Nunito" font-weight="900" text-anchor="middle">
+          <!-- 520 g = 150 px. Red: could have been eaten. Grey: peels and bones. -->
+          <line x1="20" y1="206" x2="455" y2="206" stroke="#1d2433" stroke-width="4"/>
+          <g id="bars"></g>
+        </g>
+        <g font-family="Nunito" font-weight="800" font-size="17">
+          <rect x="22" y="2" width="20" height="20" rx="4" fill="#f2493d"/><text x="50" y="18">could have been eaten</text>
+          <rect x="250" y="2" width="20" height="20" rx="4" fill="#c7ced8"/><text x="278" y="18">peels and bones</text>
+          <text x="24" y="62" font-weight="900" font-size="19" fill="#c9302a">Saturday was the worst:</text>
+          <text x="24" y="84" font-size="17">leftovers after our family dinner</text>
+          <path d="M290 78 q40 0 52 26" fill="none" stroke="#1d2433" stroke-width="3" marker-end="url(#ah2)"/>
+        </g>
+        <defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>
+      </svg>
+      <div class="badge" style="right:-18px;top:120px">2</div>
+    </div>
+
+    <!-- 2 · Why? The 5 Whys -->
+    <div class="card">
+      <h2><span class="num" style="background:var(--blue)">2</span> Why? The 5 Whys</h2>
+      <div class="whys">
+        <div class="why s1">🥬 The bayam turned yellow, so we threw it away.</div>
+        <div class="why s2"><i>WHY?</i> We forgot it was there.</div>
+        <div class="why s3"><i>WHY?</i> It was hidden at the back.</div>
+        <div class="why s4"><i>WHY?</i> New groceries went in front.</div>
+        <div class="why s5"><i>WHY?</i> Nobody checks what is old.</div>
+        <div class="why s5"><i>WHY?</i> We have no place for “eat soon” food.</div>
+      </div>
+      <div class="key">🔑 The real cause is a <span class="w">habit</span>, and habits can change!</div>
+      <div class="badge" style="right:-18px;top:60px">7</div>
+    </div>
+
+    <!-- 3 · The solution -->
+    <div class="card solution">
+      <svg viewBox="0 0 420 430" width="250" height="256" role="img" aria-label="An open fridge with a red Use Me First box at eye level, and colour stickers on the food.">
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1d2433"/></marker></defs>
+        <!-- fridge body -->
+        <rect x="40" y="20" width="270" height="400" rx="26" fill="#dbe8f4" stroke="#1d2433" stroke-width="6"/>
+        <rect x="62" y="42" width="226" height="356" rx="14" fill="#fff" stroke="#1d2433" stroke-width="4"/>
+        <!-- open door -->
+        <path d="M310 30 L380 60 L380 390 L310 412 Z" fill="#cfe0ef" stroke="#1d2433" stroke-width="6" stroke-linejoin="round"/>
+        <rect x="326" y="120" width="40" height="12" rx="4" fill="#1d2433" opacity=".25"/><rect x="326" y="250" width="40" height="12" rx="4" fill="#1d2433" opacity=".25"/>
+        <rect x="333" y="80" width="12" height="40" rx="4" fill="#2fb35a"/><rect x="349" y="88" width="12" height="32" rx="4" fill="#ffc233"/>
+        <!-- shelves -->
+        <g stroke="#1d2433" stroke-width="4"><line x1="62" y1="135" x2="288" y2="135"/><line x1="62" y1="250" x2="288" y2="250"/><line x1="62" y1="330" x2="288" y2="330"/></g>
+        <!-- top shelf: milk and eggs -->
+        <rect x="80" y="70" width="40" height="64" rx="5" fill="#fff" stroke="#1d2433" stroke-width="3"/><path d="M80 82 L100 64 L120 82" fill="#2f7fd8" stroke="#1d2433" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="138" y="108" width="80" height="26" rx="6" fill="#f3d9b1" stroke="#1d2433" stroke-width="3"/>
+        <circle cx="156" cy="104" r="9" fill="#fff6e6" stroke="#1d2433" stroke-width="2"/><circle cx="178" cy="104" r="9" fill="#fff6e6" stroke="#1d2433" stroke-width="2"/><circle cx="200" cy="104" r="9" fill="#fff6e6" stroke="#1d2433" stroke-width="2"/>
+        <circle cx="244" cy="96" r="14" fill="#2fb35a" stroke="#1d2433" stroke-width="3"/>
+        <!-- middle shelf: the USE ME FIRST box, at eye level -->
+        <rect x="74" y="160" width="202" height="88" rx="12" fill="#f2493d" stroke="#1d2433" stroke-width="4"/>
+        <rect x="74" y="160" width="202" height="30" rx="12" fill="#c9302a"/>
+        <text x="175" y="182" text-anchor="middle" font-family="Nunito" font-weight="900" font-size="19" fill="#fff">USE ME FIRST</text>
+        <path d="M96 238 q8-36 30-30 q10-30 26 -4 q6 26 -12 34z" fill="#3fbf63" stroke="#1d2433" stroke-width="3"/>
+        <rect x="168" y="208" width="44" height="32" rx="6" fill="#fff" stroke="#1d2433" stroke-width="3"/>
+        <rect x="222" y="200" width="40" height="40" rx="8" fill="#ffe2a8" stroke="#1d2433" stroke-width="3"/>
+        <circle cx="142" cy="214" r="9" fill="#ffc233" stroke="#1d2433" stroke-width="2"/>
+        <circle cx="190" cy="214" r="9" fill="#f2493d" stroke="#fff" stroke-width="2"/>
+        <circle cx="242" cy="210" r="9" fill="#ffc233" stroke="#1d2433" stroke-width="2"/>
+        <!-- bottom shelves: vegetables -->
+        <path d="M86 328 q12-50 40-40 q14-34 34 2 q10 30 -14 38z" fill="#2fb35a" stroke="#1d2433" stroke-width="3"/>
+        <circle cx="128" cy="296" r="8" fill="#2fb35a" stroke="#1d2433" stroke-width="2"/>
+        <rect x="190" y="282" width="70" height="46" rx="8" fill="#f8b4ad" stroke="#1d2433" stroke-width="3"/><circle cx="246" cy="290" r="8" fill="#2fb35a" stroke="#1d2433" stroke-width="2"/>
+        <rect x="80" y="346" width="190" height="40" rx="10" fill="#e8f1f8" stroke="#1d2433" stroke-width="3"/>
+        <!-- callout arrows -->
+        <path d="M14 205 L70 205" stroke="#1d2433" stroke-width="3" marker-end="url(#ah)"/>
+        <text x="0" y="194" font-family="Nunito" font-weight="900" font-size="13" fill="#1d2433">eye</text><text x="0" y="228" font-family="Nunito" font-weight="900" font-size="13" fill="#1d2433">level</text>
+      </svg>
+      <div>
+        <h2><span class="num" style="background:var(--green)">3</span> My solution: the Use Me First box</h2>
+        <p>Food that must be eaten soon goes in a red box at <span class="w">eye level</span>, where everyone sees it when they open the fridge.</p>
+        <p style="margin-bottom:8px">Every food gets a colour sticker:</p>
+        <div class="legend">
+          <div class="lg"><span class="dot" style="background:var(--green)"></span> Green = <span class="w">fresh</span></div>
+          <div class="lg"><span class="dot" style="background:var(--yellow)"></span> Yellow = eat soon</div>
+          <div class="lg"><span class="dot" style="background:var(--red)"></span> Red = eat today!</div>
+        </div>
+        <p style="margin-top:10px">Peels and bones cannot be eaten, so they go to <span class="w">compost</span>, which gives <span class="w">nutrients</span> back to the soil.</p>
+      </div>
+      <div class="badge" style="left:-18px;top:30px">3</div>
+      <div class="badge" style="right:22px;top:118px">4</div>
+    </div>
+
+    <!-- 4 · Did it work? -->
+    <div class="card" style="grid-column:1/-1;display:grid;grid-template-columns:1.05fr 1fr;gap:24px">
+      <div>
+        <h2><span class="num" style="background:var(--teal)">4</span> Did it work?</h2>
+        <p>Food that could have been eaten, before and after the box:</p>
+        <div class="result">
+          <div class="rbar">Week 1<div style="width:100%;background:var(--red)">1100 g</div></div>
+          <div class="rbar">Week 2<div style="width:41%;background:var(--green)">450 g</div></div>
+        </div>
+        <p>That is <span class="w">650 g less</span>, about 59% less food <span class="w">wasted</span>!</p>
+      </div>
+      <div>
+        <div class="v2">🔧 <b>Version 2:</b> Mum said the box was too low, so she kept missing it. I moved it up to the middle shelf, at eye level.</div>
+        <p class="honest" style="margin-top:10px">🧪 <b>Fair test:</b> I weighed the food the same way both weeks. But we had a family dinner in week 1, so I will test for one more week to be sure.</p>
+      </div>
+      <div class="badge" style="right:-18px;top:-20px">7</div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div class="icon">👀</div>
+    <div><b>Before you shop or cook, check the Use Me First box!</b><span>Eat the red stickers today. Waste less, save money, help Singapore’s food last.</span></div>
+    <div class="badge" style="right:-14px;top:-24px">5</div>
+  </div>
+  <div class="foot"><span>By a 🌳 Tree scientist · Primary 3</span><span>Care for Plants · Example data</span></div>
+  <div class="badge" style="left:20px;bottom:150px">6</div>
+</div></div></div>
+
+<div class="crit">
+  <ol>
+    <li><b>1</b> A catchy title that tells the message: “Use me first!”</li>
+    <li><b>2</b> Evidence from their own data: the 7-day audit, as a bar chart and a big number.</li>
+    <li><b>3</b> A labelled diagram: the fridge, the box at eye level, the sticker code.</li>
+    <li><b>4</b> Science words used correctly: wasted, fresh, compost, nutrients, habit.</li>
+    <li><b>5</b> A clear action for families: check the box before you shop or cook.</li>
+    <li><b>6</b> Big, bold writing that can be read from 2 metres away.</li>
+    <li><b>7</b> 🌳 Tree extras: the 5 Whys chain, a before-and-after result, version 2 after feedback, and an honest note about how fair the test was.</li>
+  </ol>
+</div>
+
+<script>
+(function () {
+  try { if (localStorage.getItem('ecas-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
+  // The bar chart: grams thrown away each day (example data, 1800 g in all, 1100 g could have been eaten).
+  const days = [['Mon', 100, 80], ['Tue', 80, 70], ['Wed', 130, 90], ['Thu', 90, 70], ['Fri', 120, 80], ['Sat', 360, 160], ['Sun', 220, 150]];
+  const px = 150 / 520, g = [];
+  days.forEach(([d, eat, peel], k) => {
+    const x = 34 + k * 61, h1 = eat * px, h2 = peel * px, top = 206 - h1 - h2;
+    g.push(`<rect x="${x}" y="${206 - h1}" width="42" height="${h1}" rx="6" fill="${d === 'Sat' ? '#c9302a' : '#f2493d'}"/>`,
+      `<rect x="${x}" y="${top}" width="42" height="${h2}" rx="6" fill="#c7ced8"/>`,
+      `<text x="${x + 21}" y="${top - 7}" font-size="17" fill="#1d2433">${eat + peel}</text>`,
+      `<text x="${x + 21}" y="230" font-size="18" fill="#1d2433">${d}</text>`);
+  });
+  document.getElementById('bars').innerHTML = g.join('');
+
+  // Scale the A3 poster to fit the window.
+  const poster = document.getElementById('poster'), fit = document.getElementById('fit');
+  function size() {
+    const s = Math.min(1, (window.innerWidth - 32) / 1123);
+    poster.style.transform = `scale(${s})`; fit.style.width = 1123 * s + 'px'; fit.style.height = 1587 * s + 'px';
+  }
+  window.addEventListener('resize', size); size();
+  document.getElementById('btnAnnot').addEventListener('click', e => {
+    const on = poster.classList.toggle('annot'); document.body.classList.toggle('annot-on', on); e.currentTarget.classList.toggle('on', on);
+  });
+  document.getElementById('btnPrint').addEventListener('click', () => window.print());
+})();
+</script>
+</body>
+</html>
