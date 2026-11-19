@@ -62,6 +62,8 @@ function doGet(e) {
 function doPost(e) {
   let b;
   try { b = JSON.parse(e.postData.contents); } catch (err) { return json({ ok: false, error: 'Bad request' }); }
+  // The AI helper runs outside the lock: an answer can take a minute, and students keep saving meanwhile.
+  if (b.action === 'ai') { try { return json(askAI(b)); } catch (err) { log_('error', '', '', 'ai: ' + err); return json({ ok: false, error: 'The AI helper failed. Please try again.' }); } }
   const lock = LockService.getScriptLock();
   lock.waitLock(20000);
   try {
@@ -244,3 +246,65 @@ function hash(pin) { return Utilities.base64Encode(Utilities.computeDigest(Utili
 function clean(v) { return String(v === undefined || v === null ? '' : v).trim().toUpperCase().replace(/[^A-Z0-9\-# ]/g, '').slice(0, 20); }
 function log_(action, cls, reg, note) { try { sheet('Log').appendRow([new Date(), action, cls || '', reg || '', note || '']); } catch (e) {} }
 function json(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+
+/* ---------- AI helper for the Challenge & Enrich teacher page ----------
+ * The teacher page sends an anonymised prompt (students as S01, S02…) with the teacher PIN.
+ * The Claude API key lives only in Script properties (ANTHROPIC_API_KEY), never in the app or in Git.
+ * Leave the key unset to keep the helper switched off. */
+function askAI(b) {
+  if (String(b.teacherPin || '') !== prop('TEACHER_PIN')) return { ok: false, error: 'Wrong teacher PIN.' };
+  const key = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_API_KEY');
+  if (!key) return { ok: false, error: 'The AI helper is off. Add ANTHROPIC_API_KEY in Project Settings → Script properties.' };
+  const prompt = String(b.prompt || '').slice(0, 200000);
+  if (!prompt.trim()) return { ok: false, error: 'Nothing to send.' };
+  const res = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+    method: 'post',
+    contentType: 'application/json',
+    muteHttpExceptions: true,
+    headers: { 'x-api-key': key, 'anthropic-version': '2026-10-21', 'anthropic-beta': 'server-side-fallback-2026-07-01' },
+    payload: JSON.stringify({
+      model: 'claude-opus-5-5',
+      max_tokens: 16000,
+      output_config: { effort: 'medium' },
+      fallbacks: 'default',
+      system: 'You help a Singapore primary school science teacher. Students are named only by codes such as S01. ' +
+        'Base every statement on the evidence given, quote it, and say when the evidence is thin. ' +
+        'Never label or diagnose a child: you suggest, the teacher decides. Write in clear British English with short headings and bullet points.',
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const code = res.getResponseCode(), body = JSON.parse(res.getContentText() || '{}');
+  if (code !== 200) { log_('ai-error', '', '', code + ' ' + ((body.error && body.error.message) || '')); return { ok: false, error: 'The AI service answered ' + code + '. ' + ((body.error && body.error.message) || '') }; }
+  if (body.stop_reason === 'refusal') return { ok: false, error: 'The AI declined this request. Try rewording it.' };
+  const text = (body.content || []).filter(c => c.type === 'text').map(c => c.text).join('\n\n');
+  log_('ai', '', '', (body.usage && (body.usage.input_tokens + '+' + body.usage.output_tokens + ' tokens')) || '');
+  return { ok: true, text: text, truncated: body.stop_reason === 'max_tokens' };
+}
+
+/* ---------- the post-activity feedback form ----------
+ * Run makeFeedbackForm() once from the function menu. It builds the Google Form in the ECAS folder,
+ * links its responses to a new sheet, and prints the link to share in SLS. Running it again makes a new copy. */
+function makeFeedbackForm() {
+  const form = FormApp.create('Care for Plants · My feedback');
+  form.setDescription('Tell us about the Care for Plants activities. There are no wrong answers!');
+  form.setCollectEmail(false);
+  form.setProgressBar(true);
+  form.addTextItem().setTitle('Class and register number').setHelpText('For example: 3F 14').setRequired(true);
+  form.addMultipleChoiceItem().setTitle('Which challenge level did you do?').setChoiceValues(['🌱 Sprout', '🌿 Sapling', '🌳 Tree']).setRequired(true);
+  form.addScaleItem().setTitle('How much did you enjoy caring for your plant?').setBounds(1, 5).setLabels('🙁 Not much', '😊 A lot').setRequired(true);
+  form.addCheckboxItem().setTitle('Which activity did you like most?').setChoiceValues(['My care log', 'Where does my food come from?', 'Growing scraps', 'My line graph', 'My own investigation', 'Designing a farm']).showOtherOption(true);
+  form.addMultipleChoiceItem().setTitle('When an activity was hard, what did you do?').setChoiceValues(['I kept trying until I got it', 'I asked someone for help', 'I tried a different way', 'I stopped', 'Nothing was hard']);
+  form.addParagraphTextItem().setTitle('What have you learnt about caring for plants?').setRequired(true);
+  form.addParagraphTextItem().setTitle('What have you learnt about food in Singapore?');
+  form.addParagraphTextItem().setTitle('What inspired you?').setHelpText('A person, a video, a book, something your plant did…');
+  form.addParagraphTextItem().setTitle('What do you still wonder about?').setHelpText('Start with “I wonder…”');
+  form.addParagraphTextItem().setTitle('Did you try anything extra on your own (outside SLS)? What was it?');
+  form.addMultipleChoiceItem().setTitle('Would you like harder challenges next time?').setChoiceValues(['Yes, please!', 'Maybe', 'Not yet']);
+  form.addTextItem().setTitle('One thing I will do at home to waste less food');
+  const P = PropertiesService.getScriptProperties();
+  try { DriveApp.getFileById(form.getId()).moveTo(DriveApp.getFolderById(prop('ROOT_ID'))); } catch (e) {}
+  try { form.setDestination(FormApp.DestinationType.SPREADSHEET, prop('SHEET_ID')); } catch (e) {}
+  P.setProperty('FEEDBACK_FORM_ID', form.getId());
+  Logger.log('Form for students (share in SLS): %s\nEdit the form: %s', form.getPublishedUrl(), form.getEditUrl());
+}
+

@@ -1,5 +1,5 @@
 /* Question bank for the post-lesson discussion deck (discussion.html).
- * Four areas. Each item is either a question slide (q) or an explainer slide (t + lines).
+ * Seven areas. Each item is either a question slide (q) or an explainer slide (t + lines).
  * Student-facing text goes on the slide; `listen` and `push` are the teacher's notes.
  * Heart's clips for every q and t are made by make_clips.py; keep the text as plain sentences. */
 const DQ_AREAS = [
@@ -275,6 +275,50 @@ const DQ_AREAS = [
         listen: 'A plant and a testable question with a purpose, relevance and goal.',
         push: 'Write it on the I wonder board.' }
     ]
+  },
+  {
+    id: 'F', color: '#4fd1a5', title: 'Care for plants · our food', sub: 'Consolidating the SLS challenge tasks',
+    intro: 'For the two consolidation periods after the Care for Plants SLS package. Start from the care logs, let the Tree students share their investigations, then widen to food in Singapore. These are left unticked to start.',
+    items: [
+      { id: 'F1', opt: true, q: 'What did your plant need from you, and what happened when it did not get it?',
+        hint: 'Look back at your care log.',
+        listen: 'Water, light, space and nutrients, each linked to what the plant looked like (droopy, yellow, tall and pale).',
+        push: 'Which need was the hardest to give every day? What could a farmer do about it?' },
+      { id: 'F2', opt: true, q: 'Two plants got the same care, but one grew much better. What else could be different?',
+        hint: 'Think beyond water and light.',
+        listen: 'Seed, soil, pot position, space, pests, or a measuring mistake. Several reasons, not one.',
+        push: 'Pick one reason. How could we find out if it is the right one?' },
+      { id: 'F3', opt: true, q: 'Our spring onion grew again from a scrap. Is it a new plant or the same plant?',
+        hint: 'Where did the new leaves come from? Was there a seed?',
+        listen: 'The roots and the base were still alive, so the same plant kept growing. No seed was needed.',
+        push: 'Which gives us food faster, a seed or a scrap? Which can make many new plants?' },
+      { id: 'F0', opt: true, t: 'Food in Singapore', lines: [
+          'Singapore is small, with little land for farms.',
+          'Most of our food comes from other countries, by ship, plane and truck.',
+          'Growing some food here, and wasting less, helps keep our food supply safe.' ],
+        listen: 'Ask the class how many of the foods they checked at home were grown in Singapore. Check the Singapore Food Agency website for the latest figures before quoting any.' },
+      { id: 'F4', opt: true, q: 'Where could Singapore grow more food when we have so little land?',
+        hint: 'Look up, not out.',
+        listen: 'Rooftops, walls, corridors, indoor farms with lamps, fish farms at sea.',
+        push: 'What would a plant on a rooftop need that a plant on the ground gets easily?' },
+      { id: 'F5', opt: true, q: 'Could our class grow enough kang kong for one meal for every P3 student? How would we find out?',
+        hint: 'Use what you know about one plant.',
+        listen: 'An estimate built from their own plant: leaves per plant, plants per serving, space per pot.',
+        push: 'Which of your numbers did you measure, and which did you guess? How could we make the guess better?' },
+      { id: 'F6', opt: true, q: 'Which helps Singapore more: growing more food, or wasting less food? Can we do both?',
+        hint: 'Think about your food waste watch.',
+        listen: 'A reasoned choice. Wasting less means less food needs to be grown or brought in.',
+        push: 'What is one thing our class could do this week?' },
+      { id: 'F7', opt: true, t: 'From plate back to soil', lines: [
+          'Food scraps can be turned into compost.',
+          'Compost gives the soil nutrients.',
+          'Healthy soil grows healthy plants, and the plants become our food again.' ],
+        listen: 'Link to the life cycle: the cycle goes on through our food. Ask what scraps from recess could go into compost.' },
+      { id: 'F8', opt: true, q: 'What inspired you most during Care for Plants? What do you still wonder about?',
+        hint: 'A person, a video, something your plant did.',
+        listen: 'Real sources of inspiration and questions that go beyond the lesson.',
+        push: 'Write your I wonder question on the board. Who could help us find the answer?' }
+    ]
   }
 ];
 
@@ -283,7 +327,7 @@ const DQ_TOUR = [
   { sel: 'header.top h1', title: 'Welcome, teacher', text: 'This page builds a slide deck for your post-lesson discussion. Pick questions, change the words if you like, and present. This tour takes about a minute.' },
   { sel: '#btnTheme', title: 'Light or dark', text: 'Not everyone likes a dark screen. This button switches the whole page and every slide to light, or back to dark. The page remembers your choice, and you can press L while presenting.' },
   { sel: '#cls', title: 'Your class', text: 'Type your class name. It appears on the cover slide and in the file names.' },
-  { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, and dive deep. Tick a question to add it to your deck.' },
+  { sel: '.area', title: 'The question bank', text: 'Questions are grouped into parts: our data, the journal answers, bar graph or line graph, reading the growth chart, thinking like a scientist, dive deep, and care for plants. Tick a question to add it to your deck.' },
   { sel: '#search', title: 'Search', text: 'Looking for something? Type a word, such as light or graph. Only the questions that match stay on the page, with the word marked. Press the slash key to jump here, and Escape to clear it.' },
   { sel: '.tag.star', title: 'Main questions', text: 'Questions marked "main" are the heart of the discussion: sunlight, giving up one of three needs, spread out or gathered, and the factors that affect growth. They are ticked to start.' },
   { sel: '.tag.exp', title: 'Explainer slides', text: 'An "explainer" is a teaching slide rather than a question: it shows a graph or the three lines of a study with short points to say.' },

@@ -35,5 +35,20 @@ Only do this if your school allows sharing from your Drive to MOE iCON accounts:
 
 I recommend leaving this **off**. P3 students can't easily manage Drive, and sharing personal-Drive folders with students may conflict with school data policy.
 
+## Care for Plants: feedback form and AI helper (optional)
+These are for the **Challenge & Enrich** teacher page (`/challenge`). Paste in the latest `Code.gs` first, then **Deploy → Manage deployments → ✏️ Edit → Version: New version**.
+
+### The student feedback form
+1. In the function menu, choose **makeFeedbackForm**, then click **Run**. Approve the new Forms permission.
+2. **Execution log** shows two links. Share the **student link** in SLS, and paste it into the Reflect & feedback tab.
+3. Answers go to a new tab in your **ECAS Data** sheet. Running it again makes another copy of the form.
+
+### The AI helper (“Ask AI here”)
+The page sends only student **codes** (S01, S02…), never names, with your teacher PIN. The script passes the prompt to Claude.
+1. **Check with your school first** that sending anonymised student work to an AI service is allowed. If it is not, use **📋 Copy prompt** with your school's approved AI tool instead, and skip this section.
+2. Create an API key at **platform.claude.com** (API keys). Usage is billed to that account.
+3. In the script: ⚙️ **Project Settings → Script properties → Add script property**: name `ANTHROPIC_API_KEY`, value: your key.
+4. Never put the key in the app, in Git or in a message. To switch the helper off, delete the property.
+
 ## Updating the script later
 Use **Deploy → Manage deployments → ✏️ Edit → Version: New version**. This keeps the same URL.

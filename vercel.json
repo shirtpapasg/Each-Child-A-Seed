@@ -17,6 +17,10 @@
     {
       "source": "/discuss",
       "destination": "/discussion.html"
+    },
+    {
+      "source": "/challenge",
+      "destination": "/challenge.html"
     }
   ],
   "headers": [

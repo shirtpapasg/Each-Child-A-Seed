@@ -261,7 +261,7 @@
   const areaById = Object.fromEntries(DQ_AREAS.map(a => [a.id, a]));
 
   /* Light or dark. The bank's accent colours are made for the dark theme; on light they get a deeper shade. */
-  const LIGHT = { '#ffb627': '#b36b00', '#3fc35f': '#1e8a3c', '#66ccff': '#0f6fa8', '#b557e6': '#7d35b8', '#ff6a5e': '#c0392b', '#ff9f5a': '#b5551a', '#e8493f': '#c0392b' };
+  const LIGHT = { '#ffb627': '#b36b00', '#3fc35f': '#1e8a3c', '#66ccff': '#0f6fa8', '#b557e6': '#7d35b8', '#ff6a5e': '#c0392b', '#ff9f5a': '#b5551a', '#e8493f': '#c0392b', '#4fd1a5': '#0f7a5c' };
   const isLight = () => document.documentElement.dataset.theme === 'light';
   const accent = c => (isLight() && LIGHT[c]) || c;
   function applyTheme(t) {
@@ -281,7 +281,7 @@
 
   /* State: class, the ordered selection, the teacher's edits and own questions, chart data.
    * Restored from a shared link first, else from this device. */
-  let state = { cls: '', sel: Object.values(BASE).filter(i => i.star || i.t).map(i => i.id), edits: {}, custom: [], data: JSON.parse(JSON.stringify(DQ_SAMPLE)) };
+  let state = { cls: '', sel: Object.values(BASE).filter(i => (i.star || i.t) && !i.opt).map(i => i.id), edits: {}, custom: [], data: JSON.parse(JSON.stringify(DQ_SAMPLE)) };
   try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.sel) state = { ...state, ...s }; } catch (e) {}
   const p = new URLSearchParams(location.search);
   const fromLink = key => { try { return JSON.parse(atob(p.get(key))); } catch (e) { return null; } };

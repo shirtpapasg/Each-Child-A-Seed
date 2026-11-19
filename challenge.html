@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Care for Plants · Challenge &amp; Enrich · Each Child a Seed</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap">
+<script src="./challenge-tasks.js"></script>
+<script src="./heart.js"></script>
+<style>
+  :root{--bg:#070d15;--panel:#0e1925;--line:rgba(255,255,255,.12);--ink:#f3f6f9;--muted:#bfd8d5;--dim:#8a98a6;--btn:#2b3340;--field:#070d15;--yellow:#ffb627;--green:#3fc35f;--blue:#66ccff;--purple:#b557e6;--red:#e8493f}
+  html[data-theme="light"]{--bg:#f6f8fa;--panel:#ffffff;--line:rgba(20,33,61,.14);--ink:#14213d;--muted:#4a5568;--dim:#6a7179;--btn:#e3e8ee;--field:#ffffff;--yellow:#b36b00;--green:#1e8a3c;--blue:#0f6fa8;--purple:#7d35b8;--red:#c0392b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.45}
+  a{color:var(--blue)}
+  button{font:inherit;cursor:pointer}
+  input,textarea,select{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+  textarea{width:100%;min-height:90px;resize:vertical}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 16px 80px}
+  header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+  header.top h1{margin:0;font-size:32px;font-weight:900;color:var(--yellow);line-height:1.1}
+  header.top p{margin:4px 0 0;color:var(--muted)}
+  .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+  .tools label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:800;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+  .tools input{min-height:46px;width:140px;font-weight:800;background:var(--panel)}
+  .btn{text-decoration:none;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--btn);color:var(--ink);font-weight:900;font-size:15px;display:inline-flex;align-items:center;gap:8px}
+  .btn:hover{filter:brightness(1.15)}
+  .btn.primary{background:var(--green);color:#04070c;border-color:transparent}
+  .btn.small{min-height:34px;font-size:14px;padding:0 12px}
+  .btn:disabled{opacity:.5;cursor:default}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0}
+  @media (max-width:600px){nav.tabs{position:static}}
+  nav.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--muted);font-weight:900;border-radius:999px;padding:9px 16px}
+  nav.tabs button.on{background:var(--yellow);color:#04070c;border-color:transparent}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-bottom:16px}
+  .panel h2{margin:0 0 6px;font-size:22px;font-weight:900}
+  .panel h3{margin:14px 0 6px;font-size:18px;font-weight:900}
+  .muted{color:var(--muted)}.dim{color:var(--dim);font-size:14px}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  @media (max-width:860px){.grid3{grid-template-columns:1fr}}
+  .phase{border-top:5px solid var(--ac)}
+  .phase .when{font-weight:800;color:var(--ac);font-size:14px}
+  .step{padding:8px 0;border-top:1px solid var(--line)}
+  .step b{display:block}
+  .tier{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:900;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--tc) 18%,transparent);color:var(--tc);white-space:nowrap}
+  .chip{display:inline-block;font-size:12.5px;font-weight:900;padding:3px 8px;border-radius:8px;background:color-mix(in srgb,var(--cc) 18%,transparent);color:var(--cc);cursor:help}
+  .chip.key::after{content:' ★'}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+  .filters button{border:1px solid var(--line);background:var(--panel);color:var(--muted);font-weight:800;border-radius:999px;padding:6px 12px}
+  .filters button.on{border-color:var(--ink);color:var(--ink)}
+  .task{border:1px solid var(--line);border-left:6px solid var(--tc);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:var(--bg)}
+  .task .head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+  .task .head h3{margin:0;font-size:18px;flex:1;min-width:200px}
+  .task .stu{white-space:pre-wrap;background:var(--panel);border-radius:10px;padding:10px 12px;margin:6px 0}
+  .task .ev{font-size:14.5px}
+  .task .ev b{color:var(--yellow)}
+  .task .tn{font-size:14px;color:var(--dim);margin-top:4px}
+  .task .ops{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .edited{color:var(--yellow);font-size:12px;font-weight:800}
+  table{border-collapse:collapse;width:100%}
+  th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim)}
+  td input,td select{width:100%}
+  .obs{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px}
+  @media (max-width:860px){.obs{grid-template-columns:1fr}}
+  .who{display:flex;flex-direction:column;gap:6px;max-height:70vh;overflow:auto}
+  .who button{text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 10px;font-weight:800;display:flex;gap:8px;align-items:center}
+  .who button.on{border-color:var(--yellow);box-shadow:0 0 0 2px color-mix(in srgb,var(--yellow) 40%,transparent)}
+  .who button .n{margin-left:auto;font-size:12px;color:var(--dim)}
+  .trait{border-left:5px solid var(--cc);padding-left:12px;margin:12px 0}
+  .trait h3{color:var(--cc);margin:0 0 6px}
+  .ck{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+  .ck input{width:20px;height:20px;margin-top:2px;accent-color:var(--cc);flex:none}
+  .ck .key{color:var(--yellow);font-weight:900}
+  .ck .seen{font-size:12.5px;color:var(--dim)}
+  .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;min-width:60px}
+  .bar i{display:block;height:100%;background:var(--cc)}
+  .flag{font-weight:900;color:var(--yellow)}
+  .out{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;max-height:60vh;overflow:auto;font-size:15px}
+  .note{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px;color:var(--muted)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--green);color:#04070c;font-weight:900;padding:10px 18px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+  .toast.on{opacity:1}
+  #print{display:none}
+  @media print{
+    body{background:#fff;color:#000}
+    .wrap,.toast{display:none!important}
+    #print{display:block}
+    .pcard{border:2px solid #333;border-radius:14px;padding:14px 16px;margin:0 0 14px;break-inside:avoid;font-family:Nunito,Arial,sans-serif}
+    .pcard h2{margin:0 0 6px;font-size:20px}
+    .pcard .lvl{font-weight:900}
+    .pcard pre{white-space:pre-wrap;font:inherit;margin:6px 0 0}
+    .pcard li{margin:4px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 data-heart>🌳 Care for Plants · Challenge &amp; Enrich</h1>
+      <p>Tiered SLS tasks on food sustainability, the high-ability checklist, and AI to help you design tasks and read the evidence.</p>
+    </div>
+    <div class="tools">
+      <label>Class <input id="cls" placeholder="e.g. 3F" maxlength="24"></label>
+      <button class="btn" id="btnTheme" title="Switch between light and dark">☀️ Light</button>
+      <a class="btn" href="discussion.html" title="Open the discussion deck builder">💬 Discussion deck</a>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="plan">📅 Plan</button>
+    <button data-tab="tasks">🧩 SLS tasks</button>
+    <button data-tab="class">👥 Class &amp; tiers</button>
+    <button data-tab="observe">✅ Observe</button>
+    <button data-tab="ai">✨ AI helper</button>
+    <button data-tab="feedback">💭 Reflect &amp; feedback</button>
+  </nav>
+
+  <section id="tab-plan"></section>
+  <section id="tab-tasks"></section>
+  <section id="tab-class"></section>
+  <section id="tab-observe"></section>
+  <section id="tab-ai"></section>
+  <section id="tab-feedback"></section>
+</div>
+<div id="print"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const KEY = 'ecas-challenge-v1';
+  // The same Apps Script web app the sim uses. Its URL is not secret; the teacher PIN and the AI key never live in this page.
+  const API = 'https://script.google.com/macros/s/AKfycbwzNNlT2rPF-rm5mrD_PMoHacxfR2kPtYGt88eHv5L1qX8q19MRFDfv3BMc7AwTpGNWFw/exec';
+
+  const TIER = Object.fromEntries(CH_TIERS.map(t => [t.id, t]));
+  const ITEM = {}; CH_TRAITS.forEach(tr => tr.items.forEach(it => { ITEM[it.id] = { ...it, trait: tr }; }));
+  const TASK = Object.fromEntries(CH_TASKS.map(t => [t.id, t]));
+
+  /* Light or dark, shared with the rest of the site. */
+  const LIGHT = { '#ffb627': '#b36b00', '#3fc35f': '#1e8a3c', '#66ccff': '#0f6fa8', '#b557e6': '#7d35b8' };
+  const isLight = () => document.documentElement.dataset.theme === 'light';
+  const accent = c => (isLight() && LIGHT[c]) || c;
+  function applyTheme(t) {
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem('ecas-theme', t); } catch (e) {}
+    $('#btnTheme').textContent = t === 'light' ? '🌙 Dark' : '☀️ Light';
+  }
+  try { applyTheme(localStorage.getItem('ecas-theme') === 'light' ? 'light' : 'dark'); } catch (e) { applyTheme('dark'); }
+  $('#btnTheme').addEventListener('click', () => { applyTheme(isLight() ? 'dark' : 'light'); renderAll(); });
+
+  /* Everything stays on this device: student names never leave it. */
+  let state = { cls: '', tab: 'plan', students: [], obs: {}, notes: {}, edits: {}, formUrl: '', tierFilter: 'all', pasted: '', topic: '', level: 'Primary 3' };
+  try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) state = { ...state, ...s }; } catch (e) {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.h); toast.h = setTimeout(() => t.classList.remove('on'), 1800); };
+  async function copy(text, msg) {
+    try { await navigator.clipboard.writeText(text); toast(msg || '✓ Copied'); }
+    catch (e) { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast(msg || '✓ Copied'); }
+  }
+  const tierChip = id => { const t = TIER[id]; return `<span class="tier" style="--tc:${accent(t.color)}">${t.emoji} ${t.name} · ${t.label}</span>`; };
+  const traitChip = id => { const it = ITEM[id]; return `<span class="chip${it.key ? ' key' : ''}" style="--cc:${accent(it.trait.color)}" title="${esc(it.trait.name)}: ${esc(it.text)}">${it.trait.emoji} ${id}</span>`; };
+  const studentText = t => state.edits[t.id] != null ? state.edits[t.id] : t.student;
+
+  /* ---------- tabs ---------- */
+  function showTab(id) {
+    state.tab = id; save();
+    $$('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === id));
+    $$('section[id^="tab-"]').forEach(s => { s.hidden = s.id !== 'tab-' + id; });
+  }
+  $('#tabs').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (b) { showTab(b.dataset.tab); window.scrollTo({ top: 0 }); } });
+
+  /* ---------- Plan ---------- */
+  function renderPlan() {
+    const col = ['#66ccff', '#ffb627', '#3fc35f'];
+    $('#tab-plan').innerHTML = `
+      <div class="panel"><h2>The unit at a glance</h2>
+        <p class="muted">Theme: <b>Care for Plants</b>. Two periods to brief, the SLS package as homework while the plants grow, then two periods of class discussion. Every student does the 🌱 Sprout tasks; you assign 🌿 Sapling and 🌳 Tree tasks on the <a href="#" data-go="class">Class &amp; tiers</a> tab.</p>
+        <div class="row">${CH_TIERS.map(t => `${tierChip(t.id)} <span class="dim">${esc(t.who)}</span>`).join('&nbsp;&nbsp;')}</div>
+        <p class="dim" style="margin-top:10px">Students only see Sprout, Sapling and Tree. Any student who finishes may try the next level up: who chooses to, and how far they go, is evidence too.</p>
+      </div>
+      <div class="grid3">${CH_PHASES.map((ph, k) => `
+        <div class="panel phase" style="--ac:${accent(col[k])}">
+          <h2>${ph.emoji} ${k + 1} · ${esc(ph.title)}</h2>
+          <div class="when">${esc(ph.when)}</div>
+          ${ph.note ? `<p class="muted">${esc(ph.note)}</p><button class="btn small" data-go="tasks">🧩 Open the SLS tasks</button>` : ''}
+          ${(ph.periods || []).map(p => `<h3>${esc(p.title)}</h3>${p.steps.map(s => `<div class="step"><b>${esc(s[0])}</b><span class="muted">${esc(s[1])}</span></div>`).join('')}`).join('')}
+          ${ph.id === 'consolidate' ? '<p class="dim" style="margin-top:10px">The questions for these periods are in the discussion deck, under “Care for plants · our food”.</p><a class="btn small" href="discussion.html">💬 Open the discussion deck</a>' : ''}
+        </div>`).join('')}
+      </div>`;
+  }
+
+  /* ---------- SLS tasks ---------- */
+  function renderTasks() {
+    const f = state.tierFilter;
+    const show = t => f === 'all' || t.tier === f;
+    const sections = Object.entries(CH_SECTIONS);
+    $('#tab-tasks').innerHTML = `
+      <div class="panel"><h2>The SLS package</h2>
+        <p class="muted">Each task is ready to copy into an SLS activity. The <b>Evidence</b> line says what to look for in the submissions, and the chips show which checklist behaviours the task can bring out (hover a chip to read it; ★ is a key indicator). Tap ✎ to change the wording for your class.</p>
+        <div class="filters" id="tierFilter">
+          <button data-f="all" class="${f === 'all' ? 'on' : ''}">All tiers</button>
+          ${CH_TIERS.map(t => `<button data-f="${t.id}" class="${f === t.id ? 'on' : ''}">${t.emoji} ${t.name} · ${t.label}</button>`).join('')}
+        </div>
+        <div class="row">
+          <button class="btn small" id="copyAll">📋 Copy ${f === 'all' ? 'all tasks' : 'the ' + TIER[f].name + ' tasks'} for SLS</button>
+          <button class="btn small" id="printTasks">🖨 Print ${f === 'all' ? 'all' : TIER[f].name} task cards</button>
+        </div>
+      </div>
+      ${sections.map(([sid, sec]) => {
+        const list = CH_TASKS.filter(t => t.section === sid && show(t)); if (!list.length) return '';
+        return `<div class="panel"><h2>${sec.emoji} ${esc(sec.title)}${sec.phase === 'consolidate' ? ' <span class="dim">· Periods 3 and 4</span>' : ' <span class="dim">· SLS homework</span>'}</h2>
+          ${list.map(t => `
+            <div class="task" style="--tc:${accent(TIER[t.tier].color)}" data-id="${t.id}">
+              <div class="head"><h3>${t.id} · ${esc(t.title)}</h3>${tierChip(t.tier)}</div>
+              <div class="stu" data-stu>${esc(studentText(t))}</div>
+              ${state.edits[t.id] != null ? '<div class="edited">✎ Your wording</div>' : ''}
+              <div class="ev"><b>Evidence:</b> ${esc(t.evidence)}</div>
+              <div class="row" style="margin-top:6px">${t.traits.map(traitChip).join(' ')}</div>
+              ${t.teacherNote ? `<div class="tn">📝 ${esc(t.teacherNote)}</div>` : ''}
+              <div class="ops">
+                <button class="btn small" data-copy="${t.id}">📋 Copy for SLS</button>
+                <button class="btn small" data-edit="${t.id}">✎ Edit</button>
+                ${state.edits[t.id] != null ? `<button class="btn small" data-reset="${t.id}">↺ Original</button>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>`;
+      }).join('')}`;
+  }
+  const taskText = t => `${t.title}\n\n${studentText(t)}`;
+  $('#tab-tasks').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.f) { state.tierFilter = b.dataset.f; save(); renderTasks(); return; }
+    if (b.dataset.copy) { copy(taskText(TASK[b.dataset.copy]), '✓ Copied. Paste it into SLS'); return; }
+    if (b.dataset.reset) { delete state.edits[b.dataset.reset]; save(); renderTasks(); return; }
+    if (b.dataset.edit) {
+      const card = b.closest('.task'), t = TASK[b.dataset.edit], box = $('[data-stu]', card);
+      if (box.tagName === 'TEXTAREA') { state.edits[t.id] = box.value; if (box.value === t.student) delete state.edits[t.id]; save(); renderTasks(); return; }
+      const ta = document.createElement('textarea'); ta.value = studentText(t); ta.dataset.stu = ''; ta.style.minHeight = '160px';
+      box.replaceWith(ta); ta.focus(); b.textContent = '✓ Done'; return;
+    }
+    if (b.id === 'copyAll') { const f = state.tierFilter; copy(CH_TASKS.filter(t => f === 'all' || t.tier === f).map(t => `${TIER[t.tier].emoji} ${taskText(t)}`).join('\n\n———\n\n'), '✓ All copied'); return; }
+    if (b.id === 'printTasks') {
+      const f = state.tierFilter;
+      printHTML(CH_TASKS.filter(t => f === 'all' || t.tier === f).map(t => `<div class="pcard"><div class="lvl">${TIER[t.tier].emoji} ${TIER[t.tier].name}</div><h2>${esc(t.title)}</h2><pre>${esc(studentText(t))}</pre></div>`).join(''));
+    }
+  });
+  function printHTML(html) { $('#print').innerHTML = html; setTimeout(() => window.print(), 50); }
+
+  /* ---------- Class & tiers ---------- */
+  const code = n => 'S' + String(n).padStart(2, '0');
+  function renderClass() {
+    const n = state.students.length, counts = CH_TIERS.map(t => `${t.emoji} ${state.students.filter(s => s.tier === t.id).length}`).join(' · ');
+    $('#tab-class').innerHTML = `
+      <div class="panel"><h2>Your class</h2>
+        <p class="muted">Each student gets a code (S01, S02…). Names are optional and <b>stay on this device</b>: the AI helper only ever sees the codes.</p>
+        <div class="row">
+          <label class="dim">Paste names, one per line, or leave empty and just set a number:</label>
+        </div>
+        <textarea id="names" placeholder="Tan Wei Ming&#10;Nur Aisyah&#10;…" style="min-height:70px"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn small" id="addNames">➕ Add these names</button>
+          <input id="howMany" type="number" min="1" max="45" placeholder="e.g. 32" style="width:100px">
+          <button class="btn small" id="addCount">➕ Add students by number</button>
+          ${n ? '<button class="btn small" id="clearAll">🗑 Clear the class</button>' : ''}
+        </div>
+      </div>
+      ${n ? `<div class="panel"><h2>Tiers <span class="dim">${n} students · ${counts}</span></h2>
+        <p class="dim">Everyone does Sprout tasks. Sapling and Tree students also do their own level. You can change a tier at any time.</p>
+        <div class="row" style="margin:8px 0"><button class="btn small" id="printCards">🖨 Print each student’s challenge card</button></div>
+        <div style="overflow:auto"><table><thead><tr><th>Code</th><th>Name (this device only)</th><th>Tier</th><th></th></tr></thead><tbody>
+        ${state.students.map((s, i) => `<tr><td><b>${s.code}</b></td><td><input data-name="${i}" value="${esc(s.name)}" placeholder="optional"></td>
+          <td><select data-tier="${i}">${CH_TIERS.map(t => `<option value="${t.id}"${s.tier === t.id ? ' selected' : ''}>${t.emoji} ${t.name} · ${t.label}</option>`).join('')}</select></td>
+          <td><button class="btn small" data-obs="${i}">✅ Observe</button></td></tr>`).join('')}
+        </tbody></table></div></div>` : ''}`;
+  }
+  function addStudents(names) {
+    let next = state.students.reduce((m, s) => Math.max(m, Number(s.code.slice(1))), 0);
+    names.forEach(nm => state.students.push({ code: code(++next), name: nm, tier: 'core' }));
+    save(); renderClass(); renderObserve();
+  }
+  $('#tab-class').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'addNames') { const names = $('#names').value.split('\n').map(s => s.trim()).filter(Boolean); if (names.length) addStudents(names); }
+    else if (b.id === 'addCount') { const k = Math.min(45, Number($('#howMany').value) || 0); if (k) addStudents(Array(k).fill('')); }
+    else if (b.id === 'clearAll') { if (confirm('Remove every student, tier and observation from this device?')) { state.students = []; state.obs = {}; state.notes = {}; save(); renderClass(); renderObserve(); } }
+    else if (b.dataset.obs) { observing = state.students[b.dataset.obs].code; showTab('observe'); renderObserve(); }
+    else if (b.id === 'printCards') {
+      printHTML(state.students.map(s => {
+        const mine = CH_TASKS.filter(t => t.section !== 'D' && (t.tier === 'core' || t.tier === s.tier));
+        return `<div class="pcard"><div class="lvl">${TIER[s.tier].emoji} My challenge level: ${TIER[s.tier].name}</div><h2>${esc(s.name || s.code)}${state.cls ? ' · ' + esc(state.cls) : ''}</h2>
+          <p>Care for Plants · SLS tasks. Tick each one when you finish. Finished early? Try a task from the next level up!</p>
+          <ul>${mine.map(t => `<li>☐ ${TIER[t.tier].emoji} ${esc(t.title)}</li>`).join('')}</ul></div>`;
+      }).join(''));
+    }
+  });
+  $('#tab-class').addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.tier) { state.students[t.dataset.tier].tier = t.value; save(); renderClass(); }
+    if (t.dataset.name) { state.students[t.dataset.name].name = t.value.trim(); save(); }
+  });
+
+  /* ---------- Observe ---------- */
+  let observing = null;
+  const ticks = c => Object.keys(state.obs[c] || {}).filter(k => state.obs[c][k]).sort();
+  // Where a behaviour can show up: the tasks this student's tier includes that list it.
+  const seenIn = (s, id) => CH_TASKS.filter(t => t.traits.includes(id) && (t.tier === 'core' || t.tier === s.tier || (t.tier === 'stretch' && s.tier === 'challenge'))).map(t => t.id);
+  function traitScore(c, tr) { const on = ticks(c).filter(id => ITEM[id] && ITEM[id].trait.id === tr.id); return { n: on.length, key: on.filter(id => ITEM[id].key).length, of: tr.items.length }; }
+  // A simple prompt to look closer, not a label: a key indicator plus at least one more in the same trait, or six behaviours overall.
+  const lookCloser = c => CH_TRAITS.some(tr => { const s = traitScore(c, tr); return s.key && s.n >= 2; }) || ticks(c).length >= 6;
+  function renderObserve() {
+    const host = $('#tab-observe');
+    if (!state.students.length) { host.innerHTML = '<div class="panel"><h2>Observe</h2><p class="muted">Add your class on the <a href="#" data-go="class">Class &amp; tiers</a> tab first.</p></div>'; return; }
+    if (!observing || !state.students.find(s => s.code === observing)) observing = state.students[0].code;
+    const s = state.students.find(x => x.code === observing), o = state.obs[s.code] || {};
+    host.innerHTML = `
+      <div class="panel"><h2>Observe</h2><p class="muted">Tick a behaviour when you see it in class, in SLS work or in the feedback form. Write what you saw in the notes: the AI helper reads them. Avoid names in notes; known names are swapped for codes before anything is sent.</p></div>
+      <div class="obs">
+        <div class="panel who" id="who">${state.students.map(x => `<button data-who="${x.code}" class="${x.code === s.code ? 'on' : ''}">${TIER[x.tier].emoji} ${x.code}${x.name ? ' · ' + esc(x.name) : ''}<span class="n">${ticks(x.code).length}${lookCloser(x.code) ? ' 👀' : ''}</span></button>`).join('')}</div>
+        <div class="panel">
+          <div class="row"><h2 style="margin:0;flex:1">${s.code}${s.name ? ' · ' + esc(s.name) : ''}</h2>${tierChip(s.tier)}</div>
+          ${CH_TRAITS.map(tr => `<div class="trait" style="--cc:${accent(tr.color)}"><h3>${tr.emoji} ${esc(tr.name)}</h3>
+            ${tr.items.map(it => `<label class="ck"><input type="checkbox" data-ck="${it.id}"${o[it.id] ? ' checked' : ''}><span>${it.key ? '<span class="key">★ </span>' : ''}${esc(it.text)}<br><span class="seen">Look in: ${seenIn(s, it.id).join(', ') || 'class discussion'}</span></span></label>`).join('')}
+          </div>`).join('')}
+          <h3>Notes</h3>
+          <textarea id="obsNote" placeholder="e.g. Asked why the scrap grew roots from the bottom only, then tested a second scrap upside down.">${esc(state.notes[s.code] || '')}</textarea>
+        </div>
+      </div>
+      <div class="panel"><h2>Class summary</h2>
+        <p class="dim">Counts of behaviours ticked in each trait (★ key indicators). 👀 means it may be worth a closer look: a key indicator plus another behaviour in the same trait, or six or more overall. You decide.</p>
+        <div style="overflow:auto"><table><thead><tr><th>Student</th><th>Tier</th>${CH_TRAITS.map(tr => `<th>${tr.emoji} ${esc(tr.name)}</th>`).join('')}<th>Total</th></tr></thead><tbody>
+        ${state.students.map(x => `<tr><td><b>${x.code}</b>${x.name ? ' ' + esc(x.name) : ''}</td><td>${TIER[x.tier].emoji}</td>
+          ${CH_TRAITS.map(tr => { const sc = traitScore(x.code, tr); return `<td style="--cc:${accent(tr.color)}"><div class="bar"><i style="width:${100 * sc.n / sc.of}%"></i></div><span class="dim">${sc.n}/${sc.of}${sc.key ? ' · ★' + sc.key : ''}</span></td>`; }).join('')}
+          <td>${ticks(x.code).length}${lookCloser(x.code) ? ' <span class="flag">👀</span>' : ''}</td></tr>`).join('')}
+        </tbody></table></div>
+        <div class="row" style="margin-top:10px"><button class="btn small" id="csv">⬇ Download as a spreadsheet (CSV)</button></div>
+      </div>`;
+  }
+  $('#tab-observe').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.who) { observing = b.dataset.who; renderObserve(); }
+    if (b.id === 'csv') {
+      const head = ['code', 'name', 'tier', ...CH_TRAITS.flatMap(tr => tr.items.map(it => it.id)), 'notes'];
+      const q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+      const rows = state.students.map(x => [x.code, x.name, TIER[x.tier].label, ...CH_TRAITS.flatMap(tr => tr.items.map(it => (state.obs[x.code] || {})[it.id] ? 1 : 0)), state.notes[x.code] || ''].map(q).join(','));
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + [head.map(q).join(','), ...rows].join('\n')], { type: 'text/csv' }));
+      a.download = `Care for Plants checklist${state.cls ? ' ' + state.cls : ''}.csv`; a.click();
+    }
+  });
+  $('#tab-observe').addEventListener('change', e => {
+    const c = e.target.dataset.ck; if (!c) return;
+    (state.obs[observing] = state.obs[observing] || {})[c] = e.target.checked; save();
+    const y = window.scrollY; renderObserve(); window.scrollTo({ top: y });
+  });
+  $('#tab-observe').addEventListener('input', e => { if (e.target.id === 'obsNote') { state.notes[observing] = e.target.value; save(); } });
+
+  /* ---------- AI helper ---------- */
+  // Swap every known name (and each part of it) for the student's code, so nothing sent out names a child.
+  function scrub(text) {
+    let t = String(text || '');
+    state.students.filter(s => s.name).sort((a, b) => b.name.length - a.name.length).forEach(s => {
+      const parts = [s.name, ...s.name.split(/\s+/).filter(p => p.length >= 3)];
+      parts.forEach(p => { t = t.replace(new RegExp('\\b' + p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'gi'), s.code); });
+      t = t.replace(new RegExp('\\b' + s.code + '(\\s+' + s.code + '\\b)+', 'g'), s.code);   // "Wei Ming" became "S01 S01"
+    });
+    return t;
+  }
+  const checklistText = () => CH_TRAITS.map(tr => `${tr.name} (${tr.id}):\n` + tr.items.map(it => `  ${it.id}${it.key ? '*' : ''} ${it.text}`).join('\n')).join('\n') + '\n(* = key indicator)';
+  function analysisPrompt() {
+    const obs = state.students.map(s => {
+      const on = ticks(s.code), note = scrub(state.notes[s.code] || '').trim();
+      return `${s.code} · tier ${TIER[s.tier].name} (${TIER[s.tier].label}) · ticked: ${on.join(', ') || 'none yet'}${note ? ` · notes: "${note.replace(/\s+/g, ' ')}"` : ''}`;
+    }).join('\n');
+    return `I am a ${state.level || 'Primary 3'} Science teacher in Singapore. My class${state.cls ? ' (' + state.cls + ')' : ''} is doing "Care for Plants": students grow Thai basil, kang kong or bayam, and do an SLS package with food sustainability enrichment. I assigned tiers: Sprout (core, everyone), Sapling (stretch) and Tree (challenge).
+
+I am gathering evidence for high-ability student identification with this checklist:
+${checklistText()}
+
+The tasks, their tiers and the behaviours each can bring out:
+${CH_TASKS.map(t => `- ${t.id} ${t.title} [${TIER[t.tier].name}]: ${t.traits.join(', ')}. Evidence to look for: ${t.evidence}`).join('\n')}
+
+My observations so far (students are codes only):
+${obs || '(no students added yet)'}
+${state.pasted.trim() ? `\nStudent work and form answers (names removed):\n"""\n${scrub(state.pasted).trim()}\n"""\n` : ''}
+Please:
+1. For each student with evidence, list the checklist behaviours the evidence supports. Quote the evidence and rate it strong, some or not yet.
+2. Name students in Sprout or Sapling who show signs they need a harder tier, and Tree students who may need more support.
+3. Name the behaviours I have little evidence for across the class, and suggest one question or activity for the two consolidation periods to bring out each one.
+4. End with a table: student, Curiosity, Motivation & persistence, Scientific reasoning, suggested next step.
+Do not label any child as gifted. This supports my professional judgement.`;
+  }
+  function designPrompt() {
+    const topic = state.topic.trim() || '[your topic]';
+    return `I am a ${state.level || 'Primary 3'} Science teacher in Singapore. Design differentiated tasks on "${topic}" for an SLS package that students do as homework, followed by two periods of class discussion.
+
+I want the tasks to give students chances to show the behaviours in this high-ability checklist:
+${checklistText()}
+
+Please give:
+1. Three tiers on the same topic: Core (every student, 3 or 4 tasks), Stretch (2 or 3 tasks) and Challenge (3 or 4 open-ended tasks for students I am watching for high ability).
+2. For every task: a title, the instructions in simple English a ${state.level || 'Primary 3'} student can read, which checklist behaviours it can reveal (by code), and exactly what a student would say or do that counts as evidence.
+3. Five discussion questions for the consolidation periods that stretch thinking, with what to listen for.
+4. Reflection questions: What have you learnt? What inspired you? What do you still wonder?
+Keep activities safe to do at home, low cost, and aligned to the Singapore primary science syllabus.`;
+  }
+  function renderAI() {
+    $('#tab-ai').innerHTML = `
+      <div class="panel"><h2>✨ Read the evidence with AI</h2>
+        <p class="muted">The prompt includes the checklist, every task and your ticks and notes (codes only). Add student work if you like: paste SLS answers or Google Form responses below. Known names are replaced with codes automatically; check for any others before sending.</p>
+        <textarea id="pasted" placeholder="Optional: paste SLS answers or form responses here">${esc(state.pasted)}</textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn small" id="copyAnalysis">📋 Copy prompt for your school’s AI tool</button>
+          <button class="btn small primary" id="askAnalysis">✨ Ask AI here</button>
+          <button class="btn small" id="viewAnalysis">👁 See the prompt</button>
+        </div>
+        <div id="outAnalysis"></div>
+      </div>
+      <div class="panel"><h2>🧩 Design tasks for another topic</h2>
+        <p class="muted">Reuse the way these tasks were made, for any topic.</p>
+        <div class="row"><input id="topic" placeholder="e.g. Magnets, Life cycles of animals" value="${esc(state.topic)}" style="flex:1;min-width:220px">
+          <select id="level">${['Primary 3', 'Primary 4', 'Primary 5', 'Primary 6'].map(l => `<option${state.level === l ? ' selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="row" style="margin-top:8px">
+          <button class="btn small" id="copyDesign">📋 Copy prompt</button>
+          <button class="btn small primary" id="askDesign">✨ Ask AI here</button>
+        </div>
+        <div id="outDesign"></div>
+      </div>
+      <div class="panel"><h2>🛠 How AI helped design these tasks</h2>
+        ${CH_AI_DESIGN.map(d => `<div class="step"><b>${esc(d.step)}</b><span class="muted">${esc(d.text)}</span></div>`).join('')}
+      </div>
+      <div class="panel note">
+        <b>About “Ask AI here”.</b> It sends the prompt, with codes and no names, to your own ECAS Apps Script, which passes it to Claude. It needs your teacher PIN, and works only after a Claude API key is added to the script (backend/SETUP.md in the GitHub repo, “AI helper”). Check with your school before sending student work to any AI service. Prefer your school’s approved tool? Use 📋 Copy prompt.
+      </div>`;
+  }
+  async function askAI(prompt, out) {
+    let pin = ''; try { pin = sessionStorage.getItem('ecas-teacher-pin') || ''; } catch (e) {}
+    if (!pin) { pin = prompt_('Teacher PIN (the one in your ECAS script settings):'); if (!pin) return; }
+    out.innerHTML = '<p class="muted">✨ Thinking… this can take up to a minute.</p>';
+    try {
+      const r = await fetch(API, { method: 'POST', body: JSON.stringify({ action: 'ai', teacherPin: pin, prompt }) }).then(x => x.json());
+      if (!r.ok) { out.innerHTML = `<p class="note">⚠️ ${esc(r.error || 'Something went wrong.')}</p>`; if (/PIN/.test(r.error || '')) try { sessionStorage.removeItem('ecas-teacher-pin'); } catch (e) {} return; }
+      try { sessionStorage.setItem('ecas-teacher-pin', pin); } catch (e) {}
+      out.innerHTML = `<h3>AI answer</h3><div class="out">${esc(r.text)}</div>${r.truncated ? '<p class="dim">The answer was cut short. Ask again with fewer students or less pasted work.</p>' : ''}<div class="row" style="margin-top:8px"><button class="btn small" data-copyout>📋 Copy the answer</button></div>`;
+      $('[data-copyout]', out).onclick = () => copy(r.text);
+    } catch (e) { out.innerHTML = '<p class="note">⚠️ Could not reach the ECAS script. Check your internet connection, or use 📋 Copy prompt instead.</p>'; }
+  }
+  const prompt_ = msg => window.prompt(msg);
+  $('#tab-ai').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'copyAnalysis') copy(analysisPrompt(), '✓ Prompt copied. Paste it into your AI tool');
+    if (b.id === 'viewAnalysis') $('#outAnalysis').innerHTML = `<h3>The prompt</h3><div class="out">${esc(analysisPrompt())}</div>`;
+    if (b.id === 'askAnalysis') askAI(analysisPrompt(), $('#outAnalysis'));
+    if (b.id === 'copyDesign') copy(designPrompt(), '✓ Prompt copied');
+    if (b.id === 'askDesign') askAI(designPrompt(), $('#outDesign'));
+  });
+  $('#tab-ai').addEventListener('input', e => {
+    if (e.target.id === 'pasted') state.pasted = e.target.value;
+    if (e.target.id === 'topic') state.topic = e.target.value;
+    save();
+  });
+  $('#tab-ai').addEventListener('change', e => { if (e.target.id === 'level') { state.level = e.target.value; save(); } });
+
+  /* ---------- Reflect & feedback ---------- */
+  function renderFeedback() {
+    const refl = TASK.C1;
+    $('#tab-feedback').innerHTML = `
+      <div class="panel"><h2>💭 Reflection</h2>
+        <p class="muted">The last SLS section, for every student. It links to the lesson plan reflection R1–R5. Tree students also do <b>C2 Teach it back</b>.</p>
+        <div class="task" style="--tc:${accent(TIER.core.color)}"><div class="stu">${esc(studentText(refl))}</div>
+          <div class="row" style="margin-top:6px">${refl.traits.map(traitChip).join(' ')}</div>
+          <div class="ops"><button class="btn small" data-copy="C1">📋 Copy for SLS</button></div></div>
+      </div>
+      <div class="panel"><h2>📝 Student feedback form (Google Forms)</h2>
+        <ol class="muted">
+          <li>Open your ECAS script at script.google.com and paste in the latest <a href="https://github.com/shirtpapasg/Each-Child-A-Seed/blob/main/backend/Code.gs" target="_blank" rel="noopener">Code.gs</a> from the GitHub repo (then Deploy → Manage deployments → ✏️ → New version, so the URL stays the same).</li>
+          <li>Choose <b>makeFeedbackForm</b> in the function menu and click ▶ Run. The form is made in your ECAS folder, and its answers go to your ECAS Data sheet.</li>
+          <li>Copy the student link from the execution log and paste it here. Then share it in SLS.</li>
+        </ol>
+        <div class="row"><input id="formUrl" placeholder="https://docs.google.com/forms/…" value="${esc(state.formUrl)}" style="flex:1;min-width:240px">
+          ${state.formUrl ? '<button class="btn small" id="copyForm">📋 Copy link for SLS</button><a class="btn small" target="_blank" rel="noopener" id="openForm">↗ Open</a>' : ''}</div>
+        <h3>The questions, and the checklist evidence each answer can show</h3>
+        <table><tbody>${CH_FORM.map((f, i) => `<tr><td>${i + 1}</td><td>${esc(f.q)}${f.opts ? `<div class="dim">${f.opts.map(esc).join(' · ')}</div>` : ''}</td><td>${f.evidence.map(traitChip).join(' ')}</td></tr>`).join('')}</tbody></table>
+        <p class="dim">To read the answers with AI: download the responses from the sheet, take out the names, paste them in the <a href="#" data-go="ai">AI helper</a> and ask.</p>
+      </div>`;
+    const of = $('#openForm'); if (of) of.href = state.formUrl;
+  }
+  $('#tab-feedback').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.copy) copy(taskText(TASK[b.dataset.copy]), '✓ Copied. Paste it into SLS');
+    if (b.id === 'copyForm') copy(state.formUrl, '✓ Form link copied');
+  });
+  $('#tab-feedback').addEventListener('change', e => { if (e.target.id === 'formUrl') { const v = e.target.value.trim(); state.formUrl = /^https:\/\//.test(v) ? v : ''; save(); renderFeedback(); } });
+
+  document.addEventListener('click', e => { const a = e.target.closest('[data-go]'); if (a) { e.preventDefault(); showTab(a.dataset.go); window.scrollTo({ top: 0 }); } });
+  $('#cls').value = state.cls;
+  $('#cls').addEventListener('input', e => { state.cls = e.target.value; save(); });
+
+  function renderAll() { renderPlan(); renderTasks(); renderClass(); renderObserve(); renderAI(); renderFeedback(); }
+  renderAll();
+  showTab(state.tab || 'plan');
+})();
+</script>
+</body>
+</html>
